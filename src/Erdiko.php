@@ -102,7 +102,7 @@ class Erdiko
 	 */
 	public static function getRoutes()
 	{
-		$file = __DIR__.'/app/config/application.json';
+		$file = APPROOT.'/config/application/routes.json';
 		$applicationConfig = Erdiko::getConfigFile($file);
 		
 		return $applicationConfig['routes'];

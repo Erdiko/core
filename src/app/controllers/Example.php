@@ -17,10 +17,20 @@ class Example extends \erdiko\core\Controller
 {
 	public function get()
 	{
-		return "Hello World";
+		error_log("get()");
+		
+		$this->setContent("Hello World");
 	}
 
-	
+	public function get2()
+	{
+		$data = array("hello", "you");
+		$view = new erdiko\View('hello-world', $data);
+		
+		return $view;
+	}
+
+
 
 	/**
 	 * Homepage Action (index)

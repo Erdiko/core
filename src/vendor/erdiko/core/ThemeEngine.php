@@ -15,7 +15,7 @@ use erdiko\interfaces\Theme;
 use erdiko\core\Config;
 use Erdiko;
 
-class ThemeEngine extends ModelAbstract implements Theme
+class ThemeEngine extends ModelAbstract
 {
 	// @todo audit and remove unnecessary variables
 	protected $_templates;

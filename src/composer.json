@@ -1,0 +1,20 @@
+{
+	"name":"erdiko/core",
+	"type": "metapackage",
+    "description": "Enterprise Glue (Micro MVC)",
+    "keywords": ["framework"],
+    "homepage": "http://erdiko.org",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Arroyo Labs",
+            "email": "info@arroyolabs.com"
+        }
+    ],
+    "require": {
+    	"php": ">=5.3.3"
+    },
+    "config": {
+        "vendor-dir": "vendor"
+    }
+}

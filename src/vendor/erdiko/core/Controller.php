@@ -10,112 +10,71 @@
  */
 namespace erdiko\core;
 use Erdiko;
-use erdiko\core\Config;
 
 
 class Controller 
 {
-    protected $_config;
-    protected $_contextConfig;
+	protected $_response;
 	protected $_webroot;
-	protected $_arguments;
-	protected $_themeExtras;
-	protected $_pageData;
-	protected $_numberColumns = 1;
-	protected $_template = null;
-	protected $_layout = null;
+	protected $_themeName = null;
+	protected $_theme = null;
 
-	protected $_isXhrRequest = 0;
+
+
 	
 	public function __construct()
 	{
 		$this->_webroot = ROOT;
-		$this->_config = Config::getConfig('default');
-		$this->_contextConfig = $this->_config->getContext(); // @todo figure out way to switch contexts
-		
-		// @note initializing these empty arrays minimizes logic during theming
-		$this->_themeExtras = array(
-			'js' => array(), 
-			'css' => array(), 
-			'phpToJs' => array(),
-			'meta' => array(),
-			'title' => "",
-			'identifier' => array(),
-			'id' => "id",
-			'data' => "",
-			'menu' => null,
-			);
+		$this->_response = new \erdiko\core\Response;
 
-		$this->_pageData = array(
-			'data' => array(
-				'title' => null, 
-				'content' => null, 
-				'style' => array(
-					'class' => array()
-					),
-				'identifier' => array()
-				),
-			'view' => array('page' => null), 
-			'sidebar' => array(),
-			'title' => null
-			);
+		if($this->_themeName != null)
+			$this->_response->setTheme($this->_themeName);
     }
 
-    /**
-     * Set IsXhrRequest
-     * @param boolean $bool
-     */
-    public function setIsXhrRequest($bool)
+    public function getResponse()
     {
-    	$this->_isXhrRequest = $bool;
+    	return $this->_response;
     }
 
-    /**
-	 * Add data variable to the layout
-	 */
-	public function setLayoutData($data)
-	{
-		$this->_themeExtras['data'] = $data;
-	}
+    final public function send()
+    {
+    	echo $this->getResponse()->render();
+    }
 
 	/**
 	 * Add page title text to current page
 	 */
-	public function setTitle($title)
+	public function setPageTitle($title)
 	{
-		$this->_themeExtras['title'] = $title;
-		$this->_pageData['title'] = $title;
+
 	}
 
 	/**
-	 * Set page content data to be themed in the view
+	 * Set page content title to be themed in the view
 	 *
 	 * @param string $title
 	 */
-	public function setPageTitle($title)
+	public function setBodyTitle($title)
 	{
-		$this->_pageData['data']['title'] = $title;
+		
 	}
 
 	/**
 	 * Set both the title (header) and page title (body) at the same time
 	 * @param string $title
 	 */
-	public function setTitles($title)
+	public function setTitle($title)
 	{
 		$this->setTitle($title);
 		$this->setPageTitle($title);
 	}
 
 	/**
-	 * Set menu
-	 *
-	 * @param array $menu
-	 * @param string $name
+	 * Set the response content
 	 */
-	public function setMenu($menu, $name='main')
+	public function setContent($content)
 	{
-		$this->_themeExtras['menu'][$name] = $menu;
+		$this->getResponse()->setContent($content);
 	}
 
 	/**
@@ -135,23 +94,6 @@ class Controller
 	public function addCss($file)
 	{
 		$this->_themeExtras['css'][] = array('file' => $file);
-	}
-
-	/**
-	 * Add Identifier to current page
-	 * @note Not yet supported
-	 */
-	public function addIdentifier($name)
-	{
-		$this->_themeExtras['identifier'][] = $name;
-	}
-
-	/**
-	 * Get identifiers
-	 */
-	public function getIdentifiers()
-	{
-		return $this->_themeExtras['identifier'];
 	}
 
 	/**

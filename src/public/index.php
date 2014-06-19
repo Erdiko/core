@@ -9,7 +9,7 @@
  * @author		John Arroyo
  */
 
-include_once dirname(__DIR__)."/libraries/erdiko/bootstrap.php";
+include_once dirname(__DIR__)."/vendor/erdiko/bootstrap.php";
 
 try {
 	$routes = Erdiko::getRoutes();

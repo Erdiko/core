@@ -8,18 +8,21 @@
  * @author		John Arroyo, john@arroyolabs.com
  */
 
-ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . VENDOR . PATH_SEPARATOR . APPROOT . PATH_SEPARATOR . ERDIKO);
+ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . ROOT . PATH_SEPARATOR . VENDOR . PATH_SEPARATOR . APPROOT . PATH_SEPARATOR . ERDIKO);
 
 
 spl_autoload_register(function($name) 
 {
+	error_log("autoload: $name");
+
 	if(strpos($name, '\\') !== false)
 	{
 		$path = str_replace('\\','/',$name);
 		$class = basename($path);
 		$dir = '/'.dirname($path);
-		$filename = APPROOT.$dir.'/'.$class.'.php';
-		// error_log("file: $filename");
+		$filename = ROOT.$dir.'/'.$class.'.php';
+		
+		error_log("file: $filename");
 
 		if(is_file($filename))
 		{
