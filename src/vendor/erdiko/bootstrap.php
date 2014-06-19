@@ -20,6 +20,8 @@ require_once ERDIKO.'/core/autoload.php';
 require_once ERDIKO.'/core/Controller.php';
 require_once ERDIKO.'/core/ModelAbstract.php';
 require_once ERDIKO.'/core/Response.php';
+require_once ERDIKO.'/core/Container.php';
+require_once ERDIKO.'/core/View.php';
 
 // Composer
 require_once VENDOR.'/autoload.php';

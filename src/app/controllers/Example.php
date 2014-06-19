@@ -15,20 +15,21 @@ use erdiko\core\Config;
 
 class Example extends \erdiko\core\Controller
 {
-	public function get()
+	public function get2()
 	{
 		error_log("get()");
-		
+
 		$this->setContent("Hello World");
 	}
 
-	public function get2()
+	public function get()
 	{
-		$data = array("hello", "you");
-		$view = new erdiko\View('hello-world', $data);
+		$data = array("hello", "world");
+		$view = new \erdiko\core\View('hello/world', $data);
 		
-		return $view;
+		$this->setContent($view);
 	}
+
 
 
 

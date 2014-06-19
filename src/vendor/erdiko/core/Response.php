@@ -44,10 +44,10 @@ class Response
 
     public function render()
     {
-        $content = (is_subclass_of($this->_content, 'erdiko\Container')) ? $content->toHtml() : $this->_content;
+        $content = (is_subclass_of($this->_content, '\erdiko\core\Container')) ? $this->_content->toHtml() : $this->_content;
 
         if($this->_theme !== null)
-            $html = $this->_theme->render($content);
+            $html = $this->_theme->toHtml($content);
         else
             $html = $content;
 
