@@ -13,12 +13,7 @@ include_once dirname(__DIR__)."/vendor/erdiko/bootstrap.php";
 
 try {
 	$routes = Erdiko::getRoutes();
-
-	Toro::serve(array(
-    	"/" => "app\controllers\Example",
-    	"/article/:alpha" => "ArticleHandler",
-    	"/article/:alpha/comment" => "CommentHandler"
-	));
+	Toro::serve($routes);
 
 } catch(\Exception $e) {
 	echo $e->getMessage();

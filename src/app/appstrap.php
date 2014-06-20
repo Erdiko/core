@@ -15,7 +15,7 @@ ToroHook::add("404", function() {
     echo "Sorry, we cannot find that URL";
 });
 
-ToroHook::add("500", function() {
+ToroHook::add("500", function($msg = "") {
     echo "Sorry, something went wrong";
 });
 
@@ -28,7 +28,7 @@ ToroHook::add("", function($routes=null, $discovered_handler=null, $request_meth
 		
 	} catch (\Exception $e) {
 		error_log("render exception: ".$e->getMessage());  // @todo swap to log to erdiko log
-		ToroHook::fire('500');
+		ToroHook::fire('500', $e->getMessage());
 	}
 	
 });
