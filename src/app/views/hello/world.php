@@ -1,5 +1,3 @@
-This is a view
+<p>This is a view</p>
 
-<pre>
-	<?php echo print_r($data) ?>
-</pre>
+<p><?php echo $data[0] ?> world</p>

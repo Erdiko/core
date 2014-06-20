@@ -7,6 +7,8 @@ The goal is a lightweight but powerful MVC micro framework.  Get work done witho
 
 For a full featured middleware framework see the [full version of Erdiko](https://github.com/arroyo/Erdiko). If this is still too much code for you, check out [ToroPHP](http://toroweb.org/)
 
+Erdiko micro is a work in progress, do not use it quite yet.  Use the full version of Erdiko for now.  When Erdiko micro is stable it will become the basis Erdiko (full version).  If you start with micro and your application grows you can always easily upgrade to Erdiko full.  Afterall the new version of Erdiko will always be built on top of Erdiko micro. 
+
 ## Installation 
 
 coming soon
