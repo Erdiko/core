@@ -19,8 +19,6 @@ class Controller
 	protected $_themeName = null;
 	protected $_theme = null;
 
-
-
 	
 	public function __construct()
 	{
@@ -30,6 +28,24 @@ class Controller
 		if($this->_themeName != null)
 			$this->_response->setTheme($this->_themeName);
     }
+
+    /**
+	 * Before action hook
+	 * Anything here gets called immediately BEFORE the Action method runs.
+	 */
+	public function _before()
+	{
+		// do something...
+	}
+
+	/**
+	 * After action hook
+	 * anything here gets called immediately AFTER the Action method runs.
+	 */
+	public function _after()
+	{
+		// do something...
+	}
 
     public function getResponse()
     {
@@ -76,6 +92,10 @@ class Controller
 	{
 		$this->getResponse()->setContent($content);
 	}
+
+
+
+
 
 	/**
 	 * Add js file to current page
@@ -284,27 +304,6 @@ class Controller
 		}
 		
 		$this->theme($data);
-	}
-
-	/**
-	 * Before action hook
-	 * Anything here gets called immediately BEFORE the Action method runs.
-	 */
-	protected function _before()
-	{
-
-		$this->addBodyStyleClass("content-body-".$this->_arguments['raw_url_key']);
-		$this->addIdentifier($this->_arguments['raw_url_key']);
-		$this->setId($this->_arguments['raw_url_key']);
-	}
-
-	/**
-	 * After action hook
-	 * anything here gets called immediately AFTER the Action method runs.
-	 */
-	protected function _after()
-	{
-		
 	}
 
 	/**

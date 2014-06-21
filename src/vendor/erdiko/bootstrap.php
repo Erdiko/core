@@ -10,10 +10,8 @@ define('VIEWS', ROOT.'/app/views/');
 // Core framework functions (static functions)
 require_once ROOT.'/Erdiko.php';
 
-// Required Libraries
-require_once VENDOR.'/ToroPHP/Toro.php';
-
 // Core
+require_once ERDIKO.'/Toro.php';
 require_once ERDIKO.'/core/autoload.php';
 
 // Temp hack loader @todo use composer's autoloader for core
