@@ -6,8 +6,7 @@ class Toro
     {
         ToroHook::fire('before_request', compact('routes'));
 
-        $request_method = strtolower($_SERVER['REQUEST_METHOD']);
-        $action = $request_method; // e.g. get, put, post, delete
+        $action = strtolower($_SERVER['REQUEST_METHOD']); // e.g. get, put, post, delete
 
         $path_info = '/';
         if (!empty($_SERVER['PATH_INFO'])) {
@@ -64,7 +63,7 @@ class Toro
                         unset($regex_matches[0]);
                         $arguments = $regex_matches; // Toro compatible
                     }
-                    
+
                     error_log("regex_matches: ".print_r($regex_matches, true));
                     error_log("action: $action");
                     error_log("arguments: ".print_r($arguments, true));
@@ -101,7 +100,7 @@ class Toro
             if (method_exists($handler_instance, $action)) {
 
                 try{
-                    ToroHook::fire('before_handler', compact('routes', 'discovered_handler', 'request_method', 'arguments'));
+                    ToroHook::fire('before_handler', compact('routes', 'discovered_handler', 'action', 'arguments'));
                     $handler_instance->_before();
 
                     // Action call
@@ -109,7 +108,7 @@ class Toro
 
                     $handler_instance->_after();
                     $handler_instance->send(); // render the response and return the data
-                    ToroHook::fire('after_handler', compact('routes', 'discovered_handler', 'request_method', 'arguments', 'result'));
+                    ToroHook::fire('after_handler', compact('routes', 'discovered_handler', 'action', 'arguments', 'result'));
 
                 } catch (\Exception $e) {
                     error_log("Exception running controller method: ".$e->getMessage()); // @todo switch to erdiko log
@@ -118,14 +117,14 @@ class Toro
                 
             }
             else {
-                ToroHook::fire('404', compact('routes', 'discovered_handler', 'request_method', 'arguments'));
+                ToroHook::fire('404', compact('routes', 'discovered_handler', 'action', 'arguments'));
             }
         }
         else {
-            ToroHook::fire('404', compact('routes', 'discovered_handler', 'request_method', 'arguments'));
+            ToroHook::fire('404', compact('routes', 'discovered_handler', 'action', 'arguments'));
         }
 
-        ToroHook::fire('after_request', compact('routes', 'discovered_handler', 'request_method', 'arguments', 'result'));
+        ToroHook::fire('after_request', compact('routes', 'discovered_handler', 'action', 'arguments', 'result'));
     }
 
     private static function is_xhr_request()
