@@ -7,6 +7,8 @@ class Toro
         ToroHook::fire('before_request', compact('routes'));
 
         $request_method = strtolower($_SERVER['REQUEST_METHOD']);
+        $action = $request_method; // e.g. get, put, post, delete
+
         $path_info = '/';
         if (!empty($_SERVER['PATH_INFO'])) {
             $path_info = $_SERVER['PATH_INFO'];
@@ -22,6 +24,7 @@ class Toro
         
         $discovered_handler = null;
         $regex_matches = array();
+        $arguments = array();
 
         if (isset($routes[$path_info])) {
             $discovered_handler = $routes[$path_info];
@@ -31,13 +34,41 @@ class Toro
                 ':string' => '([a-zA-Z]+)',
                 ':number' => '([0-9]+)',
                 ':alpha'  => '([a-zA-Z0-9-_]+)',
-                ':alphaPath'  => '([a-zA-Z0-9-_/]+)'
+                ':action'  => '([a-zA-Z0-9-_/]+)'
             );
+
+            // Search through routes and find first match
             foreach ($routes as $pattern => $handler_name) {
                 $pattern = strtr($pattern, $tokens);
                 if (preg_match('#^/?' . $pattern . '/?$#', $path_info, $matches)) {
                     $discovered_handler = $handler_name;
                     $regex_matches = $matches;
+                    $params = explode("/", $regex_matches[1]);
+                    // e.g. getActionName($regex_matches), User::getProfile($vars)
+
+                    // Determine action and arguments
+                    if(count($params) > 1)
+                    {
+                        // @todo add different parsers here...possibly pass route function in routes.json
+                        $int = 1;
+                        foreach($params as $param)
+                        {
+                            // if even param
+                            if($int % 2 == 0)
+                                $action .= ucfirst($param);
+                            else
+                                $arguments[] = $param;
+                            $int++;
+                        }
+                    } else {
+                        unset($regex_matches[0]);
+                        $arguments = $regex_matches; // Toro compatible
+                    }
+                    
+                    error_log("regex_matches: ".print_r($regex_matches, true));
+                    error_log("action: $action");
+                    error_log("arguments: ".print_r($arguments, true));
+
                     break;
                 }
             }
@@ -56,31 +87,29 @@ class Toro
         }
 
         if ($handler_instance) {
-            unset($regex_matches[0]);
-
-            if (self::is_xhr_request() && method_exists($handler_instance, $request_method . '_xhr')) {
+            if (self::is_xhr_request() && method_exists($handler_instance, $action . '_xhr')) {
                 header('Content-type: application/json'); // @todo support xml
                 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
                 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
                 header('Cache-Control: no-store, no-cache, must-revalidate');
                 header('Cache-Control: post-check=0, pre-check=0', false);
                 header('Pragma: no-cache');
-                $request_method .= '_xhr';
+                $action .= '_xhr';
                 $handler_instance->setIsXhrRequest(1);
             }
 
-            if (method_exists($handler_instance, $request_method)) {
+            if (method_exists($handler_instance, $action)) {
 
                 try{
-                    ToroHook::fire('before_handler', compact('routes', 'discovered_handler', 'request_method', 'regex_matches'));
+                    ToroHook::fire('before_handler', compact('routes', 'discovered_handler', 'request_method', 'arguments'));
                     $handler_instance->_before();
 
                     // Action call
-                    call_user_func_array(array($handler_instance, $request_method), $regex_matches);
+                    call_user_func_array(array($handler_instance, $action), $arguments);
 
                     $handler_instance->_after();
                     $handler_instance->send(); // render the response and return the data
-                    ToroHook::fire('after_handler', compact('routes', 'discovered_handler', 'request_method', 'regex_matches', 'result'));
+                    ToroHook::fire('after_handler', compact('routes', 'discovered_handler', 'request_method', 'arguments', 'result'));
 
                 } catch (\Exception $e) {
                     error_log("Exception running controller method: ".$e->getMessage()); // @todo switch to erdiko log
@@ -89,14 +118,14 @@ class Toro
                 
             }
             else {
-                ToroHook::fire('404', compact('routes', 'discovered_handler', 'request_method', 'regex_matches'));
+                ToroHook::fire('404', compact('routes', 'discovered_handler', 'request_method', 'arguments'));
             }
         }
         else {
-            ToroHook::fire('404', compact('routes', 'discovered_handler', 'request_method', 'regex_matches'));
+            ToroHook::fire('404', compact('routes', 'discovered_handler', 'request_method', 'arguments'));
         }
 
-        ToroHook::fire('after_request', compact('routes', 'discovered_handler', 'request_method', 'regex_matches', 'result'));
+        ToroHook::fire('after_request', compact('routes', 'discovered_handler', 'request_method', 'arguments', 'result'));
     }
 
     private static function is_xhr_request()

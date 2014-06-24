@@ -18,17 +18,3 @@ ToroHook::add("404", function() {
 ToroHook::add("500", function($msg = "") {
     echo "Sorry, something went wrong";
 });
-
-ToroHook::add("", function($routes=null, $discovered_handler=null, $request_method=null, $regex_matches=null, $result=null) {
-	try{
-		// @todo try to render the response
-		// if(is_subclass_of($result, '\erdiko\Response'))
-		// { echo $result->render(); // can render as html, json, or xml }
-		// else { echo $result; }
-		
-	} catch (\Exception $e) {
-		error_log("render exception: ".$e->getMessage());  // @todo swap to log to erdiko log
-		ToroHook::fire('500', $e->getMessage());
-	}
-	
-});
