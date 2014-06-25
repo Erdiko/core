@@ -15,7 +15,9 @@ use Erdiko;
 class Response
 {
 	protected $_theme;
+    protected $_themeName;
 	protected $_content = null;
+    protected $_data = array();
 	
 	/**
 	 * Constructor
@@ -26,12 +28,25 @@ class Response
 		$this->_theme = $theme;
     }
 
+    public function setDataValue($key, $value)
+    {
+        $this->_data[$key] = $value;
+    }
+
     /**
      * @param Theme $theme, Theme Object (Container)
      */
     public function setTheme($theme)
     {
     	$this->_theme = $theme;
+    }
+
+    /**
+     * @param string $themeName
+     */
+    public function setThemeName($themeName)
+    {
+        $this->_themeName = $themeName;
     }
 
     /**
@@ -47,7 +62,12 @@ class Response
         $content = (is_subclass_of($this->_content, '\erdiko\core\Container')) ? $this->_content->toHtml() : $this->_content;
 
         if($this->_theme !== null)
-            $html = $this->_theme->toHtml($content);
+            $html = $this->_theme->toHtml($content, $this->_data);
+        elseif(!empty($this->_themeName))
+        {
+            $this->_theme = new \erdiko\core\Theme($this->_themeName);
+            $html = $this->_theme->toHtml($content, $this->_data);
+        }
         else
             $html = $content;
 

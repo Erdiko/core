@@ -91,7 +91,9 @@ class Erdiko
 	
 	public static function getConfig($name = 'default')
 	{
-		return \erdiko\core\Config::getConfig($name)->getContext();
+		$filename = APPROOT.'/config/'.$name.'.json';
+		return self::getConfigFile($filename);
+		// return \erdiko\core\Config::getConfig($name)->getContext();
 		// return self::getConfigFile($file);
 	}
 	

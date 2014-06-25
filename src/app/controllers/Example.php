@@ -15,15 +15,23 @@ use erdiko\core\Config;
 
 class Example extends \erdiko\core\Controller
 {
-	public function get2()
-	{
-		error_log("get()");
+	
 
+	public function _before()
+	{
+		$this->setThemeName('bootstrap');
+	}
+
+	public function getHello()
+	{
+		$this->setTitles('Hello World');
 		$this->setContent("Hello World");
 	}
 
-	public function get()
+	public function get($var = null)
 	{
+		error_log("var: ".print_r($var, true));
+
 		$data = array("hello", "world");
 		$view = new \erdiko\core\View('hello/world', $data);
 		

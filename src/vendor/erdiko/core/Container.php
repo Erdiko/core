@@ -53,8 +53,7 @@ class Container
 
     public function getTemplateFile($filename, $data)
     {
-        error_log("getTemplateFile($filename)");
-
+        // error_log("getTemplateFile($filename)");
         if (is_file($filename))
         {
             ob_start();

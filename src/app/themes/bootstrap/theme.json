@@ -1,0 +1,57 @@
+{
+  "name": "bootstrap",
+  "description": "Bootstrap based Erdiko theme",
+  "credits": "John Arroyo",
+  "namespace": "/themes/bootstrap",
+  "css": [
+    {
+      "name": "default",
+      "file": "/themes/bootstrap/css/default.css",
+      "active": 1
+    }
+  ],
+  "js": {
+    "jquery": {
+      "file": "http://code.jquery.com/jquery-1.11.0.js",
+      "active": 1,
+      "order": 1
+    },
+    "bootstrap": {
+      "file": "/themes/bootstrap/js/bootstrap.js",
+      "active": 1,
+      "order": 2
+    },
+    "default": {
+      "file": "/themes/bootstrap/js/default.js",
+      "active": 1,
+      "order": 3
+    }
+  },
+  "templates": {
+    "default": {
+      "file": "default.php"
+    },
+    "fullpage": {
+      "file": "fullpage.php"
+    },
+    "header": {
+      "file": "page/header.php"
+    },
+    "footer": {
+      "file": "page/footer.php"
+    }
+  },
+  "layouts": {
+    "1column": {
+      "file": "/themes/bootstrap/templates/layouts/1column.php"
+    },
+    "2column": {
+      "file": "/themes/bootstrap/templates/layouts/2column.php"
+    },
+    "3column": {
+      "file": "/themes/bootstrap/templates/layouts/3column.php"
+    }
+  },
+  "views": {
+  }
+}

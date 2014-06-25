@@ -29,6 +29,11 @@ class Controller
 			$this->_response->setTheme($this->_themeName);
     }
 
+    public function setThemeName($name)
+    {
+    	$this->_themeName = $name;
+    }
+
     /**
 	 * Before action hook
 	 * Anything here gets called immediately BEFORE the Action method runs.
@@ -57,12 +62,17 @@ class Controller
     	echo $this->getResponse()->render();
     }
 
+    public function setResponseDataValue($key, $value)
+    {
+    	$this->getResponse()->setDataValue($key, $value);
+    }
+
 	/**
 	 * Add page title text to current page
 	 */
 	public function setPageTitle($title)
 	{
-
+		$this->setResponseDataValue('page_title', $title);
 	}
 
 	/**
@@ -72,7 +82,7 @@ class Controller
 	 */
 	public function setBodyTitle($title)
 	{
-		
+		$this->setResponseDataValue('body_title', $title);
 	}
 
 	/**
