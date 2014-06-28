@@ -15,9 +15,11 @@ class Theme extends Container
 {	
 	protected $_templateFolder = 'themes';
     protected $_defaultTemplate = 'default';
-    protected $_name = null;
+    // protected $_name = null;
     protected $_config = null;
     protected $_content = null;
+
+    // $_template is the theme name
 
     /**
      *
@@ -40,7 +42,7 @@ class Theme extends Container
         if(isset($this->_data['meta']))
             return $this->_data['meta'];
         else 
-            return null;
+            return array();
     }
 
     /**
@@ -71,20 +73,12 @@ class Theme extends Container
     }
 
     /**
-     *
-     */
-    public function setName($name)
-    {
-        $this->_name = $name;
-    }
-
-    /**
      * Get the theme folder
      * @return string $folder
      */
     public function getThemeFolder()
     {
-        return parent::getTemplateFolder().$this->_name.'/';
+        return parent::getTemplateFolder().$this->_template.'/';
     }
 
     /**
@@ -107,9 +101,17 @@ class Theme extends Container
     /**
      * @return string $content???
      */
-    public function getContent($content)
+    public function getContent()
     {
         return $this->_content;
+    }
+
+    /**
+     * @param string $template
+     */
+    public function setTemplate($template)
+    {
+        $this->_template = $template;
     }
 
     /**
@@ -131,7 +133,7 @@ class Theme extends Container
      */
     public function getContextConfig($context = 'default')
     {
-        return Erdiko::getConfig($context);
+        return Erdiko::getConfig('application/'.$context);
     }
 
     /**
@@ -141,11 +143,11 @@ class Theme extends Container
     {
         $this->setContent($content); // rendered html (body content)
         $this->setData($data); // data injected from Response/Controller
+        $this->getConfig(); // load the site config
 
-        $filename = $this->getTemplateFolder().$this->_template.'.php';
-        $html = $this->getTemplateFile($filename, $this);
-
+        $filename = $this->getTemplateFolder().$this->_defaultTemplate.'.php';
         error_log("theme filename: $filename");
+        $html = $this->getTemplateFile($filename, $this);
 
         return $html;
     }

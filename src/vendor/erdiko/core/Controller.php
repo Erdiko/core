@@ -29,9 +29,12 @@ class Controller
 			$this->_response->setTheme($this->_themeName);
     }
 
+    /**
+     * Set the theme name in the response
+     */
     public function setThemeName($name)
     {
-    	$this->_themeName = $name;
+    	$this->getResponse()->setThemeName($name);
     }
 
     /**

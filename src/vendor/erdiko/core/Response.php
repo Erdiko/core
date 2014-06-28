@@ -59,12 +59,15 @@ class Response
 
     public function render()
     {
+        error_log("themeName: {$this->_themeName}");
+        
         $content = (is_subclass_of($this->_content, '\erdiko\core\Container')) ? $this->_content->toHtml() : $this->_content;
 
         if($this->_theme !== null)
             $html = $this->_theme->toHtml($content, $this->_data);
         elseif(!empty($this->_themeName))
         {
+            error_log("themeName: {$this->_themeName}");
             $this->_theme = new \erdiko\core\Theme($this->_themeName);
             $html = $this->_theme->toHtml($content, $this->_data);
         }
