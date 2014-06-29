@@ -94,8 +94,8 @@ class Controller
 	 */
 	public function setTitle($title)
 	{
-		$this->setTitle($title);
 		$this->setPageTitle($title);
+		$this->setBodyTitle($title);
 	}
 
 	/**
@@ -106,10 +106,50 @@ class Controller
 		$this->getResponse()->setContent($content);
 	}
 
+	/**
+	 *
+	 */
 	public function autoaction($var, $httpMethod = 'get')
 	{
 		$method = $this->urlToActionName($var, $httpMethod);
+		return $this->$method();
 	}
+
+	/**
+     * Call back for preg_replace in urlToActionName
+     */
+    public function _replaceActionName($parts) 
+    {
+        return strtoupper($parts[1]);
+    }
+
+    /**
+     * Modify the action name coming from the URL into proper action name
+     * @param string $name: The raw controller action name
+     * @return string
+     */
+    public function urlToActionName($name, $httpMethod)
+    {
+        // convert to camelcase if there are dashes
+        $function = preg_replace_callback("/\-(.)/", array($this, '_replaceActionName'), $name);
+
+		return $httpMethod.ucfirst($function);
+    }
+
+    /**
+	 * Set the view template to be used
+	 *
+	 * @param string $view, view file
+	 */
+	public function setView($view, $data = null)
+	{
+		$view = new \erdiko\core\View($view, $data);
+		$this->setContent($view);
+	}
+	
+
+
+
 
 
 
@@ -137,30 +177,6 @@ class Controller
 		}
 		return $keyArray;
 	}
-
-	/**
-     * Call back for preg_replace in urlToActionName
-     */
-    public function _replaceActionName($parts) 
-    {
-        return strtoupper($parts[1]);
-    }
-
-    /**
-     * Modify the action name coming from the URL into proper action name
-     * @param string $name: The raw controller action name
-     * @return string
-     */
-    public function urlToActionName($name, $httpMethod)
-    {
-        // convert to camelcase if there are dashes
-        $function = preg_replace_callback("/\-(.)/", array($this, '_replaceActionName'), $name);
-
-		return $httpMethod.ucfirst($function);
-    }
-
-
-
 
 
 
@@ -311,16 +327,6 @@ class Controller
         }
         $this->_pageData['data']['content'][$key] = $value;
         return $this;
-	}
-
-	/**
-	 * Set the view template to be used
-	 *
-	 * @param string $view, view file
-	 */
-	public function setView($view, $type = 'page')
-	{
-		$this->_pageData['view'][$type] = $view;
 	}
 
 	public function setLayoutColumns($cols)

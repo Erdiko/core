@@ -33,7 +33,7 @@ class Example extends \erdiko\core\Controller
 		if($var != null)
 		{
 			// load action
-			// return $this->autoaction($var);
+			return $this->autoaction($var);
 		}
 
 		$m = new \Mustache_Engine;
@@ -55,13 +55,13 @@ class Example extends \erdiko\core\Controller
 	public function getIndex($arguments = null)
 	{
 		// Add page data
-		$this->setTitles('Examples');
-		$this->setView('examples/index.php');
+		$this->setTitle('Examples');
+		$this->setView('examples/index');
 	}
 
 	public function getBaseline($arguments = null)
 	{
-		$this->setBodyContent( "The simplest page possible" );
+		$this->setContent( "The simplest page possible" );
 	}
 
 	public function getFullpage($arguments = null)
