@@ -29,27 +29,27 @@
   },
   "templates": {
     "default": {
-      "file": "default.php"
+      "file": "default"
     },
     "fullpage": {
-      "file": "fullpage.php"
+      "file": "fullpage"
     },
     "header": {
-      "file": "page/header.php"
+      "file": "page/header"
     },
     "footer": {
-      "file": "page/footer.php"
+      "file": "page/footer"
     }
   },
   "layouts": {
     "1column": {
-      "file": "/themes/bootstrap/templates/layouts/1column.php"
+      "file": "/themes/bootstrap/templates/layouts/1column"
     },
     "2column": {
-      "file": "/themes/bootstrap/templates/layouts/2column.php"
+      "file": "/themes/bootstrap/templates/layouts/2column"
     },
     "3column": {
-      "file": "/themes/bootstrap/templates/layouts/3column.php"
+      "file": "/themes/bootstrap/templates/layouts/3column"
     }
   },
   "views": {

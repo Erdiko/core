@@ -145,7 +145,7 @@ class Theme extends Container
         $this->setData($data); // data injected from Response/Controller
         $this->getConfig(); // load the site config
 
-        $filename = $this->getTemplateFolder().$this->_defaultTemplate.'.php';
+        $filename = $this->getTemplateFolder().$this->_defaultTemplate;
         error_log("theme filename: $filename");
         $html = $this->getTemplateFile($filename, $this);
 

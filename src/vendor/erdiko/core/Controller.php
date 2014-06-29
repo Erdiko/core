@@ -106,6 +106,61 @@ class Controller
 		$this->getResponse()->setContent($content);
 	}
 
+	public function autoaction($var, $httpMethod = 'get')
+	{
+		$method = $this->urlToActionName($var, $httpMethod);
+	}
+
+
+
+
+	/**
+	 * @param string $arguments
+	 * @return array $arguments
+	 */
+	public function parseArguments($arguments)
+	{
+		$arguments = explode("/", $arguments);
+		return $arguments;
+	}
+
+	/**
+	 * @param array $intArray
+	 * @return array $keyArray
+	 */
+	public function compileNameValue($intArray)
+	{
+		$keyArray = array();
+		for($i = 0; $i < count($intArray); $i += 2)
+		{
+			$keyArray[$intArray[$i]] = $intArray[$i+1];
+		}
+		return $keyArray;
+	}
+
+	/**
+     * Call back for preg_replace in urlToActionName
+     */
+    public function _replaceActionName($parts) 
+    {
+        return strtoupper($parts[1]);
+    }
+
+    /**
+     * Modify the action name coming from the URL into proper action name
+     * @param string $name: The raw controller action name
+     * @return string
+     */
+    public function urlToActionName($name, $httpMethod)
+    {
+        // convert to camelcase if there are dashes
+        $function = preg_replace_callback("/\-(.)/", array($this, '_replaceActionName'), $name);
+
+		return $httpMethod.ucfirst($function);
+    }
+
+
+
 
 
 
@@ -127,22 +182,6 @@ class Controller
 	public function addCss($file)
 	{
 		$this->_themeExtras['css'][] = array('file' => $file);
-	}
-
-	/**
-	 * Set id (unique name)
-	 */
-	public function setId($id)
-	{
-		$this->_themeExtras['id'] = $id;
-	}
-
-	/**
-	 * Get id (unique name)
-	 */
-	public function getId()
-	{
-		return $this->_themeExtras['id'];
 	}
 
     /**
@@ -174,85 +213,6 @@ class Controller
 	public function addMeta($content, $name = 'description')
 	{
 		$this->_themeExtras['meta'][$name] = $content;
-	}
-	
-	/**
-	 * Theme a set of data
-	 * Generates an entire page with the given data 
-	 * 
-	 * @param array $data
-	 */
-	public function theme($data)
-	{
-		$theme = Erdiko::getTheme($this->_config, $this->_themeExtras);
-		
-		// If no data is given load the view
-		if(!isset($data['main_content']))
-		{
-			// render the page
-			$data['main_content'] = $theme->renderView($this->_pageData['view']['page'], $this->_pageData['data']);
-		}
-		// error_log("content: ".print_r($data, true));
-
-		// Titles
-		$theme->setTitle($this->_pageData['title']);
-		$data['title'] = $this->_pageData['data']['title']; // set the page title (body)
-
-		// Alter layout if needed
-		if($this->_numberColumns)
-			$theme->setNumCloumns($this->_numberColumns);
-		if($this->_layout)
-			$theme->setLayout($this->_layout);
-		$theme->setTemplate( $this->getTemplate() );
-
-		// Deal with sidebars for multi-column layouts
-		if(!empty($this->_pageData['sidebar']))
-			$theme->setSidebars($this->_pageData['sidebar']);
-
-		// error_log("theme: ".print_r($theme, true));
-		// error_log("data: ".print_r($data, true)); // this clobers the 
-
-		$theme->theme($data);
-	}
-	
-	/**
-	 * @param string $arguments
-	 * @return array $arguments
-	 */
-	public function parseArguments($arguments)
-	{
-		$arguments = explode("/", $arguments);
-		return $arguments;
-	}
-	
-	/**
-	 * 
-	 */
-	public function get($name = null, $arguments = null)
-	{
-		return $this->route($name, $arguments);
-	}
-	
-	/**
-	 * 
-	 */
-	public function post($name = null, $arguments = null)
-	{
-		return $this->route($name, $arguments);
-	}
-
-	/**
-	 * @param array $intArray
-	 * @return array $keyArray
-	 */
-	public function compileNameValue($intArray)
-	{
-		$keyArray = array();
-		for($i = 0; $i < count($intArray); $i += 2)
-		{
-			$keyArray[$intArray[$i]] = $intArray[$i+1];
-		}
-		return $keyArray;
 	}
 	
 	/**
@@ -334,79 +294,6 @@ class Controller
 		return  Erdiko::getTemplate($filename, $data);
 	}
 
-	/**
-	 * Switch context
-	 * Override existing context with the supplied context
-	 * @param string $contextName
-	 */
-	public function setContext($context)
-	{
-		$this->_config = Config::getConfig($context);
-		$context = $this->_config->getContext();
-		$this->_contextConfig['theme'] = $context['theme']; // swap out theme configs
-		// error_log("config: ".print_r($config, true));
-	}
-
-	/**
-	 * Set data to be themed in the given view
-	 *
-	 * @param array $data
-	 */
-	public function setData($data)
-	{
-		$this->_pageData['data'] = $data;
-	}
-
-	/**
-	 * Set page body content data to be themed in the view
-	 *
-	 * @param mixed $data
-	 */
-	public function setBodyContent($data)
-	{
-		$this->_pageData['data']['content'] = $data;
-	}
-
-	/**
-	 * Get page body content data to be themed in the view
-	 *
-	 * @return mixed $data
-	 */
-	public function getBodyContent()
-	{
-		return $this->_pageData['data']['content'];
-	}
-
-	/**
-	 * Set page content data to be themed in the view
-	 *
-	 * @param mixed $data
-	 */
-	public function appendBodyContent($data)
-	{
-		$this->_pageData['data']['content'] .= $data;
-	}
-
-	/**
-	 * Set page content data to be themed in the view
-	 *
-	 * @param mixed $data
-	 */
-	public function setBodyStyle($data, $key)
-	{
-		$this->_pageData['data']['style'][$key] = $data;
-	}
-
-	/**
-	 * Set page content data to be themed in the view
-	 *
-	 * @param mixed $data
-	 */
-	public function addBodyStyleClass($name)
-	{
-		$this->_pageData['data']['style']['class'][] = $name;
-	}
-
     /**
 	 * Add a page content data to be themed in the view
 	 *
@@ -440,63 +327,6 @@ class Controller
 	{
 		$this->_numberColumns = $cols;
 	}
-
-	/**
-	 * Set layout 
-	 */
-	public function setLayout($name)
-	{
-		$this->_layout = $name;
-	}
-
-	/**
-	 * Get layout 
-	 */
-	public function getLayout()
-	{
-		return $this->_layout;
-	}
-
-	/**
-	 * Set layout template
-	 */
-	public function setTemplate($name)
-	{
-		$this->_template = $name;
-	}
-
-	/**
-	 * Get template name
-	 * Returns null if not overriding the template/layout
-	 * @return string $name
-	 */
-	public function getTemplate()
-	{
-		return $this->_template;
-	}
-
-    /**
-     * Call back for preg_replace in urlToActionName
-     */
-    public function _replaceActionName($parts) 
-    {
-        return strtoupper($parts[1]);
-    }
-
-    /**
-     * Modify the action name coming from the URL into proper action name
-     * @param string $name: The raw action name
-     * @return string
-     */
-    public function urlToActionName($name)
-    {
-        // convert to camelcase if there are dashes
-        $function = preg_replace_callback("/\-(.)/", array($this, '_replaceActionName'), $name);
-        // Add action to it
-        $function .= 'Action';
-
-		return $function;
-    }
 
 	/**
 	 * Set the view template to be used

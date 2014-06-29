@@ -12,7 +12,9 @@
         }
     ],
     "require": {
-    	"php": ">=5.3.3"
+    	"php": ">=5.3.3",
+        "mustache/mustache": "2.6.*",
+        "erusev/parsedown": "dev-master"
     },
     "config": {
         "vendor-dir": "vendor"
