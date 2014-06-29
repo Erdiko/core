@@ -4,7 +4,7 @@
  * Multiple examples of how you can use erdiko.  It includes some simple use cases.
  *
  * @category 	app
- * @package   	hello
+ * @package   	Example
  * @copyright	Copyright (c) 2014, Arroyo Labs, www.arroyolabs.com
  * @author 		John Arroyo, john@arroyolabs.com
  */
@@ -30,6 +30,16 @@ class Example extends \erdiko\core\Controller
 
 	public function get($var = null)
 	{
+		if($var != null)
+		{
+			// load action
+			// return $this->autoaction($var);
+		}
+
+		$m = new \Mustache_Engine;
+		$test = $m->render('Hello, {{ planet }}!', array('planet' => 'world')); // Hello, world!
+		error_log("mustache = {$test}");
+
 		error_log("var: ".print_r($var, true));
 
 		$data = array("hello", "world");
@@ -38,38 +48,35 @@ class Example extends \erdiko\core\Controller
 		$this->setContent($view);
 	}
 
-
-
-
 	/**
 	 * Homepage Action (index)
 	 * @params array $arguments
 	 */
-	public function indexAction($arguments = null)
+	public function getIndex($arguments = null)
 	{
 		// Add page data
 		$this->setTitles('Examples');
 		$this->setView('examples/index.php');
 	}
 
-	public function baselineAction($arguments = null)
+	public function getBaseline($arguments = null)
 	{
 		$this->setBodyContent( "The simplest page possible" );
 	}
 
-	public function fullpageAction($arguments = null)
+	public function getFullpage($arguments = null)
 	{
 		$this->setTemplate('fullpage');
 		$this->setBodyContent( "This is a fullpage layout (sans header/footer)" );
 	}
 
-	public function setviewAction($arguments = null)
+	public function getSetview($arguments = null)
 	{
 		$this->setTitles('Example: Page with a single view');
 		$this->setView('examples/setview.php');
 	}
 
-	public function setbodycontentAction($arguments = null)
+	public function getSetbodycontent($arguments = null)
 	{
 		$this->setTitles('Example: Page with multiple views');
 

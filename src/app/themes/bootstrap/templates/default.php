@@ -24,7 +24,7 @@
 
 <div id="pagewrap">
   <?php echo $data->getTemplateHtml('header'); ?>
-  <div class="content-main">
+  <div class="container content-main">
     <?php echo $this->getContent(); ?>
   </div>
   <?php echo $data->getTemplateHtml('footer'); ?>
