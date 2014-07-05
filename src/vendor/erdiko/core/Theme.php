@@ -14,12 +14,25 @@ use Erdiko;
 class Theme extends Container
 {	
 	protected $_templateFolder = 'themes';
-    protected $_defaultTemplate = 'default';
-    // protected $_name = null;
+    protected $_name = null;
+    protected $_defaultName = 'default';
     protected $_config = null;
     protected $_content = null;
 
     // $_template is the theme name
+
+    /**
+     * Constructor
+     * @param string $template, Theme Object (Contaier)
+     * @param mixed $data
+     */
+    public function __construct($name = null, $data = null, $template = 'default')
+    {
+        $name = ($name === null) ? $this->_defaultName : $name;
+        $this->setName($name);
+        $this->setData($data);
+        $this->_template = $template; // this template is the page wrapper
+    }
 
     /**
      *
@@ -78,7 +91,7 @@ class Theme extends Container
      */
     public function getThemeFolder()
     {
-        return parent::getTemplateFolder().$this->_template.'/';
+        return parent::getTemplateFolder().$this->_name.'/';
     }
 
     /**
@@ -115,6 +128,15 @@ class Theme extends Container
     }
 
     /**
+     * Set the theme name, the name is also the id of the theme
+     * @param string $name, Theme name
+     */
+    public function setName($name)
+    {
+        $this->_name = $name;
+    }
+
+    /**
      * Get template file populated by the config
      * e.g. get header/footer
      * @return string $html
@@ -145,8 +167,8 @@ class Theme extends Container
         $this->setData($data); // data injected from Response/Controller
         $this->getConfig(); // load the site config
 
-        $filename = $this->getTemplateFolder().$this->_defaultTemplate;
-        error_log("theme filename: $filename");
+        $filename = $this->getTemplateFolder().$this->_template;
+        // error_log("theme filename: $filename");
         $html = $this->getTemplateFile($filename, $this);
 
         return $html;

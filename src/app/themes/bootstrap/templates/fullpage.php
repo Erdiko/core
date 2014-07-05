@@ -9,19 +9,22 @@
 		echo '<meta name="'.$name.'" content="'.$content.'" >';
 ?>
 
-<title><?php echo $data->getPageTitle(); ?> - <?php echo $data->getTitle(); ?></title>
+<title><?php echo $data->getPageTitle(); ?></title>
 
 <?php
   // Spit out CSS
   foreach($data->getCss() as $css)
-    echo "<link rel='stylesheet' href='".$css['file']."' type='text/css' />\n";
+  {
+    if($css['active'])
+      echo "<link rel='stylesheet' href='".$css['file']."' type='text/css' />\n";
+  }
 ?>
 </head>
 <body>
 
 <div id="pagewrap">
-  <div class="content-main">
-    <?php echo $this->getLayout(); ?>
+  <div class="container content-main">
+    <?php echo $this->getContent(); ?>
   </div>
 </div>
 

@@ -66,8 +66,8 @@ class Example extends \erdiko\core\Controller
 
 	public function getFullpage($arguments = null)
 	{
-		$this->setTemplate('fullpage');
-		$this->setBodyContent( "This is a fullpage layout (sans header/footer)" );
+		$this->setThemeTemplate('fullpage');
+		$this->setContent( "This is a fullpage layout (sans header/footer)" );
 	}
 
 	public function getSetview($arguments = null)

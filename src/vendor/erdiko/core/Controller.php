@@ -31,10 +31,20 @@ class Controller
 
     /**
      * Set the theme name in the response
+     * @param string $name, the name/id of the theme
      */
     public function setThemeName($name)
     {
     	$this->getResponse()->setThemeName($name);
+    }
+
+    /**
+     * Set the theme template used to render the page
+     * @param string $template 
+     */
+    public function setThemeTemplate($template)
+    {
+    	$this->getResponse()->setThemeTemplate($template);
     }
 
     /**

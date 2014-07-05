@@ -16,6 +16,7 @@ class Response
 {
 	protected $_theme;
     protected $_themeName;
+    protected $_themeTemplate = 'default';
 	protected $_content = null;
     protected $_data = array();
 	
@@ -34,7 +35,7 @@ class Response
     }
 
     /**
-     * @param Theme $theme, Theme Object (Container)
+     * @param Theme object $theme, Theme Object (Container)
      */
     public function setTheme($theme)
     {
@@ -47,6 +48,14 @@ class Response
     public function setThemeName($themeName)
     {
         $this->_themeName = $themeName;
+    }
+
+    /**
+     * @param string $themeName
+     */
+    public function setThemeTemplate($template)
+    {
+        $this->_themeTemplate = $template;
     }
 
     /**
@@ -68,7 +77,7 @@ class Response
         elseif(!empty($this->_themeName))
         {
             error_log("themeName: {$this->_themeName}");
-            $this->_theme = new \erdiko\core\Theme($this->_themeName);
+            $this->_theme = new \erdiko\core\Theme($this->_themeName, null, $this->_themeTemplate);
             $html = $this->_theme->toHtml($content, $this->_data);
         }
         else
