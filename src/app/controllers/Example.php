@@ -133,6 +133,18 @@ class Example extends \erdiko\core\Controller
 		exit;
 	}
 
+	public function getMarkup()
+	{
+		/*
+			This is an alternate way to add page content data
+			You can load a view directly into the content.
+			This is not the preferred way to add content.
+			Use the setView() method when possible.
+		*/
+		$this->setTitle('Example Mark-Up');
+		$this->setContent( $this->getView('examples/markup') );
+	}
+
 	public function getTwocolumn()
 	{
 		$this->setLayoutColumns(2);

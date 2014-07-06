@@ -35,19 +35,15 @@
             "title":"Examples"
          },
          {
-            "href":"/markup",
+            "href":"/examples/markup",
             "title":"Mark-Up"
          },
          {
-            "href":"/grid",
+            "href":"/examples/grid",
             "title":"Grid"
          },
          {
-            "href":"/onecolumn",
-            "title":"1 Column Layout"
-         },
-         {
-            "href":"/twocolumn",
+            "href":"/examples/twocolumn",
             "title":"2 Column Layout"
          },
          {
