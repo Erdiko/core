@@ -1,8 +1,6 @@
 {
 	"routes": {
 		"/": "\app\controllers\Example",
-		"examples/:string": "\app\controllers\Example",
-		"/article/:number": "\app\controllers\Example",
-		"/article/:action": "\app\controllers\Example"
+		"examples/:alpha": "\app\controllers\Example"
 	}
 }

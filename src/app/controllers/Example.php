@@ -24,7 +24,7 @@ class Example extends \erdiko\core\Controller
 
 	public function getHello()
 	{
-		$this->setTitles('Hello World');
+		$this->setTitle('Hello World');
 		$this->setContent("Hello World");
 	}
 
@@ -38,9 +38,9 @@ class Example extends \erdiko\core\Controller
 
 		$m = new \Mustache_Engine;
 		$test = $m->render('Hello, {{ planet }}!', array('planet' => 'world')); // Hello, world!
-		error_log("mustache = {$test}");
 
-		error_log("var: ".print_r($var, true));
+		// error_log("mustache = {$test}");
+		// error_log("var: ".print_r($var, true));
 
 		$data = array("hello", "world");
 		$view = new \erdiko\core\View('hello/world', $data);
@@ -52,59 +52,71 @@ class Example extends \erdiko\core\Controller
 	 * Homepage Action (index)
 	 * @params array $arguments
 	 */
-	public function getIndex($arguments = null)
+	public function getIndex()
 	{
 		// Add page data
 		$this->setTitle('Examples');
 		$this->setView('examples/index');
 	}
 
-	public function getBaseline($arguments = null)
+	public function getBaseline()
 	{
 		$this->setContent( "The simplest page possible" );
 	}
 
-	public function getFullpage($arguments = null)
+	public function getFullpage()
 	{
 		$this->setThemeTemplate('fullpage');
 		$this->setContent( "This is a fullpage layout (sans header/footer)" );
 	}
 
-	public function getSetview($arguments = null)
+	public function getSetview()
 	{
-		$this->setTitles('Example: Page with a single view');
-		$this->setView('examples/setview.php');
+		$this->setTitle('Example: Page with a single view');
+		$this->setView('examples/setview');
 	}
 
-	public function getSetbodycontent($arguments = null)
+	public function getSetmultipleviews()
 	{
-		$this->setTitles('Example: Page with multiple views');
+		$this->setTitle('Example: Page with multiple views');
 
 		// Include multiple views directly
-		$content = $this->getView(null, 'examples/one.php');
-		$content .= $this->getView(null, 'examples/two.php');
-		$content .= $this->getView(null, 'examples/three.php');
+		$content = $this->getView('examples/one');
+		$content .= $this->getView('examples/two');
+		$content .= $this->getView('examples/three');
 
-		$this->setBodyContent( $content );
+		$this->setContent( $content );
 	}
 
-	public function setview2Action($arguments = null)
+	public function getSetmultipleviewsAlt()
+	{
+		$this->setTitle('Example: Page with multiple views (alt)');
+
+		// Add multiple views using api
+		$this->addView('examples/one');
+		$this->addView('examples/two');
+		$this->addView('examples/three');
+	}
+
+	public function getSetview2()
 	{
 		// Include multiple views indirectly 
 		$page = array(
 			'content' => array(
-				'view1' => $this->getView(null, 'examples/one.php'),
-				'view2' => $this->getView(null, 'examples/two.php'),
-				'view3' => $this->getView(null, 'examples/three.php')
+				'view1' => $this->getView('examples/one'),
+				'view2' => $this->getView('examples/two'),
+				'view3' => $this->getView('examples/three')
 				)
 			);
-
-		$this->setData($page);
-		$this->setTitles('Example: Multiple views take 2');		
-		$this->setView('examples/setview2.php');
+		
+		$this->setTitle('Example: Multiple views take 2');		
+		$this->setView('examples/setview2', $page);
 	}
 
-	public function twocolumnAction($arguments = null)
+
+
+
+	public function twocolumnAction()
 	{
 		$this->setLayoutColumns(3);
 		
@@ -125,7 +137,7 @@ class Example extends \erdiko\core\Controller
 		$this->setPageTitle( 'Example: Complex 2 Column' );
 	}
 
-	public function threecolumnAction($arguments = null)
+	public function threecolumnAction()
 	{
 		$this->setLayoutColumns(3);
 		
@@ -152,10 +164,10 @@ class Example extends \erdiko\core\Controller
 	 * Slideshow Action 
 	 * @params array $arguments
 	 */
-	public function carouselAction($arguments = null)
+	public function carouselAction()
 	{
 		// Add page data
-		$this->setTitles('Carousel');
+		$this->setTitle('Carousel');
 		$this->setView('pages/carousel.php');
 
 		// Add Extra js
@@ -168,11 +180,11 @@ class Example extends \erdiko\core\Controller
 		exit;
 		
 		// Add page data
-		$this->setTitles('PHP Info');
+		$this->setTitle('PHP Info');
 		$this->setBodyContent("booyah");
 	}
 
-	public function dataAction($arguments = null)
+	public function dataAction()
 	{
 		// Include multiple views indirectly (and page title)
 		$page = array(

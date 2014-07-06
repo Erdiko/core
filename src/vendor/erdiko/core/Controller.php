@@ -117,11 +117,24 @@ class Controller
 	}
 
 	/**
+	 * Add/append html text to the response content
+	 */
+	public function appendContent($content)
+	{
+		$this->getResponse()->appendContent($content);
+	}
+
+	/**
 	 *
 	 */
 	public function autoaction($var, $httpMethod = 'get')
 	{
+		error_log("httpMethod: $httpMethod");
+		
 		$method = $this->urlToActionName($var, $httpMethod);
+
+		error_log("method: $method");
+
 		return $this->$method();
 	}
 
@@ -157,6 +170,31 @@ class Controller
 		$this->setContent($view);
 	}
 	
+	/**
+	 * Load a view with the given data
+	 * 
+	 * @param string $viewName
+	 * @param array $data
+	 * @return string $html, view contents
+	 */
+	public function getView($viewName, $data = null)
+	{
+		$view = new \erdiko\core\View($viewName, $data);
+		return  $view->toHtml();
+	}
+
+	/**
+	 * Add a view from the current theme with the given data
+	 * 
+	 * @param string $viewName
+	 * @param array $data
+	 * @return string $html, view contents
+	 */
+	public function addView($viewName, $data = null)
+	{
+		$view = new \erdiko\core\View($viewName, $data);
+		$this->appendContent($view->toHtml());
+	}
 
 
 
@@ -303,21 +341,6 @@ class Controller
 		}
 		
 		$this->theme($data);
-	}
-
-	/**
-	 * Load a view from the current theme with the given data
-	 * 
-	 * @param string $file
-	 * @param array $data
-	 * 
-	 * @todo deprecate this function -John 
-	 * @todo render views with the theme engine instead
-	 */
-	public function getView($data = null, $file = null)
-	{
-		$filename = VIEWROOT.$file;
-		return  Erdiko::getTemplate($filename, $data);
 	}
 
     /**

@@ -66,6 +66,17 @@ class Response
     	$this->_content = $content;
     }
 
+    /**
+     * Append some html content to the existing content
+     * 
+     * @param string $content
+     * @todo check to see if content is a container, if so treat accordingly
+     */
+    public function appendContent($content)
+    {
+        $this->_content .= $content;
+    }
+    
     public function render()
     {
         error_log("themeName: {$this->_themeName}");
