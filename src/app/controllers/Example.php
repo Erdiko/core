@@ -108,49 +108,67 @@ class Example extends \erdiko\core\Controller
 				'view3' => $this->getView('examples/three')
 				)
 			);
-		
+
 		$this->setTitle('Example: Multiple views take 2');		
 		$this->setView('examples/setview2', $page);
 	}
 
-
-
-
-	public function twocolumnAction()
+	/**
+	 * Slideshow Action 
+	 * @params array $arguments
+	 */
+	public function getCarousel()
 	{
-		$this->setLayoutColumns(3);
-		
-		$right = $this->getView(null, 'examples/one.php');
-		$right .= $this->getView(null, 'examples/two.php');
-		$right .= $this->getView(null, 'examples/three.php');
+		// Add page data
+		$this->setTitle('Example: Carousel');
+		$this->setView('examples/carousel');
 
-		// Set sidebars directly
-		$sidebars = array(
-			'right' => array(
-				'content' => $right,
-				'view' => 'sidebars/default.php')
-			);
-		$this->setSidebars($sidebars);
-
-		$this->setBodyContent( '2 column layout example' );
-		$this->setTitle('2 Column Page');
-		$this->setPageTitle( 'Example: Complex 2 Column' );
+		// Add Extra js
+		$this->addJs('/themes/bootstrap/js/carousel.js');
 	}
+
+	public function getPhpinfo()
+	{
+		phpinfo();
+		exit;
+	}
+
+	public function getTwocolumn()
+	{
+		$this->setLayoutColumns(2);
+		
+		$right = $this->getView('examples/one');
+		$right .= $this->getView('examples/two');
+		$right .= $this->getView('examples/three');
+
+		// Set columns directly using a layout
+		$columns = array(
+			'one' => array('content' => 'columns/default'),
+			'two' => array('content' => $right)
+			);
+		
+		$this->setTitle('Example: 2 Column Layout Page');
+		$this->setContent( $this->getLayout('2-column', $columns) );
+	}
+
+
+
+
 
 	public function threecolumnAction()
 	{
 		$this->setLayoutColumns(3);
 		
-		$left = $this->getView(null, 'examples/one.php');
-		$left .= $this->getView(null, 'examples/two.php');
-		$left .= $this->getView(null, 'examples/three.php');
+		$left = $this->getView(null, 'examples/one');
+		$left .= $this->getView(null, 'examples/two');
+		$left .= $this->getView(null, 'examples/three');
 
 		// Set sidebars directly
 		$sidebars = array(
 			'left' => array('content' => $left),
 			'right' => array(
 				'content' => 'right sidebar',
-				'view' => 'sidebars/default.php')
+				'view' => 'sidebars/default')
 			);
 		$this->setSidebars($sidebars);
 
@@ -160,38 +178,14 @@ class Example extends \erdiko\core\Controller
 		$this->setPageTitle( 'Example: Complex 3 Column' );
 	}
 
-	/**
-	 * Slideshow Action 
-	 * @params array $arguments
-	 */
-	public function carouselAction()
-	{
-		// Add page data
-		$this->setTitle('Carousel');
-		$this->setView('pages/carousel.php');
-
-		// Add Extra js
-		$this->addJs('/themes/bootstrap/js/carousel.js');
-	}
-
-	public function phpinfoAction()
-	{
-		phpinfo();
-		exit;
-		
-		// Add page data
-		$this->setTitle('PHP Info');
-		$this->setBodyContent("booyah");
-	}
-
 	public function dataAction()
 	{
 		// Include multiple views indirectly (and page title)
 		$page = array(
 			'content' => array(
-				'view1' => $this->getView(null, 'examples/one.php'),
-				'view2' => $this->getView(null, 'examples/two.php'),
-				'view3' => $this->getView(null, 'examples/three.php')
+				'view1' => $this->getView(null, 'examples/one'),
+				'view2' => $this->getView(null, 'examples/two'),
+				'view3' => $this->getView(null, 'examples/three')
 				),
 			'title' => 'Example: Page with multiple views'
 			);
