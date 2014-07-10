@@ -1,7 +1,6 @@
 <?php
 /**
  * Theme
- * Theme class
  * 
  * @category   Erdiko
  * @package    Core

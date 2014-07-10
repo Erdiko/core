@@ -1,7 +1,6 @@
 <?php
 /**
- * Container
- * Base view layer object
+ * View
  * 
  * @category   Erdiko
  * @package    Core
@@ -16,26 +15,10 @@ class View extends Container
 	protected $_templateFolder = 'views';
 
     /**
-     * @param string $template
-     */
-    public function setTemplate($template)
-    {
-    	$this->_template = $template;
-    }
-
-    /**
      * @param Container $content, e.g. View or Layout Object
      */
     public function setContent($content)
     {
     	$this->_content = $content;
-    }
-
-    /**
-     * @param mixed $data, data injected into the view
-     */
-    public function setData($data)
-    {
-        $this->_data = $data;
     }
 }

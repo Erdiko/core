@@ -35,7 +35,7 @@ class Container
      */
     public function setTemplate($template)
     {
-    	$this->_template = $template.".php";
+    	$this->_template = $template;
     }
 
     /**
