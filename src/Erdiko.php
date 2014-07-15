@@ -1,7 +1,7 @@
 <?php
 /**
  * Erdiko
- * All factory classes and global helper
+ * All global helpers
  * 
  * @category	Erdiko
  * @package		Erdiko
@@ -9,38 +9,9 @@
  * @author		John Arroyo, john@arroyolabs.com
  */
 
-use erdiko\core\Logger;
-use erdiko\core\cache\Cache;
-
 class Erdiko
 {
-
-	protected static $_logObject=null;
-	
-	
-	/**
-	 * Factory Module Classes
-	 */
-	public static function getModule($moduleName)
-	{
-		
-	}
-	
-	/**
-	 * get the registered theme
-	 * @param string $name
-	 * @param string $namespace
-	 * @param string $path
-	 * @return object $theme
-	 */
-	public static function getTheme(\erdiko\core\Config $config, $extras = null)
-	{
-		// Get ThemeEngine object
-		$themeEngine = new \erdiko\core\theme\ThemeEngine;
-		$themeEngine->loadTheme($config, $extras);
-		
-		return $themeEngine;
-	}
+	protected static $_logObject=null; // @todo get rid of this...
 	
 	/**
 	 * Load a template file from a module
@@ -111,7 +82,8 @@ class Erdiko
 	}
 	
 	/**
-	 * send email
+	 * Send email
+	 * @todo add ways to swap out ways of sending
 	 */
 	public static function sendEmail($toEmail, $subject, $body, $fromEmail)
 	{	
@@ -121,93 +93,11 @@ class Erdiko
 		
 		return mail($toEmail, $subject, $body, $headers);
 	}
-
-	/**
-	 * getModel
-	 * Currently only works with zend models
-	 * Model Factory (eventually turn it into a factory and/or leverage singletons)
-	 * @usage Erdiko::getModel('Product_Service');
-	 * @param string $modelName, with no preceeding backslash
-	 * @return 
-	 * @todo throw exception if load fails
-	 */
-	public static function getModel($modelName)
-	{
-		$class = "\\$modelName";
-		return new $class;
-	}
-
-	/**
-	 * getService
-	 * Service Factory (eventually turn it into a factory and/or leverage singletons)
-	 * @usage Erdiko::getService('product'); // first character does not have to be uppercase
-	 * @return 
-	 * @todo throw exception if load fails
-	 */
-	public static function getService($service)
-	{
-		$class = "\\".ucfirst($service)."_Service";
-		return new $class;
-	}
 	
 	/**
-	 * getTable
-	 * Service Factory (eventually turn it into a factory and/or leverage singletons)
-	 * @usage Erdiko::getTable('product'); // first character does not have to be uppercase
-	 * @usage Erdiko::getTable('Product_Index');
-	 * @return 
-	 * @todo throw exception if load fails?
+	 * Called everytime to create a logger object to write to the log
+	 * @todo deprecate this function, merge into the log() function
 	 */
-	public static function getTable($table)
-	{
-		$class = "\\".ucfirst($table)."_Table";
-		return new $class;
-	}
-	
-	/**
-	 * writeToFile
-	 * @usage Erdiko::writeToFile('sample string',filename,path,mode); 
-	 * @return 
-	 */
-	public static function writeToFile($string,$filename,$path=null,$mode=null)
-	{
-		$fileObj = new \erdiko\core\datasource\File();
-		return $fileObj->write($string,$filename,$path,$mode);
-	}
-	
-	public static function readFromFile($filename,$path=null)
-	{
-		$fileObj = new \erdiko\core\datasource\File();
-		return $fileObj->read($filename,$path);
-	}
-	
-	public static function deleteFile($filename,$path=null)
-	{
-		$fileObj = new \erdiko\core\datasource\File();
-		return $fileObj->delete($filename,$path);
-	}
-	
-	public static function moveFile($filename,$pathTo,$pathFrom=null)
-	{
-		$fileObj = new \erdiko\core\datasource\File();
-		return $fileObj->move($filename,$pathTo,$pathFrom=null);
-	}
-	
-	public static function copyFile($filename,$newFilePath,$newFileName=null,$path=null)
-	{
-		$fileObj = new \erdiko\core\datasource\File();
-		return $fileObj->copy($filename,$newFilePath,$newFileName,$path);
-	}
-	
-	public static function renameFile($oldName,$newName,$path=null)
-	{
-		$fileObj = new \erdiko\core\datasource\File();
-		return $fileObj->rename($oldName,$newName,$path);
-	}
-	
-	/*
-	* Called everytime to create a logger object to write to the log
-	*/
 	public static function createLogs($logFiles = array(), $logDir = null)
 	{
 		$config = Erdiko::getConfig();
@@ -216,7 +106,7 @@ class Erdiko
 			$logFiles=$config["logs"]["files"][0];
 		if($logDir==null)
 			$logDir=$config["logs"]["path"];
-		Erdiko::$_logObject=new Logger($logFiles,$logDir);
+		Erdiko::$_logObject=new erdiko\core\Logger($logFiles,$logDir);
 	}
 	
 	/**
@@ -231,27 +121,6 @@ class Erdiko
 		if(Erdiko::$_logObject==null)
 			Erdiko::createLogs();
 		return Erdiko::$_logObject->log($logString, $logLevel, $logKey);
-	}
-	
-	public static function addLogFile($key, $logFileName)
-	{
-		if(Erdiko::$_logObject==null)
-			Erdiko::createLogs();
-		return Erdiko::$_logObject->addLogFile($key, $logFileName);
-	}
-	
-	public static function removeLogFile($key)
-	{
-		if(Erdiko::$_logObject==null)
-			Erdiko::createLogs();
-		return Erdiko::$_logObject->removeLogFile($key);
-	}
-
-	public static function clearLog($logKey=null)
-	{
-		if(Erdiko::$_logObject==null)
-			Erdiko::createLogs();
-		return Erdiko::$_logObject->clearLog($logKey);
 	}
 	
 	/*
