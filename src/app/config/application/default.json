@@ -81,7 +81,7 @@
    "cache":{
       "default":{
 			"path":"/var/cache",
-			"type":"FileCache"
+			"type":"File"
 	  }
    }
 }
