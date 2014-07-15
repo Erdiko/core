@@ -43,7 +43,7 @@ class Example extends \erdiko\core\Controller
 		// error_log("var: ".print_r($var, true));
 
 		$data = array("hello", "world");
-		$view = new \erdiko\core\View('hello/world', $data);
+		$view = new \erdiko\core\View('examples/helloworld', $data);
 		
 		$this->setContent($view);
 	}

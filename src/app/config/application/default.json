@@ -11,10 +11,9 @@
       ]
    },
    "theme":{
-      "name":"hello",
-      "namespace":"/themes/hello",
-      "path":"/public/themes/hello",
-      "config":"/public/themes/hello/theme.json"
+      "name":"bootstrap",
+      "namespace":"/app/themes/bootstrap",
+      "public":"/public/themes/bootstrap"
    },
    "layout":{
       "layout":{

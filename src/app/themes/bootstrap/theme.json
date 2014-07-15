@@ -2,7 +2,14 @@
   "name": "bootstrap",
   "description": "Bootstrap based Erdiko theme",
   "credits": "John Arroyo",
-  "namespace": "/themes/bootstrap",
+  "namespace": "/app/themes/bootstrap",
+  "public":"/public/themes/bootstrap",
+  "rules": {
+    "header": {
+      "condition": { "route":"/" },
+      "view": "slideshow"
+    }
+  },
   "css": [
     {
       "name": "default",
