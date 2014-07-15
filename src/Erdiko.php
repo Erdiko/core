@@ -126,8 +126,7 @@ class Erdiko
 	/*
 	* Get the configured cache instance using name
 	* returns the instance of the cache type
-	*/
-	
+	*/	
 	public static function getCache($cacheType=null)
 	{
 		$config = Erdiko::getConfig("contexts/default");

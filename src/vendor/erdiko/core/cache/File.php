@@ -26,7 +26,7 @@ class File extends erdiko\core\datasource\File implements CacheInterface
 		parent::__construct($cacheDir);
 	}
 
-	public function set($key,$data)
+	public function set($key, $data)
 	{
 		$filename=null;
 		if(isset($this->_fileData[(string)$key]))
@@ -42,7 +42,7 @@ class File extends erdiko\core\datasource\File implements CacheInterface
 			return false;
 	}
 	
-	public function append($key,$data)
+	public function append($key, $data)
 	{
 		$filename=null;
 		if(isset($this->_fileData[(string)$key]))
