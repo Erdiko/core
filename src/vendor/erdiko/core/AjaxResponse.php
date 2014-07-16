@@ -15,40 +15,16 @@ class AjaxResponse extends Response
 {
 	protected $_theme;
 	protected $_content = null;
-	
-	/**
-	 * Constructor
-	 * @param Theme $theme, Theme Object (Contaier)
-	 */
-	public function __construct($theme = null)
-	{
-		$this->_theme = $theme;
-    }
-
-    /**
-     * @param Theme $theme, Theme Object (Container)
-     */
-    public function setTheme($theme)
-    {
-    	$this->_theme = $theme;
-    }
-
-    /**
-     * @param Container $content, e.g. View or Layout Object
-     */
-    public function setContent($content)
-    {
-    	$this->_content = $content;
-    }
 
     public function render()
     {
+        $responseData = array(
+            "status" => 500,
+            "body" => $this->_content,
+            "errors" => array()
+            );
 
-    }
-
-    public function send()
-    {
-    	echo $this->render();
+        return json_encode($responseData);
     }
 
 }

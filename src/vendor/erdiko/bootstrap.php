@@ -16,8 +16,10 @@ require_once ERDIKO.'/core/autoload.php';
 
 // Temp hack loader @todo use composer's autoloader for core
 require_once ERDIKO.'/core/Controller.php';
+require_once ERDIKO.'/core/AjaxController.php';
 require_once ERDIKO.'/core/ModelAbstract.php';
 require_once ERDIKO.'/core/Response.php';
+require_once ERDIKO.'/core/AjaxResponse.php';
 require_once ERDIKO.'/core/Container.php';
 require_once ERDIKO.'/core/Theme.php';
 require_once ERDIKO.'/core/Layout.php';

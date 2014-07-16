@@ -106,4 +106,14 @@ class Response
         return $html;
     }
 
+    /**
+     * Render and send data to browser then end request
+     * @notice USE WITH CAUTION
+     */
+    public function send()
+    {
+        echo $this->render();
+        die();
+    }
+
 }
