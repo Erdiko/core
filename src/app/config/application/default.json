@@ -82,7 +82,7 @@
       "default":{			
 			"type":"File",
          "class":"erdiko\core\cache\File",
-         "path":"/var/cache",
+         "path":"/var/cache"
 	  }
    }
 }
