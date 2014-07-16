@@ -101,9 +101,6 @@ class Container
      */
     public function toHtml()
     {
-        error_log($this->getTemplateFolder());
-        error_log($this->_template);
-
         $filename = $this->getTemplateFolder().$this->_template;
         $data = (is_subclass_of($this->_data, 'erdiko\core\Container')) ? $this->_data->toHtml() : $this->_data;
         // error_log("toHtml filename: $filename");
