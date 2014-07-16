@@ -8,50 +8,31 @@ use erdiko\core\Logger;
 
 class ErdikoTest extends ErdikoTestCase
 {
-	var $cacheObj=null;
+	function tearDown() {
 
-/*
-    function setUp() {
-        $this->cacheObj = Erdiko::getCache("default");
-		//$this->cacheObj = new Cache();
+		$webRoot = dirname(dirname(__DIR__));
+
+		$fileObj = new \erdiko\core\datasource\File;
+		$fileObj->delete("erdiko_default.log", $webRoot."/src/vendor/var/logs");
+		$fileObj->delete("erdiko_error.log", $webRoot."/src/vendor/var/logs");
+
+    	unset($this->fileObj);
     }
 
-    function tearDown() {
-        $this->cacheObj->forgetALL();
-        unset($this->cacheObj);
-    }
-	*/
 	public function testConfig()
 	{
-		//Erdiko::getConfig("application/default");
+		$this->assertTrue(Erdiko::getConfig("application/default") != false);
 	}
 
 	public function testSendEmail()
 	{
-		//Erdiko::sendEmail("coleman@arroyolabs.com", "Email Test", "Test Body", "google@google.com");
+		Erdiko::sendEmail("To@arroyolabs.com", "Test Heading", "Test Body", "From@arroyolabs.com");
 	}
 
-	/*
-	public function testWriteToFileAndReadFromFileThenDelete()
+	public function testGetRoutes()
 	{
-		$webRoot = dirname(dirname(__DIR__));
-		$string="Sample string";
-		Erdiko::writeToFile($string,"sample.txt");
-		$result=Erdiko::readFromFile("sample.txt");
-        $this->assertTrue($result == $string);
-		
-		$string="Sample string";
-		Erdiko::writeToFile($string,"sample.txt",$webRoot);
-		$result2=Erdiko::readFromFile("sample.txt",$webRoot);
-        $this->assertTrue($result2 == $string);
-		
-		Erdiko::deleteFile("sample.txt");
-		$this->assertTrue(file_exists($webRoot."www/var/sample.txt") == false);
-		
-		Erdiko::deleteFile("sample.txt",$webRoot."");
-		$this->assertTrue(file_exists($webRoot."/sample.txt") == false);
+		$this->assertTrue(Erdiko::getRoutes() != false);
 	}
-*/
 
 	public function testCreateLogs()
 	{
@@ -60,41 +41,31 @@ class ErdikoTest extends ErdikoTestCase
 			"exceptionLog" => "erdiko_error.log",
 		);
 		Erdiko::createLogs($logFiles);
-
 	}
 
-	
+	/**
+	 *	@depends testCreateLogs	
+	 */	
 	public function testLogs()
 	{
+		$fileObj = new \erdiko\core\datasource\File;
 		$webRoot = dirname(dirname(__DIR__));
-		$fileObject = new File;
-		$fileObject->read($webRoot);
+
 		$sampleText="This is a sample log for Erdiko class test";
 		
 		Erdiko::log($sampleText);
-		//$return=Erdiko::readFromFile("erdiko.log",$webRoot."/www/var/logs");
-		//$this->assertTrue(strpos($return,$sampleText) != false );
-		
-		/*
-		Erdiko::clearLog();
-		$return=Erdiko::readFromFile("erdiko.log",$webRoot."/www/var/logs");
-		$this->assertTrue(empty($return)==true);
-		
-		Erdiko::clearLog();
-		Erdiko::log($sampleText,Logger::INFO);
-		$return=Erdiko::readFromFile("erdiko.log",$webRoot."/www/var/logs");
-		$this->assertTrue(strpos($return,$sampleText) != false && strpos($return,"Info") != false);
-		
-		Erdiko::clearLog();
-		Erdiko::log($sampleText,Logger::ERROR,"exception");
-		$return=Erdiko::readFromFile("erdiko_error.log",$webRoot."/www/var/logs");
-		$this->assertTrue(strpos($return,$sampleText) != false && strpos($return,"Error") != false);
-		
-		Erdiko::clearLog();
-		Erdiko::log(new Exception($sampleText),null,"exception");
-		$return=Erdiko::readFromFile("erdiko_error.log",$webRoot."/www/var/logs");
+		$return= $fileObj->read("erdiko_default.log", $webRoot."/src/vendor/var/logs");
 		$this->assertTrue(strpos($return,$sampleText) != false );	
-		*/
+
+		Erdiko::log($sampleText, null, "exceptionLog");
+		$return= $fileObj->read("erdiko_error.log", $webRoot."/src/vendor/var/logs");
+		$this->assertTrue(strpos($return,$sampleText) != false );	
+	}
+
+	public function getCache()
+	{
+		//Reture false if config file is not existed
+		$this->assertTrue(Erdiko::getCache("default"));
 	}
 	
 }

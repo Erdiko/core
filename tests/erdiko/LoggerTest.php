@@ -27,6 +27,7 @@ class LoggerTest extends ErdikoTestCase
     	$this->loggerObject->delete("erdiko_error.log", $this->webRoot."/src/vendor/var/logs");
     	$this->loggerObject->delete("erdiko_test_temp_log.log", $this->webRoot."/src/vendor/var/logs");
         unset($this->loggerObject);
+        unset($this->fileObj);
     }
 
     function testLog() {
