@@ -17,8 +17,9 @@ class Theme extends Container
     protected $_defaultName = 'default';
     protected $_config = null;
     protected $_content = null;
+    protected $_extraCss = array();
+    protected $_extraJs = array();
 
-    // $_template is the theme name
 
     /**
      * Constructor
@@ -73,7 +74,18 @@ class Theme extends Container
      */
     public function getCss()
     {
-        return $this->_config['css'];
+        return array_merge($this->_config['css'], $this->_extraCss);
+    }
+
+    /**
+     *
+     */
+    public function addCss($css)
+    {
+        $this->_extraCss[] = array(
+            'file' => $css,
+            "active" => 1
+            );
     }
 
     /**

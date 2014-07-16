@@ -11,8 +11,23 @@ ini_set('display_errors', '1');
 /**
  * Hooks
  */
-ToroHook::add("404", function() {
-    echo "Sorry, we cannot find that URL";
+ToroHook::add("404", function($msg = null) {
+    // Simple text only page
+    // echo "Sorry, we cannot find that URL";
+
+    if($msg == null)
+    	$msg = "Sorry, we cannot find that URL";
+
+	// Themed page
+	$response = new \erdiko\core\Response;
+	$theme = new \erdiko\core\Theme('bootstrap');
+	$theme->addCss('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css');
+	$theme->addCss('/themes/bootstrap/css/font-awesome-animation.css');
+	$response->setTheme( $theme );
+	$response->setContent( \Erdiko::getView('404', array("message" => $msg)) );
+	echo $response->render();
+
+    die; // don't let the calling controller continue
 });
 
 ToroHook::add("500", function($msg = "") {

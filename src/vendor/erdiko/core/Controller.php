@@ -141,9 +141,10 @@ class Controller
 	{
 		// error_log("httpMethod: $httpMethod");
 		$method = $this->urlToActionName($var, $httpMethod);
-		// error_log("method: $method");
-
-		return $this->$method();
+		if(method_exists($this, $method))
+			return $this->$method();
+		else
+			\ToroHook::fire('404');
 	}
 
 	/**
