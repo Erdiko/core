@@ -39,6 +39,16 @@ class Controller
     }
 
     /**
+     * Get the theme name
+     * 
+     * @return string $name
+     */
+    public function getThemeName()
+    {
+    	return $this->getResponse()->getThemeName();
+    }
+
+    /**
      * Set the theme template used to render the page
      * @param string $template 
      */
@@ -129,11 +139,9 @@ class Controller
 	 */
 	public function autoaction($var, $httpMethod = 'get')
 	{
-		error_log("httpMethod: $httpMethod");
-		
+		// error_log("httpMethod: $httpMethod");
 		$method = $this->urlToActionName($var, $httpMethod);
-
-		error_log("method: $method");
+		// error_log("method: $method");
 
 		return $this->$method();
 	}
@@ -196,6 +204,18 @@ class Controller
 		$this->appendContent($view->toHtml());
 	}
 
+	/**
+	 * Load a layout with the given data
+	 * 
+	 * @param string $layoutName
+	 * @param array $data
+	 * @return string $html, layout contents
+	 */
+	public function getLayout($layoutName, $data = null)
+	{
+		$layout = new \erdiko\core\Layout($layoutName, $data, $this->getThemeName());
+		return  $layout->toHtml();
+	}
 
 
 
@@ -362,41 +382,19 @@ class Controller
         return $this;
 	}
 
-	public function setLayoutColumns($cols)
-	{
-		$this->_numberColumns = $cols;
-	}
-
 	/**
-	 * Set the view template to be used
-	 *
-	 * @param string $name
-	 * @param mixed $content
-	 * @param string $view, view filename
+	 * Redirect to another url
+	 * @param string $url
 	 */
-	public function setSidebar($name, $content, $view = null)
-	{
-		$this->_pageData['sidebar'][$name]['content'] = $content;
-		if($view != null)
-			$this->_pageData['sidebar'][$name]['view'] = $view;
-	}
-
-	/**
-	 * Set the sidebars directly as array elements
-	 * 
-	 * @param array $data, array can have 'left' and 'right' indicies
-	 */
-	public function setSidebars($data)
-	{
-		$this->_pageData['sidebar'] = $data;
-	}
-
 	public function redirect($url)
 	{
 		header( "Location: $url" );
 		exit;
 	}
 
+	/**
+	 * 
+	 */
 	public function getExceptionHtml($message)
 	{
 		return "<div class=\"exception\">$message</div>";

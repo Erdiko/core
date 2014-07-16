@@ -146,49 +146,37 @@ class Example extends \erdiko\core\Controller
 	}
 
 	public function getTwocolumn()
-	{
-		$this->setLayoutColumns(2);
-		
-		$right = $this->getView('examples/one');
-		$right .= $this->getView('examples/two');
+	{	
+		$right = $this->getView('examples/two');
 		$right .= $this->getView('examples/three');
 
 		// Set columns directly using a layout
 		$columns = array(
-			'one' => array('content' => 'columns/default'),
-			'two' => array('content' => $right)
+			'one' => $this->getView('examples/one'),
+			'two' => $right
 			);
 		
 		$this->setTitle('Example: 2 Column Layout Page');
-		$this->setContent( $this->getLayout('2-column', $columns) );
+		$this->setContent( $this->getLayout('2column', $columns) );
 	}
 
-
-
-
-
-	public function threecolumnAction()
+	public function getThreecolumn()
 	{
-		$this->setLayoutColumns(3);
-		
-		$left = $this->getView(null, 'examples/one');
-		$left .= $this->getView(null, 'examples/two');
-		$left .= $this->getView(null, 'examples/three');
-
-		// Set sidebars directly
-		$sidebars = array(
-			'left' => array('content' => $left),
-			'right' => array(
-				'content' => 'right sidebar',
-				'view' => 'sidebars/default')
+		// Set each column using a layout
+		$columns = array(
+			'one' => $this->getView('examples/one'),
+			'two' => $this->getView('examples/two'),
+			'three' => $this->getView('examples/three')
 			);
-		$this->setSidebars($sidebars);
-
-		$this->setBodyContent( '3 column layout example' );
-
-		$this->setTitle('3 Column Page');
-		$this->setPageTitle( 'Example: Complex 3 Column' );
+		
+		$this->setTitle('Example: 3 Column Layout Page');
+		$this->setContent( $this->getLayout('3column', $columns) );
 	}
+
+
+
+
+
 
 	public function dataAction()
 	{
