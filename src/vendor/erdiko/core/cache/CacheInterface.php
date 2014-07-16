@@ -11,13 +11,13 @@ namespace erdiko\core\cache;
 
 interface CacheInterface
 {
-	public function set($key,$data);
+	public function put($key,$data);
 	
 	public function get($key);
 	
-	public function delete($key);
+	public function forget($key);
 	
-	public function exists($key);
+	public function has($key);
 	
-	public function clearCache();
+	public function forgetAll();
 }

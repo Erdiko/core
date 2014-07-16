@@ -79,9 +79,10 @@
       ]
    },
    "cache":{
-      "default":{
-			"path":"/var/cache",
-			"type":"File"
+      "default":{			
+			"type":"File",
+         "class":"erdiko\core\cache\File",
+         "path":"/var/cache"
 	  }
    }
 }
