@@ -173,6 +173,16 @@ class Example extends \erdiko\core\Controller
 		$this->setContent( $this->getLayout('3column', $columns) );
 	}
 
+	public function getGrid()
+	{
+		$data = array(
+			'columns' => 4,
+			'count' => 12
+			);
+		
+		$this->setTitle('Example: Grid');
+		$this->setContent( $this->getLayout('grid/default', $data) );
+	}
 
 
 

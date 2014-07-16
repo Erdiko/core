@@ -31,6 +31,8 @@ class Container
     }
 	
     /**
+     * Set Container template
+     * 
      * @param string $template
      */
     public function setTemplate($template)
@@ -39,11 +41,19 @@ class Container
     }
 
     /**
-     * @param mixed $data, data injected into the view
+     * @param mixed $data, data injected into the container
      */
     public function setData($data)
     {
         $this->_data = $data;
+    }
+
+    /**
+     * @return mixed $data, data injected into the container
+     */
+    public function getData()
+    {
+        return $this->_data;
     }
 
     /**
@@ -91,6 +101,9 @@ class Container
      */
     public function toHtml()
     {
+        error_log($this->getTemplateFolder());
+        error_log($this->_template);
+
         $filename = $this->getTemplateFolder().$this->_template;
         $data = (is_subclass_of($this->_data, 'erdiko\core\Container')) ? $this->_data->toHtml() : $this->_data;
         // error_log("toHtml filename: $filename");

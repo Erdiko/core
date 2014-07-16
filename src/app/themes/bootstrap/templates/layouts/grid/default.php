@@ -1,20 +1,9 @@
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12" role="main">
-			<?php 
-				$title = $this->getPageTitle();
-		 		if(!empty($title))
-		    		echo "<h1>".$title."</h1>\n";
-
-		    	$data = $this->getLayoutData(); // @todo rename 'templates' folder to 'layouts'
-		    	// error_log("data: ".print_r($data, true));
-			?>
-		</div>
-	</div>
-
       <div class="row">
-        <div class="col-md-12" role="main">
+        <div role="main">
         	<?php
+        		$data = $data->getData(); // temporary hack
+
 				$item = array(
 					'size' => $data['columns'],
 					'details' => array(
@@ -25,7 +14,7 @@
 
 				for($i=0; $i<$data['count']; $i++)
 				{
-					echo Erdiko::getView($item, '/grid/item.php');
+					echo Erdiko::getView('examples/grid/item', $item);
 				}
 			?>
         </div>

@@ -34,17 +34,13 @@ class Erdiko
 	/**
 	 * Load a view from the current theme with the given data
 	 * 
-	 * @param string $file
 	 * @param array $data
-	 * 
-	 * @todo deprecate this function -John 
-	 * @todo render views with the theme engine instead
-	 * @note this based off of the core handler function of the same name
+	 * @param string $file
 	 */
-	public static function getView($data = null, $file = null)
+	public static function getView($viewName, $data = null)
 	{
-		$filename = VIEWROOT.$file;
-		return  Erdiko::getTemplate($filename, $data);
+		$view = new \erdiko\core\View($viewName, $data);
+		return  $view->toHtml();
 	}
 	
 	/**
