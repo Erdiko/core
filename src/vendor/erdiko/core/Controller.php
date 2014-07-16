@@ -222,6 +222,8 @@ class Controller
 
 
 
+
+
 	/**
 	 * @param string $arguments
 	 * @return array $arguments
@@ -245,9 +247,6 @@ class Controller
 		}
 		return $keyArray;
 	}
-
-
-
 
 	/**
 	 * Add js file to current page
@@ -298,89 +297,9 @@ class Controller
 	{
 		$this->_themeExtras['meta'][$name] = $content;
 	}
-	
-	/**
-	 * Primary request router
-	 *
-	 * @param string $name, action name
-	 * @param string $arguments remaining url params
-	 */
-	public function route($name, $arguments)
-	{
-		// Prepare arguments and name
-		$arguments = $this->parseArguments($arguments);
-		$splitName = $this->parseArguments($name);
-		$ct = count($splitName);
-		if($arguments == null)
-			$arguments = array('raw_url_key' => $name);
-		else
-			$arguments = array_merge(array('raw_url_key' => $name), $arguments);
 
-		// Check name for rest url components
-		// @todo check for first arg after action name is an int, if so insert it as array("id" => [int])
-		switch($ct) {
-			case 0:
-				$name = "index";
-				break;
-			case 1:
-				$name = $splitName[0];
-				break;
-			default:
-				$name = $splitName[0];
-				$len = $ct-1;
-				if( ($len % 2) > 0 )
-					$nameArgs = array_slice($splitName, 1, $len);
-				else
-					$nameArgs = $this->compileNameValue(array_slice($splitName, 1, $len));
-				$arguments = array_merge($nameArgs, $arguments);
-				break;
-		}
-		
-		// Get data to populate page wrapper
-		$data = $this->_contextConfig['layout'];
-		$this->_arguments = $arguments;
-		
-		// Load the page content
-		try 
-		{
-            $action = $this->urlToActionName($name);
-            $this->_before();
 
-            // Determine what content should be called 
-            if( empty($name) )
-				$this->indexAction($arguments);
-			else
-				$this->$action($arguments); // run the action method of the handler/controller
 
-			$this->_after();
-		}
-		catch(\Exception $e)
-		{
-			Erdiko::log($e->getMessage());
-			$this->appendBodyContent( $this->getExceptionHtml( $e->getMessage() ) );
-		}
-		
-		$this->theme($data);
-	}
-
-    /**
-	 * Add a page content data to be themed in the view
-	 *
-	 * @param mixed $data
-     * @return $this: Provides chaining
-	 */
-	public function addContentData($key, $value)
-	{
-        if(empty($this->_pageData['data']['content'])) {
-        	$this->_pageData['data']['content'] = array();
-        }
-        // If we have a scalar value setup then just return false(maybe throw an exception in future)
-        if(!is_array($this->_pageData['data']['content'])) {
-    		return false;
-        }
-        $this->_pageData['data']['content'][$key] = $value;
-        return $this;
-	}
 
 	/**
 	 * Redirect to another url
