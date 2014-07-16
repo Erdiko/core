@@ -24,35 +24,42 @@ class CacheTest extends ErdikoTestCase
     // here
     function tearDown() {
         // delete your instance
+        $this->cacheObj->forgetALL();
         unset($this->cacheObj);
     }
 	
-	function testGetAndSet()
+	function testGetAndPut()
 	{
-		$this->cacheObj->set("test1","test1");
+		$this->cacheObj->put("test1","test1");
 		$return=$this->cacheObj->get("test1");
 		$this->assertTrue($return == "test1");
 	}
-	
-	function testExists()
-	{
-		$this->cacheObj->set("test2","test2");
-		$this->assertTrue($this->cacheObj->exists("test2"));
+
+	function testHas()
+	{	
+		$this->assertFalse($this->cacheObj->has("test2"));
+		$this->cacheObj->put("test2","test2");
+		$this->assertTrue($this->cacheObj->has("test2"));
 	}
 	
-	function testDelete()
+	function testForget()
 	{
-		$this->cacheObj->set("test3","test3");
-		$this->cacheObj->deleteFromCache("test3");
-		$this->assertFalse($this->cacheObj->exists("test3"));
-	}
+		$this->cacheObj->put("test3","test3");
+		$this->assertTrue($this->cacheObj->has("test3"));
+		$this->cacheObj->forget("test3");
+		$this->assertFalse($this->cacheObj->has("test3"));
+	}	
 	
-	function testClearCache()
+	function testForgetAll()
 	{
-		$this->cacheObj->clearCache();
-		$this->assertFalse($this->cacheObj->exists("test3"));
-		$this->assertFalse($this->cacheObj->exists("test2"));
-		$this->assertFalse($this->cacheObj->exists("test1"));
+		$this->cacheObj->put("test1","test1");
+		$this->assertTrue($this->cacheObj->has("test1"));
+		$this->assertFalse($this->cacheObj->has("test2"));
+
+		$this->cacheObj->forgetALL();
+
+		$this->assertFalse($this->cacheObj->has("test1"));
+		$this->assertFalse($this->cacheObj->has("test2"));
 	}
 
   }

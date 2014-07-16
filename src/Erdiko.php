@@ -129,7 +129,7 @@ class Erdiko
 	*/	
 	public static function getCache($cacheType=null)
 	{
-		$config = Erdiko::getConfig("contexts/default");
+		$config = Erdiko::getConfig("application/default");
 		if(!isset($cacheType))
 			$cacheType = "default";
 
