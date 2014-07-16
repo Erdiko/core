@@ -39,6 +39,16 @@ class Controller
     }
 
     /**
+     * Get the theme name
+     * 
+     * @return string $name
+     */
+    public function getThemeName()
+    {
+    	return $this->getResponse()->getThemeName();
+    }
+
+    /**
      * Set the theme template used to render the page
      * @param string $template 
      */
@@ -129,13 +139,12 @@ class Controller
 	 */
 	public function autoaction($var, $httpMethod = 'get')
 	{
-		error_log("httpMethod: $httpMethod");
-		
+		// error_log("httpMethod: $httpMethod");
 		$method = $this->urlToActionName($var, $httpMethod);
-
-		error_log("method: $method");
-
-		return $this->$method();
+		if(method_exists($this, $method))
+			return $this->$method();
+		else
+			\ToroHook::fire('404');
 	}
 
 	/**
@@ -196,6 +205,20 @@ class Controller
 		$this->appendContent($view->toHtml());
 	}
 
+	/**
+	 * Load a layout with the given data
+	 * 
+	 * @param string $layoutName
+	 * @param array $data
+	 * @return string $html, layout contents
+	 */
+	public function getLayout($layoutName, $data = null)
+	{
+		$layout = new \erdiko\core\Layout($layoutName, $data, $this->getThemeName());
+		return  $layout->toHtml();
+	}
+
+
 
 
 
@@ -225,9 +248,6 @@ class Controller
 		}
 		return $keyArray;
 	}
-
-
-
 
 	/**
 	 * Add js file to current page
@@ -278,125 +298,23 @@ class Controller
 	{
 		$this->_themeExtras['meta'][$name] = $content;
 	}
-	
-	/**
-	 * Primary request router
-	 *
-	 * @param string $name, action name
-	 * @param string $arguments remaining url params
-	 */
-	public function route($name, $arguments)
-	{
-		// Prepare arguments and name
-		$arguments = $this->parseArguments($arguments);
-		$splitName = $this->parseArguments($name);
-		$ct = count($splitName);
-		if($arguments == null)
-			$arguments = array('raw_url_key' => $name);
-		else
-			$arguments = array_merge(array('raw_url_key' => $name), $arguments);
 
-		// Check name for rest url components
-		// @todo check for first arg after action name is an int, if so insert it as array("id" => [int])
-		switch($ct) {
-			case 0:
-				$name = "index";
-				break;
-			case 1:
-				$name = $splitName[0];
-				break;
-			default:
-				$name = $splitName[0];
-				$len = $ct-1;
-				if( ($len % 2) > 0 )
-					$nameArgs = array_slice($splitName, 1, $len);
-				else
-					$nameArgs = $this->compileNameValue(array_slice($splitName, 1, $len));
-				$arguments = array_merge($nameArgs, $arguments);
-				break;
-		}
-		
-		// Get data to populate page wrapper
-		$data = $this->_contextConfig['layout'];
-		$this->_arguments = $arguments;
-		
-		// Load the page content
-		try 
-		{
-            $action = $this->urlToActionName($name);
-            $this->_before();
 
-            // Determine what content should be called 
-            if( empty($name) )
-				$this->indexAction($arguments);
-			else
-				$this->$action($arguments); // run the action method of the handler/controller
 
-			$this->_after();
-		}
-		catch(\Exception $e)
-		{
-			Erdiko::log($e->getMessage());
-			$this->appendBodyContent( $this->getExceptionHtml( $e->getMessage() ) );
-		}
-		
-		$this->theme($data);
-	}
-
-    /**
-	 * Add a page content data to be themed in the view
-	 *
-	 * @param mixed $data
-     * @return $this: Provides chaining
-	 */
-	public function addContentData($key, $value)
-	{
-        if(empty($this->_pageData['data']['content'])) {
-        	$this->_pageData['data']['content'] = array();
-        }
-        // If we have a scalar value setup then just return false(maybe throw an exception in future)
-        if(!is_array($this->_pageData['data']['content'])) {
-    		return false;
-        }
-        $this->_pageData['data']['content'][$key] = $value;
-        return $this;
-	}
-
-	public function setLayoutColumns($cols)
-	{
-		$this->_numberColumns = $cols;
-	}
 
 	/**
-	 * Set the view template to be used
-	 *
-	 * @param string $name
-	 * @param mixed $content
-	 * @param string $view, view filename
+	 * Redirect to another url
+	 * @param string $url
 	 */
-	public function setSidebar($name, $content, $view = null)
-	{
-		$this->_pageData['sidebar'][$name]['content'] = $content;
-		if($view != null)
-			$this->_pageData['sidebar'][$name]['view'] = $view;
-	}
-
-	/**
-	 * Set the sidebars directly as array elements
-	 * 
-	 * @param array $data, array can have 'left' and 'right' indicies
-	 */
-	public function setSidebars($data)
-	{
-		$this->_pageData['sidebar'] = $data;
-	}
-
 	public function redirect($url)
 	{
 		header( "Location: $url" );
 		exit;
 	}
 
+	/**
+	 * 
+	 */
 	public function getExceptionHtml($message)
 	{
 		return "<div class=\"exception\">$message</div>";

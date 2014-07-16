@@ -31,6 +31,8 @@ class Container
     }
 	
     /**
+     * Set Container template
+     * 
      * @param string $template
      */
     public function setTemplate($template)
@@ -39,11 +41,19 @@ class Container
     }
 
     /**
-     * @param mixed $data, data injected into the view
+     * @param mixed $data, data injected into the container
      */
     public function setData($data)
     {
         $this->_data = $data;
+    }
+
+    /**
+     * @return mixed $data, data injected into the container
+     */
+    public function getData()
+    {
+        return $this->_data;
     }
 
     /**
@@ -65,8 +75,6 @@ class Container
      */
     public function getTemplateFile($filename, $data)
     {
-        // error_log("getTemplateFile($filename)");
-
         if (is_file($filename.'.php'))
         {
             ob_start();
@@ -81,21 +89,21 @@ class Container
         } elseif (is_file($filename.'.md')) {
             $parsedown = new \Parsedown();
             return $parsedown->text(file_get_contents($filename.'.md'));
-        
         }
         
         throw new \Exception("Template file does not exist");
     }
 
     /**
-     *
+     * Render container to HTML
+     * 
+     * @return string $html
      */
     public function toHtml()
     {
         $filename = $this->getTemplateFolder().$this->_template;
         $data = (is_subclass_of($this->_data, 'erdiko\core\Container')) ? $this->_data->toHtml() : $this->_data;
-
-        error_log("filename: $filename");
+        // error_log("toHtml filename: $filename");
 
         return $this->getTemplateFile($filename, $data);
     }
