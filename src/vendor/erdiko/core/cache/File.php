@@ -14,7 +14,7 @@ use erdiko\core\cache\Interface;
 
 class File extends erdiko\core\datasource\File implements CacheInterface 
 {
-	protected $_fileData=array();
+	protected $_fileData = array();
 
 	public function __construct($cacheDir=null)
 	{
@@ -26,7 +26,7 @@ class File extends erdiko\core\datasource\File implements CacheInterface
 		parent::__construct($cacheDir);
 	}
 
-	public function set($key, $data)
+	public function put($key, $data)
 	{
 		$filename=null;
 		if(isset($this->_fileData[(string)$key]))
@@ -34,22 +34,6 @@ class File extends erdiko\core\datasource\File implements CacheInterface
 		if(!isset($filename))
 			$filename=$key;
 		if($this->write($data,$filename))
-		{
-			$this->_fileData[(string)$key]=$filename;
-			return true;
-		}
-		else
-			return false;
-	}
-	
-	public function append($key, $data)
-	{
-		$filename=null;
-		if(isset($this->_fileData[(string)$key]))
-			$filename=$this->_fileData[(string)$key];
-		if(!isset($filename))
-			$filename=$key;
-		if($this->write($data,$filename,null,"a"))
 		{
 			$this->_fileData[(string)$key]=$filename;
 			return true;
@@ -69,7 +53,7 @@ class File extends erdiko\core\datasource\File implements CacheInterface
 			return $this->read($filename);
 	}
 	
-	public function delete($key)
+	public function forget($key)
 	{
 		$filename=null;
 		if(isset($this->_fileData[(string)$key]))
@@ -87,7 +71,7 @@ class File extends erdiko\core\datasource\File implements CacheInterface
 		}
 	}
 	
-	public function exists($key)
+	public function has($key)
 	{
 		$filename=null;
 		if(isset($this->_fileData[(string)$key]))
@@ -95,11 +79,11 @@ class File extends erdiko\core\datasource\File implements CacheInterface
 		return(isset($filename) && $this->fileExists($filename));
 	}
 	
-	public function clearCache()
+	public function forgetAll()
 	{
 		$ret=true;
 		foreach($this->_fileData as $key => $filename)
-			$ret = $ret && $this->delete($filename);
+			$ret = $ret && $this->forget($filename);
 		if($ret)
 		{
 			$this->_fileData = array();
