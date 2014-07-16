@@ -25,6 +25,7 @@ require_once ERDIKO.'/core/datasource/File.php';
 require_once ERDIKO.'/core/cache/CacheInterface.php';
 require_once ERDIKO.'/core/cache/File.php';
 require_once ERDIKO.'/core/Cache.php';
+require_once ERDIKO.'/core/Logger.php';
 
 // Composer
 require_once VENDOR.'/autoload.php';
