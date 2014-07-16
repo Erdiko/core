@@ -9,10 +9,10 @@
  * @author		John Arroyo, john@arroyolabs.com
  */
 namespace erdiko\core\cache;
-use erdiko\core\cache\Interface;
+use erdiko\core\cache\CacheInterface;
 
 
-class File extends erdiko\core\datasource\File implements CacheInterface 
+class File extends \erdiko\core\datasource\File implements CacheInterface 
 {
 	protected $_fileData = array();
 
