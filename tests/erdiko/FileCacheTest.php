@@ -1,10 +1,10 @@
 <?php
 
-use erdiko\core\Cache;
+use erdiko\core\cache\File;
 require_once dirname(__DIR__).'/ErdikoTestCase.php';
 
 
-class CacheTest extends ErdikoTestCase
+class FileCacheTest extends ErdikoTestCase
 {
     // contains the object handle of the string class
     var $cacheObj=null;
