@@ -70,7 +70,9 @@ class Theme extends Container
     }
 
     /**
+     * get array of css files to include in theme
      *
+     * @return array $css
      */
     public function getCss()
     {
@@ -78,22 +80,38 @@ class Theme extends Container
     }
 
     /**
-     *
+     * Add css file to page
+     * @param string $cssFile, uri of injected css file
      */
-    public function addCss($css)
+    public function addCss($cssFile)
     {
         $this->_extraCss[] = array(
-            'file' => $css,
+            'file' => $cssFile,
             "active" => 1
             );
     }
 
     /**
-     *
+     * Get array of js files to include
+     * 
+     * @return array $js
      */
     public function getJs()
     {
-        return $this->_config['js'];
+        return array_merge($this->_config['js'], $this->_extraJs);
+    }
+
+    /**
+     * Add js file to page
+     *
+     * @param string $jsFile, link to js file
+     */
+    public function addJs($jsFile)
+    {
+        $this->_extraJs[] = array(
+            'file' => $jsFile,
+            "active" => 1
+            );
     }
 
     /**
