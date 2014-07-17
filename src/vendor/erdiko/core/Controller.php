@@ -137,7 +137,7 @@ class Controller
 	/**
 	 *
 	 */
-	public function autoaction($var, $httpMethod = 'get')
+	private function _autoaction($var, $httpMethod = 'get')
 	{
 		// error_log("httpMethod: $httpMethod");
 		$method = $this->urlToActionName($var, $httpMethod);
@@ -150,7 +150,7 @@ class Controller
 	/**
      * Call back for preg_replace in urlToActionName
      */
-    public function _replaceActionName($parts) 
+    private function _replaceActionName($parts) 
     {
         return strtoupper($parts[1]);
     }
