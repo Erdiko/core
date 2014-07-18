@@ -176,7 +176,7 @@ class Controller
 	public function setView($view, $data = null)
 	{
 		$view = new \erdiko\core\View($view, $data);
-		$this->setContent($view);
+		$this->setContent($view->toHtml());
 	}
 	
 	/**
@@ -218,8 +218,29 @@ class Controller
 		return  $layout->toHtml();
 	}
 
+	/**
+	 * Redirect to another url
+	 * @param string $url
+	 */
+	public function redirect($url)
+	{
+		header( "Location: $url" );
+		exit;
+	}
 
 
+	/**
+	 * 
+	 * 
+	 * 
+	 *  Code below are deprecated or may need to be moved!
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
 
 
 
@@ -247,25 +268,6 @@ class Controller
 			$keyArray[$intArray[$i]] = $intArray[$i+1];
 		}
 		return $keyArray;
-	}
-
-	/**
-	 * Add js file to current page
-	 */
-	public function addJs($file)
-	{
-		$this->_themeExtras['js'][] = array(
-			'file' => $file,
-			'active' => 1);
-	}
-	
-	/**
-	 * Add Css file to current page
-	 * @note Not yet supported
-	 */
-	public function addCss($file)
-	{
-		$this->_themeExtras['css'][] = array('file' => $file);
 	}
 
     /**
@@ -300,17 +302,6 @@ class Controller
 	}
 
 
-
-
-	/**
-	 * Redirect to another url
-	 * @param string $url
-	 */
-	public function redirect($url)
-	{
-		header( "Location: $url" );
-		exit;
-	}
 
 	/**
 	 * 
