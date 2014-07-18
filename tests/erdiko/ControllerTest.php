@@ -81,16 +81,6 @@ class ControllerTest extends ErdikoTestCase
         $this->assertTrue($this->controllerObj->getResponse()->getContent() == $content.$appContent);
     }
 
-    function testAutoaction()
-    {
-
-    }
-
-    function test_replaceActionName()
-    {
-
-    }
-
     function testUrlToActionName()
     {
 
@@ -111,58 +101,55 @@ class ControllerTest extends ErdikoTestCase
     }
 
     function testGetView()
-    {
-
+    {   
+        //It should not throw any exception
+        $this->controllerObj->getView('404', null);
+        $this->controllerObj->getView('examples/helloworld', null);
     }
 
     function testAddView()
     {
-
+        $this->controllerObj->addView('examples/helloworld', null);
     }
 
     function testGetLayout()
     {
-
+        $this->controllerObj->setThemeName('bootstrap');
+        $this->controllerObj->getLayout('1column', null);
     }
 
     function testParseArguments()
     {
+        $return = $this->controllerObj->parseArguments('test/parse');
+        $tempArr = Array('test', 'parse');
+        $this->assertTrue($return == $tempArr);
+        
 
+        $return = $this->controllerObj->parseArguments('test/parse/arguments');
+        $tempArr = Array('test', 'parse', 'arguments');
+        $this->assertTrue($return == $tempArr);
     }
 
     function testCompileNameValue()
     {
-
+        $tempArr = Array(1, 2, 3, 4, 5, 6);
+        $return = $this->controllerObj->compileNameValue($tempArr);
+        $tempArr2 = Array(
+                        1 => 2,
+                        3 => 4,
+                        5 => 6,
+                        );
+        $this->assertTrue($return == $tempArr2);
     }
 
-    function testAddJs()
-    {
-
-    }
-
-    function testAddCss()
-    {
-
-    }
-
-    function testAddPhpToJs()
-    {
-
-    }
-
-    function testAddMeta()
-    {
-
-    }
 
     function testRedirect()
     {
+        //$url = 'http://erdiko.com';
+        //$this->controllerObj->redirect($url);
 
     }
 
-    function testGetExceptionHtml()
-    {
 
-    }
   }
 ?>
