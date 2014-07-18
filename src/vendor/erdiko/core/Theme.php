@@ -147,6 +147,11 @@ class Theme extends Container
         $this->_name = $name;
     }
 
+    public function getName()
+    {
+        return $this->_name;
+    }
+
     /**
      * Get template file populated by the config
      * e.g. get header/footer

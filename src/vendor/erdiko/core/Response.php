@@ -67,7 +67,8 @@ class Response
      */
     public function getThemeName()
     {
-        return $this->_themeName;
+        $name = (empty($this->_themeName)) ? $this->_theme->getName() : $this->_themeName;
+        return $name;
     }
 
     /**
