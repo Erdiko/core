@@ -47,6 +47,11 @@ class Response
     	$this->_theme = $theme;
     }
 
+    public function getTheme()
+    {
+        return $this->_theme;
+    }
+
     /**
      * @param string $themeName
      */
