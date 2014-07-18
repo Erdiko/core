@@ -83,39 +83,67 @@ class ControllerTest extends ErdikoTestCase
 
     function testUrlToActionName()
     {
-
+        $return = $this->controllerObj->urlToActionName('http://erdiko.com/', 'get');
+        $this->assertEquals($return, 'get'.ucfirst('http://erdiko.com/'));
+        
+        $return = $this->controllerObj->urlToActionName('www.erdiko.com/', 'get');
+        $this->assertEquals($return, 'get'.ucfirst('www.erdiko.com/'));
     }
 
-    function testSetView()
+    function testSetViewAndGetView()
     {
-        $view = 'It is a view';
-        $this->controllerObj->setView($view);
-        $view = new \erdiko\core\View($view, null);
-        $this->assertTrue($this->controllerObj->getResponse()->getContent() == $view);
+        $view = new \erdiko\core\View('examples/helloworld', null);
+        $this->controllerObj->setView('examples/helloworld');
+        $this->assertEquals($this->controllerObj->getResponse()->getContent(), $view->toHtml());
     
-        $view = 'It is a view';
-        $data = 'It is some data';
-        $this->controllerObj->setView($view, $data);
-        $view = new \erdiko\core\View($view, $data);
-        $this->assertTrue($this->controllerObj->getResponse()->getContent() == $view);
+        $view = new \erdiko\core\View('examples/helloworld', 'It is some data');
+        $this->controllerObj->setView('examples/helloworld', 'It is some data');
+        $this->assertEquals($this->controllerObj->getResponse()->getContent(), $view->toHtml());
     }
 
-    function testGetView()
-    {   
-        //It should not throw any exception
-        $this->controllerObj->getView('404', null);
-        $this->controllerObj->getView('examples/helloworld', null);
-    }
 
     function testAddView()
     {
-        $this->controllerObj->addView('examples/helloworld', null);
+        $view = new \erdiko\core\View('examples/helloworld', null);
+        $this->controllerObj->setView('examples/helloworld');
+        $this->assertTrue($this->controllerObj->getView('examples/helloworld') == $view->toHtml());
+        
+        $view2 = new \erdiko\core\View('examples/carousel', null);
+        $this->controllerObj->addView('examples/carousel');
+        $this->assertEquals($this->controllerObj->getResponse()->getContent(), $view->toHtml().$view2->toHtml());
+        
     }
 
     function testGetLayout()
     {
-        $this->controllerObj->setThemeName('bootstrap');
-        $this->controllerObj->getLayout('1column', null);
+        //First test: Setting a theme object
+        $controllerObj = new \erdiko\core\Controller;
+
+        $theme = new erdiko\core\Theme('bootstrap', null, 'default');
+        $controllerObj->getResponse()->setTheme($theme);
+        $return = $controllerObj->getLayout('1column', null);
+
+        //Compare content
+        $themeFolder = $controllerObj->getResponse()->getTheme()->getThemeFolder();
+        $content = file_get_contents($themeFolder.'/templates/layouts/1column.php');
+        $pos = strrpos($content, 'role="main">');
+        $content = substr($content, 0, $pos);
+        $find = strrpos($return, $content);
+        $this->assertGreaterThanOrEqual(0, $find);
+
+        unset($controllerObj);
+        
+        //Second test: Setting the theme name only
+
+        $controllerObj = new \erdiko\core\Controller;   
+        $controllerObj->getResponse()->setThemeName('bootstrap');
+        $return = $controllerObj->getLayout('1column', null);
+
+        //Compare content
+        $find = strrpos($return, $content);
+        $this->assertGreaterThanOrEqual(0, $find);
+
+        unset($controllerObj);
     }
 
     function testParseArguments()
