@@ -20,7 +20,7 @@ class ResponseTest extends ErdikoTestCase
 
     function tearDown()
     {
-        //unset($this->fileObj);
+        unset($this->ResponseObj);
     }
 
     function testSetDataValueAndGetDataValue()
@@ -66,19 +66,123 @@ class ResponseTest extends ErdikoTestCase
         $appContent = '...more content...';
         $this->ResponseObj->appendContent($appContent);
         $return = $this->ResponseObj->getContent();
-        $this->assertTrue($return == $content.$appendContent);
+        $this->assertTrue($return == $content.$appContent);
     }
 
     function testRender()
     {
+        $ResponseObj = new Response;
 
+        $theme = new erdiko\core\Theme('bootstrap', null, 'default');
+        $ResponseObj->setTheme($theme);
+        $return = $ResponseObj->getTheme();
+        $this->assertTrue($return == $theme);
+
+        //Add some content
+        $content = 'Here are some content';
+        $ResponseObj->setContent($content);
+        $return = $ResponseObj->getContent();
+        $this->assertTrue($return == $content);
+
+        $return = $ResponseObj->render();
+        
+        
+        /** 
+         *  Compare header, content, and footer
+         *
+         */
+        $themeFolder = $ResponseObj->getTheme()->getThemeFolder();
+        
+        //Header
+        $header = file_get_contents($themeFolder.'/templates/page/header.php');
+        $pos = strrpos($header, 'navbar-brand');
+        $header = substr($header, 0, $pos);
+        $find = strrpos($return, $header);
+        $this->assertTrue($find != false);
+
+        //Footer
+        $footer = file_get_contents($themeFolder.'/templates/page/footer.php');
+        $pos = strrpos($footer, 'nav nav-justified');
+        $footer = substr($footer, 0, $pos);
+        $find = strrpos($return, $footer);
+        $this->assertTrue($find != false);
+
+        //Content
+        $find = strrpos($return, $content);
+        $this->assertTrue($find != false);
+
+
+        unset($ResponseObj);
+
+        /** 
+         *  Test the second condition
+         *
+         */
+        $ResponseObj = new Response;
+        
+
+        $ResponseObj->setThemeName('bootstrap');
+        $return = $ResponseObj->getTheme();
+        
+        //Add some content
+        $content = 'Here are some content';
+        $ResponseObj->setContent($content);
+        $return = $ResponseObj->getContent();
+        $this->assertTrue($return == $content);
+
+        $return = $ResponseObj->render();
+        
+        /** 
+         *  Compare header, content, and footer
+         *
+         */
+        $themeFolder = $ResponseObj->getTheme()->getThemeFolder();
+        
+        //Header
+        $header = file_get_contents($themeFolder.'/templates/page/header.php');
+        $pos = strrpos($header, 'navbar-brand');
+        $header = substr($header, 0, $pos);
+        $find = strrpos($return, $header);
+        $this->assertTrue($find != false);
+
+        //Footer
+        $footer = file_get_contents($themeFolder.'/templates/page/footer.php');
+        $pos = strrpos($footer, 'nav nav-justified');
+        $footer = substr($footer, 0, $pos);
+        $find = strrpos($return, $footer);
+        $this->assertTrue($find != false);
+
+        //Content
+        $find = strrpos($return, $content);
+        $this->assertTrue($find != false);
+
+        unset($ResponseObj);
+
+        /** 
+         *  Test the third condition
+         *
+         */
+        $ResponseObj = new Response;
+
+        $content = 'Here are some content';
+        $ResponseObj->setContent($content);
+        $return = $ResponseObj->getContent();
+        $this->assertTrue($return == $content);
+
+        $return = $ResponseObj->render();
+        
+        //Content
+        echo $return;
+        $find = strrpos($return, $content);
+        $this->assertTrue($find == 0);
+
+        unset($ResponseObj);
     }
 
     function testSend()
     {
-
+        
     }
-
 
   }
 ?>
