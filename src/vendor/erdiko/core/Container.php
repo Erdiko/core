@@ -11,7 +11,7 @@
 namespace erdiko\core;
 
 
-class Container
+abstract class Container
 {
     protected $_template = null;
     protected $_data = null;
