@@ -137,7 +137,7 @@ class Controller
 	/**
 	 *
 	 */
-	private function _autoaction($var, $httpMethod = 'get')
+	protected function _autoaction($var, $httpMethod = 'get')
 	{
 		// error_log("httpMethod: $httpMethod");
 		$method = $this->urlToActionName($var, $httpMethod);
