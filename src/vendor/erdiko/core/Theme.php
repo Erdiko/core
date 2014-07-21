@@ -19,6 +19,7 @@ class Theme extends Container
     protected $_content = null;
     protected $_extraCss = array();
     protected $_extraJs = array();
+    protected $_extraMeta = array();
 
 
     /**
@@ -52,19 +53,52 @@ class Theme extends Container
      */
     public function getMeta()
     {
+        //return array_merge($this->_data['meta'], $this->_extraMeta);
+        
+        if(isset($this->_data['meta']))
+            return array_merge($this->_data['meta'], $this->_extraMeta);
+        else 
+            return $this->_extraMeta;
+
+        /*
         if(isset($this->_data['meta']))
             return $this->_data['meta'];
         else 
             return array();
+        */
     }
 
     /**
+     * Add meta file to page
      *
+     * @param string $metaName and $metaContent
+     */
+    public function addMeta($name, $content)
+    {
+        $this->_extraMeta[] = array(
+            'name' => $name,
+            "content" => $content
+            );
+    }
+
+    /**
+     *  @return string $page_title
      */
     public function getPageTitle()
     {
         if(isset($this->_data['page_title']))
             return $this->_data['page_title'];
+        else 
+            return null;
+    }
+
+    /**
+     *  @return string $body_title
+     */
+    public function getBodyTitle()
+    {
+        if(isset($this->_data['body_title']))
+            return $this->_data['body_title'];
         else 
             return null;
     }
@@ -76,7 +110,10 @@ class Theme extends Container
      */
     public function getCss()
     {
-        return array_merge($this->_config['css'], $this->_extraCss);
+        if(isset($this->_config['css']))
+            return array_merge($this->_config['css'], $this->_extraCss);
+        else
+            return $this->_extraCss;
     }
 
     /**
@@ -91,14 +128,17 @@ class Theme extends Container
             );
     }
 
-    /**
+    /**$this->_extraCss
      * Get array of js files to include
      * 
      * @return array $js
      */
     public function getJs()
     {
-        return array_merge($this->_config['js'], $this->_extraJs);
+        if(isset($this->_config['js']))
+            return array_merge($this->_config['js'], $this->_extraJs);
+        else
+            return $this->_extraJs;
     }
 
     /**
