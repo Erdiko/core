@@ -33,7 +33,7 @@ class Example extends \erdiko\core\Controller
 		if($var != null)
 		{
 			// load action
-			return $this->autoaction($var);
+			return $this->_autoaction($var, 'get');
 		}
 
 		$m = new \Mustache_Engine;

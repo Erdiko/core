@@ -34,12 +34,22 @@ class Response
         $this->_data[$key] = $value;
     }
 
+    public function getDataValue($key)
+    {
+        return $this->_data[$key];
+    }
+
     /**
      * @param Theme object $theme, Theme Object (Container)
      */
     public function setTheme($theme)
     {
     	$this->_theme = $theme;
+    }
+
+    public function getTheme()
+    {
+        return $this->_theme;
     }
 
     /**
@@ -57,7 +67,8 @@ class Response
      */
     public function getThemeName()
     {
-        return $this->_themeName;
+        $name = (empty($this->_themeName)) ? $this->_theme->getName() : $this->_themeName;
+        return $name;
     }
 
     /**
@@ -69,11 +80,27 @@ class Response
     }
 
     /**
+     * Get the theme template
+     * 
+     * @return string $_themeTemplate
+     */
+    public function getThemeTemplate()
+    {
+        return $this->_themeTemplate;
+    }
+
+
+    /**
      * @param Container $content, e.g. View or Layout Object
      */
     public function setContent($content)
     {
     	$this->_content = $content;
+    }
+
+    public function getContent()
+    {
+        return $this->_content;
     }
 
     /**
