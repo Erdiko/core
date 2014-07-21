@@ -46,6 +46,11 @@ class Layout extends Container
         $this->_templateFolder = 'themes/'.$theme.'/templates/layouts';
     }
 
+    public function getTheme()
+    {
+        return $this->_theme;
+    }
+
     /**
      * set region
      *
@@ -65,6 +70,16 @@ class Layout extends Container
     public function setRegions($data)
     {
         $this->_regions = $data;
+    }
+
+    /**
+     * Get regions
+     * 
+     * @return array $this_regions
+     */
+    public function getRegions()
+    {
+        return $this->_regions;
     }
 
     /**
