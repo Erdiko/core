@@ -197,6 +197,14 @@ class Theme extends Container
     }
 
     /**
+     * @return string $template
+     */
+    public function getTemplate()
+    {
+        return $this->_template;
+    }
+
+    /**
      * Set the theme name, the name is also the id of the theme
      * @param string $name, Theme name
      */
@@ -212,6 +220,7 @@ class Theme extends Container
 
     /**
      * Get template file populated by the config
+     * Partial render need to be declared in theme.json
      * e.g. get header/footer
      * @return string $html
      */
