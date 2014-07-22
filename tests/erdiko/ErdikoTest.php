@@ -19,6 +19,16 @@ class ErdikoTest extends ErdikoTestCase
     	unset($this->fileObj);
     }
 
+    public function testGetConfigFile()
+    {	
+    	$content = file_get_contents(APPROOT.'/config/'."application/default.json");
+        $content = str_replace("\\", "\\\\", $content);
+        $content = json_decode($content, TRUE);
+
+    	$return = Erdiko::getConfigFile(APPROOT.'/config/'."application/default.json");
+		$this->assertEquals($return, $content);
+	}
+
 	public function testConfig()
 	{
 		$this->assertTrue(Erdiko::getConfig("application/default") != false);
@@ -66,6 +76,11 @@ class ErdikoTest extends ErdikoTestCase
 	{
 		//Reture false if config file is not existed
 		$this->assertTrue(Erdiko::getCache("default"));
+	}
+
+	public function testGetTemplate()
+	{
+		//Deprecated function
 	}
 	
 }
