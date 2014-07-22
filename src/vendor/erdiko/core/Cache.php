@@ -13,14 +13,12 @@ namespace erdiko\core;
 
 class Cache
 {
-    public static function getCacheObject($cacheConfig)
+    public static function getCacheObject($cacheConfig = 'default')
     {
-        if($cacheConfig == null)
-            $cacheConfig = 'default';
 
-        $config = Erdiko::getConfig('default');
+        $config = \Erdiko::getConfig('application/default');
         if(isset($config["cache"][$cacheConfig]))
-            return new $config["cache"][$cacheType]['class'];
+            return new $config["cache"][$cacheConfig]['class'];
         else
             throw new \Exception("There is no cache config defined ({$cacheConfig})");
     }
@@ -30,7 +28,7 @@ class Cache
      *
      * @param string $key
      */
-    public static function get($key, $cacheConfig = null)
+    public static function get($key, $cacheConfig = 'default')
     {
         return self::getCacheObject($cacheConfig)->get($key);
     }
@@ -41,7 +39,7 @@ class Cache
      * @param string $key
      * @param mixed $value
      */
-    public static function put($key, $value, $cacheConfig = null)
+    public static function put($key, $value, $cacheConfig = 'default')
     {
         return self::getCacheObject($cacheConfig)->put($key, $value);
     }
@@ -50,7 +48,7 @@ class Cache
      *
      * @param string $key
      */
-    public static function has($key, $cacheStore = null)
+    public static function has($key, $cacheConfig = 'default')
     {
         return self::getCacheObject($cacheConfig)->has($key);
     }
@@ -59,7 +57,7 @@ class Cache
      * retrieve the cache value and then delete it before returning that value
      * @param string $key
      */
-    public static function pull($key, $cacheStore = null)
+    public static function pull($key, $cacheConfig = 'default')
     {
         $value = self::get($key);
         self::forget($key);
@@ -71,7 +69,7 @@ class Cache
      * Remove an item from the cache
      * @param string $key
      */
-    public static function forget($key, $cacheStore = null)
+    public static function forget($key, $cacheConfig = 'default')
     {
         return self::getCacheObject($cacheConfig)->forget($key);
     }
@@ -79,7 +77,7 @@ class Cache
     /**
      * Forget all cache keys (Purge)
      */
-    public function forgetAll($cacheStore = null)
+    public static function forgetAll($cacheConfig = 'default')
     {
         return self::getCacheObject($cacheConfig)->forgetAll();
     }
