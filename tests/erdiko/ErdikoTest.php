@@ -82,20 +82,6 @@ class ErdikoTest extends ErdikoTestCase
 		$this->assertEquals( $return, $json['routes']);
 	}
 
-	public function testCreateLogs()
-	{
-		//$this->assertTrue(Erdiko::$_logObject === null);
-		
-		$logFiles=array(
-			"default" => "erdiko_default.log",
-			"exceptionLog" => "erdiko_error.log",
-		);
-		Erdiko::createLogs($logFiles);
-	}
-
-	/**
-	 *	@depends testCreateLogs	
-	 */	
 	public function testLogs()
 	{
 		//Initialize a File object locally
@@ -105,16 +91,28 @@ class ErdikoTest extends ErdikoTestCase
 
 		$sampleText="This is a sample log for Erdiko class test";
 		
-		//Log file will be only created when the log() is being called
-		//First test
+		/**
+		 *	First test
+		 *
+		 *  Log a regular message
+		 */
 		Erdiko::log($sampleText);
-		$return= $fileObj->read("erdiko_default.log", $logFolder);
+		$return= $fileObj->read("default.log", $logFolder);
 		$this->assertTrue(strpos($return,$sampleText) !== false );	
 
-		//Second test
-		Erdiko::log($sampleText, null, "exceptionLog");
-		$return= $fileObj->read("erdiko_error.log", $logFolder);
+		/**
+		 *	First test
+		 *
+		 *  Log a exception message
+		 */
+		$sampleText="This is a sample EXCEPTION log for Erdiko class test";
+		Erdiko::log($sampleText, null, 'exception');
+		$return= $fileObj->read("exception.log", $logFolder);
 		$this->assertTrue(strpos($return,$sampleText) !== false );	
+
+		//Clean up
+    	$fileObj->delete("default.log", $webRoot."/src/vendor/var/logs");
+    	$fileObj->delete("exception.log", $webRoot."/src/vendor/var/logs");
 	}
 
 	public function getCache()
