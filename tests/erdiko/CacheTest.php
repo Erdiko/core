@@ -6,35 +6,36 @@ require_once dirname(__DIR__).'/ErdikoTestCase.php';
 
 class CacheTest extends ErdikoTestCase
 {
-    // contains the object handle of the string class
     var $cacheObj=null;
+    var $webRoot;
 
-    // called before the test functions will be executed
-    // this function is defined in PHPUnit_TestCase and overwritten
-    // here
     function setUp() {
-        // create a new instance of String with the
-        // string 'abc'
-        $this->cacheObj = Erdiko::getCache("default");
-		//$this->cacheObj = new Cache();
+        //$this->cacheObj = Cache;
+        $webRoot = dirname(dirname(__DIR__));
     }
 
-    // called after the test functions are executed
-    // this function is defined in PHPUnit_TestCase and overwritten
-    // here
     function tearDown() {
-        // delete your instance
-        $this->cacheObj->forgetALL();
-        unset($this->cacheObj);
+        //$this->cacheObj->forgetALL();
+        Cache::forgetALL();
+        
+        //unset($this->cacheObj);
     }
 	
-	function testGetAndPut()
+	function testGetCacheObject()
 	{
-		$this->cacheObj->put("test1","test1");
-		$return=$this->cacheObj->get("test1");
-		$this->assertTrue($return == "test1");
+		//$this->webRoot.'/src/app/application/default.json'
+		Cache::getCacheObject();
 	}
 
+	function testGetAndPut()
+	{
+		Cache::put("test1","test1");
+		$return= Cache::get("test1");
+		//echo $return;
+		//$this->assertTrue($return == "test1");
+	}
+
+/*
 	function testHas()
 	{	
 		$this->assertFalse($this->cacheObj->has("test2"));
@@ -61,6 +62,6 @@ class CacheTest extends ErdikoTestCase
 		$this->assertFalse($this->cacheObj->has("test1"));
 		$this->assertFalse($this->cacheObj->has("test2"));
 	}
-
+*/
   }
 ?>
