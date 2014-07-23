@@ -104,34 +104,51 @@ class ControllerTest extends ErdikoTestCase
         $this->assertEquals($return, 'get'.ucfirst($site));
     }
 
-    function testSetViewAndGetView()
+    function testAddViewAndGetView()
     {
-        //First Test
-        //View without data
-        $view = new \erdiko\core\View('examples/helloworld');
-        $this->controllerObj->setView('examples/helloworld');
-        $return = $this->controllerObj->getResponse()->getContent();
+        $viewName = 'examples/helloworld';
+
+        /**
+         *  First Test
+         *
+         *  Add a view without data
+         */
+        $view = new \erdiko\core\View($viewName);
+        $this->controllerObj->addView($viewName);
+        //$return = $this->controllerObj->getResponse()->getContent();
+        $return = $this->controllerObj->getView($viewName);
         $this->assertEquals( $return, $view->toHtml());
+
+        unset($this->controllerObj);
+        $this->controllerObj = new \erdiko\core\Controller;
     
-        //Second Test
-        //View with data
+        /**
+         *  Second Test
+         *
+         *  Add a view with data
+         */
         $data = 'Test Data';
-        $view = new \erdiko\core\View('examples/helloworld', $data);
-        $this->controllerObj->setView('examples/helloworld', $data);
-        $return = $this->controllerObj->getResponse()->getContent();
+        $view = new \erdiko\core\View( $viewName, $data);
+        $this->controllerObj->addView( $viewName, $data);
+        //$return = $this->controllerObj->getResponse()->getContent();
+        $return = $this->controllerObj->getView( $viewName, $data);
         $this->assertEquals( $return, $view->toHtml());
-    }
 
+        unset($this->controllerObj);
+        $this->controllerObj = new \erdiko\core\Controller;
 
-    function testAddView()
-    {
-        //Set a view
+        /**
+         *  Third Test
+         *
+         *  Add a view, and then add another view
+         */
+        //Add a view
         $view = new \erdiko\core\View('examples/helloworld');
-        $this->controllerObj->setView('examples/helloworld');
+        $this->controllerObj->addView('examples/helloworld');
         $return = $this->controllerObj->getView('examples/helloworld');
         $this->assertEquals( $return, $view->toHtml());
         
-        //Add a view
+        //Add another view
         $data = 'Test Data';
         $view2 = new \erdiko\core\View('examples/carousel', $data);
         $this->controllerObj->addView('examples/carousel', $data);

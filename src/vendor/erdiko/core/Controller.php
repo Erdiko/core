@@ -167,17 +167,6 @@ class Controller
 
 		return $httpMethod.ucfirst($function);
     }
-
-    /**
-	 * Set the view template to be used
-	 *
-	 * @param string $view, view file
-	 */
-	public function setView($view, $data = null)
-	{
-		$view = new \erdiko\core\View($view, $data);
-		$this->setContent($view->toHtml());
-	}
 	
 	/**
 	 * Load a view with the given data
