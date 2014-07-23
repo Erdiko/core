@@ -15,80 +15,60 @@ use erdiko\core\cache\CacheInterface;
 class File extends \erdiko\core\datasource\File implements CacheInterface 
 {
 	protected $_fileData = array();
-
+	
 	public function __construct($cacheDir=null)
 	{
 		if(!isset($cacheDir))
 		{
-			$rootFolder=dirname(dirname(dirname(__DIR__))); 
-			$cacheDir=$rootFolder."/var/cache";
+			$cacheDir = VARROOT."/cache";
 		}
 		parent::__construct($cacheDir);
 	}
 
+	public function getKeyCode($key)
+	{
+		return md5($key);
+	}
+
 	public function put($key, $data)
 	{
-		$filename=null;
-		if(isset($this->_fileData[(string)$key]))
-			$filename=$this->_fileData[(string)$key];
-		if(!isset($filename))
-			$filename=$key;
-		if($this->write($data,$filename))
-		{
-			$this->_fileData[(string)$key]=$filename;
-			return true;
-		}
-		else
-			return false;
+		$filename = $this->getKeyCode($key);
+		$data = json_encode($data);
+		$this->write($data, $filename);
 	}
 	
 	public function get($key)
 	{
-		$filename=null;
-		if(isset($this->_fileData[(string)$key]))
-			$filename=$this->_fileData[(string)$key];
-		if(!isset($filename))
-			return false;
+		$filename = $this->getKeyCode($key);
+
+		if($this->fileExists($filename))
+			$value = $this->read($filename);
 		else
-			return $this->read($filename);
+			return null;
+
+		return json_decode($value, true);
 	}
 	
 	public function forget($key)
 	{
-		$filename=null;
-		if(isset($this->_fileData[(string)$key]))
-			$filename=$this->_fileData[(string)$key];
-		if(!isset($filename))
-			return false;
-		else
-		{
-			if($this->delete($filename))
-			{
-				unset($this->_fileData[(string)$key]);
-				return true;
-			}
-			return false;
-		}
+		$filename = $this->getKeyCode($key);
+		$this->delete($filename);
 	}
-	
-	public function has($key)
-	{
-		$filename=null;
-		if(isset($this->_fileData[(string)$key]))
-			$filename=$this->_fileData[(string)$key];
-		return(isset($filename) && $this->fileExists($filename));
-	}
-	
+
 	public function forgetAll()
 	{
-		$ret=true;
-		foreach($this->_fileData as $key => $filename)
-			$ret = $ret && $this->forget($filename);
-		if($ret)
-		{
-			$this->_fileData = array();
-			return true;
+		$files = glob( VARROOT."/cache/*");
+		foreach($files as $file){
+  			if(is_file($file))
+  			{	
+    			$this->delete(basename($file));
+    		}
 		}
-		return false;
 	}
+	public function has($key)
+	{
+		$filename = $this->getKeyCode($key);
+		return $this->fileExists($filename);	
+	}
+	
 }
