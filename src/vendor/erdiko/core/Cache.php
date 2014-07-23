@@ -13,14 +13,21 @@ namespace erdiko\core;
 
 class Cache
 {
+    private static $instance;
+
     public static function getCacheObject($cacheConfig = 'default')
     {
+        if (empty(self::$instance)) {
 
-        $config = \Erdiko::getConfig('application/default');
-        if(isset($config["cache"][$cacheConfig]))
-            return new $config["cache"][$cacheConfig]['class'];
-        else
-            throw new \Exception("There is no cache config defined ({$cacheConfig})");
+            $config = \Erdiko::getConfig('application/default');
+            if(isset($config["cache"][$cacheConfig]))
+                self::$instance = new $config["cache"][$cacheConfig]['class'];
+            else
+                throw new \Exception("There is no cache config defined ({$cacheConfig})");
+        }
+
+        return self::$instance;
+
     }
 
     /**
