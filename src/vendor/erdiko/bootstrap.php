@@ -2,7 +2,7 @@
 define('ROOT', dirname(dirname(__DIR__)));
 define('WEBROOT', ROOT.'/public');
 define('APPROOT', ROOT.'/app');
-define('VARROOT', ROOT.'/var');
+define('VARROOT', ROOT.'/vendor/var');
 
 define('VENDOR', ROOT.'/vendor');
 define('ERDIKO', VENDOR.'/erdiko');
