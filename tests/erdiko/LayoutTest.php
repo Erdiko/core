@@ -24,7 +24,7 @@ class LayoutTest extends ErdikoTestCase
          * 
          * Get the html through getTemplateFile function
          */
-        $this->LayoutObj->setTheme('bootstrap');
+        $this->LayoutObj->setThemeName('bootstrap');
         $content = 'Test content';
         $this->LayoutObj->setRegion('one', $content);
         $data = null;
@@ -46,7 +46,7 @@ class LayoutTest extends ErdikoTestCase
          *
          * Get a different template file
          */
-        $this->LayoutObj->setTheme('bootstrap');
+        $this->LayoutObj->setThemeName('bootstrap');
         $content = 'Test content';
         $this->LayoutObj->setRegion('one', $content);
         $data = null;
@@ -74,7 +74,7 @@ class LayoutTest extends ErdikoTestCase
          * 
          * Try to open a non exist template file
          */
-        $this->LayoutObj->setTheme('bootstrap');
+        $this->LayoutObj->setThemeName('bootstrap');
         $content = 'Test content';
         $this->LayoutObj->setRegion('one', $content);
         $data = null;
@@ -82,15 +82,15 @@ class LayoutTest extends ErdikoTestCase
         $return = $this->LayoutObj->getTemplateFile($templateName, $data);
     }
 
-    function testSetThemeAndGetTheme()
+    function testSetThemeNameAndGetTheme()
     {
         /**
          * First test
          * 
-         * Pass a string to setTheme function
+         * Pass a string to setThemeName function
          */
         $theme = "Test Theme";
-        $this->LayoutObj->setTheme($theme);
+        $this->LayoutObj->setThemeName($theme);
         $return = $this->LayoutObj->getTheme();
         $this->assertEquals($return, $theme);
 
