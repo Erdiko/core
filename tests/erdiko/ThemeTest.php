@@ -7,14 +7,11 @@ require_once dirname(__DIR__).'/ErdikoTestCase.php';
 class ThemeTest extends ErdikoTestCase
 {
     var $themeObj = null;
-    var $webRoot=null;
-
 
     function setUp()
     {
         $this->themeObj = new \erdiko\core\Theme;
         $this->themeObj->setName('bootstrap');
-        $this->webRoot = dirname(dirname(__DIR__));
     }
 
     function tearDown() {
@@ -173,8 +170,6 @@ class ThemeTest extends ErdikoTestCase
         //Check data
         $pos = strrpos($header, $data);
         $this->assertTrue($find !== false);
-
-        //echo $return;
     }
 
 
