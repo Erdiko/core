@@ -91,21 +91,6 @@ class Erdiko
 	}
 	
 	/**
-	 * Called everytime to create a logger object to write to the log
-	 * @todo deprecate this function, merge into the log() function
-	 */
-	public static function createLogs($logFiles = array(), $logDir = null)
-	{
-		$config = Erdiko::getConfig("application/default");
-
-		if(empty($logFiles))
-			$logFiles=$config["logs"]["files"][0];
-		if($logDir==null)
-			$logDir=$config["logs"]["path"];
-		Erdiko::$_logObject=new erdiko\core\Logger($logFiles,$logDir);
-	}
-	
-	/**
 	 * log
 	 * @usage Erdiko::log('Sample notice',Logger::LogLevel,'Default')
 	 * Need to import erdiko\core\Logger to use this function
@@ -115,7 +100,12 @@ class Erdiko
 	public static function log($logString, $logLevel = null, $logKey = null)
 	{
 		if(Erdiko::$_logObject==null)
-			Erdiko::createLogs();
+		{
+			$config = Erdiko::getConfig("application/default");
+			$logFiles=$config["logs"]["files"][0];				
+			$logDir=$config["logs"]["path"];
+			Erdiko::$_logObject=new erdiko\core\Logger($logFiles,$logDir);
+		}
 		return Erdiko::$_logObject->log($logString, $logLevel, $logKey);
 	}
 	

@@ -14,11 +14,4 @@ class View extends Container
 {	
 	protected $_templateFolder = 'views';
 
-    /**
-     * @param Container $content, e.g. View or Layout Object
-     */
-    public function setContent($content)
-    {
-    	$this->_content = $content;
-    }
 }

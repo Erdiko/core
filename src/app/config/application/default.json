@@ -81,7 +81,7 @@
    "cache":{
       "default":{			
 			"type":"File",
-         "class":"erdiko\core\cache\File",
+         "class":"\erdiko\core\cache\File",
          "path":"/var/cache"
 	  }
    }

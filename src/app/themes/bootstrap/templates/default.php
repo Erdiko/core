@@ -5,8 +5,10 @@
 
 <?php
 	// Spit out meta tags
-	foreach($data->getMeta() as $name => $content)
-		echo '<meta name="'.$name.'" content="'.$content.'" >';
+	foreach($data->getMeta() as $meta)
+  {
+		  echo '<meta name="'.$meta['name'].'" content="'.$meta['content'].'" >';
+  }
 ?>
 
 <title><?php echo $data->getPageTitle() ?></title>

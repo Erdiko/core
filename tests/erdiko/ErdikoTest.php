@@ -8,20 +8,59 @@ use erdiko\core\Logger;
 
 class ErdikoTest extends ErdikoTestCase
 {
-	function tearDown() {
+    public function testGetConfigFile()
+    {	
+    	/**
+		 *	First Test
+		 */
+    	//Get the config file through getConfigFile function
+    	$filename = APPROOT.'/config/'."application/default.json";
+    	$return = Erdiko::getConfigFile($filename);
 
-		$webRoot = dirname(dirname(__DIR__));
+    	//Get the config file through file_get_contents function
+    	$content = file_get_contents($filename);
+        $content = str_replace("\\", "\\\\", $content);
+        $content = json_decode($content, TRUE);
 
-		$fileObj = new \erdiko\core\datasource\File;
-		$fileObj->delete("erdiko_default.log", $webRoot."/src/vendor/var/logs");
-		$fileObj->delete("erdiko_error.log", $webRoot."/src/vendor/var/logs");
+        //Validate the config file
+		$this->assertEquals($return, $content);
+	}
 
-    	unset($this->fileObj);
-    }
+	/**
+     * @expectedException PHPUnit_Framework_Error
+     */
+	public function testGetConfigFileException()
+    {	
+		/**
+		 *	Second Test
+		 *  
+		 *  Passing a non-exist config file
+		 */
+    	$fileName = APPROOT.'/config/'."non-exist.json";
+    	$return = Erdiko::getConfigFile($fileName);
+	}
 
 	public function testConfig()
 	{
-		$this->assertTrue(Erdiko::getConfig("application/default") != false);
+		/**
+		 *	First Test
+		 */
+		$filename = "application/default";
+		$this->assertTrue(Erdiko::getConfig($filename) != false);
+	}
+
+	/**
+     * @expectedException PHPUnit_Framework_Error
+     */
+	public function testConfigException()
+	{
+		/**
+		 *	Second Test
+		 *  
+		 *  Passing a non-exist config file
+		 */
+		$fileName = "application/non-exist";
+		$this->assertTrue(Erdiko::getConfig($fileName) != false);
 	}
 
 	public function testSendEmail()
@@ -31,41 +70,60 @@ class ErdikoTest extends ErdikoTestCase
 
 	public function testGetRoutes()
 	{
-		$this->assertTrue(Erdiko::getRoutes() != false);
+		//Get routes through getRoutes function
+		$return = Erdiko::getRoutes();
+
+		//Get routes through direct access
+		$filename =  APPROOT.'/config/application/routes.json';
+		$data = str_replace("\\", "\\\\", file_get_contents($filename));
+		$json = json_decode($data, TRUE);
+		
+		//Validate data
+		$this->assertEquals( $return, $json['routes']);
 	}
 
-	public function testCreateLogs()
-	{
-		$logFiles=array(
-			"default" => "erdiko_default.log",
-			"exceptionLog" => "erdiko_error.log",
-		);
-		Erdiko::createLogs($logFiles);
-	}
-
-	/**
-	 *	@depends testCreateLogs	
-	 */	
 	public function testLogs()
 	{
+		//Initialize a File object locally
 		$fileObj = new \erdiko\core\datasource\File;
 		$webRoot = dirname(dirname(__DIR__));
+		$logFolder = $webRoot."/src/vendor/var/logs";
 
 		$sampleText="This is a sample log for Erdiko class test";
 		
+		/**
+		 *	First test
+		 *
+		 *  Log a regular message
+		 */
 		Erdiko::log($sampleText);
-		$return= $fileObj->read("erdiko_default.log", $webRoot."/src/vendor/var/logs");
-		$this->assertTrue(strpos($return,$sampleText) != false );	
+		$return= $fileObj->read("default.log", $logFolder);
+		$this->assertTrue(strpos($return,$sampleText) !== false );	
 
-		Erdiko::log($sampleText, null, "exceptionLog");
-		$return= $fileObj->read("erdiko_error.log", $webRoot."/src/vendor/var/logs");
-		$this->assertTrue(strpos($return,$sampleText) != false );	
+		/**
+		 *	First test
+		 *
+		 *  Log a exception message
+		 */
+		$sampleText="This is a sample EXCEPTION log for Erdiko class test";
+		Erdiko::log($sampleText, null, 'exception');
+		$return= $fileObj->read("exception.log", $logFolder);
+		$this->assertTrue(strpos($return,$sampleText) !== false );	
+
+		//Clean up
+    	$fileObj->delete("default.log", $webRoot."/src/vendor/var/logs");
+    	$fileObj->delete("exception.log", $webRoot."/src/vendor/var/logs");
 	}
 
 	public function getCache()
 	{
 		//Reture false if config file is not existed
 		$this->assertTrue(Erdiko::getCache("default"));
+	}
+
+	public function testGetTemplate()
+	{
+		//Deprecated function
 	}
 	
 }

@@ -29,7 +29,7 @@ class Layout extends Container
         $template = ($template === null) ? $this->_defaultTemplate : $template;
         $this->setTemplate($template);
         $this->setData($data);
-        $this->setTheme($theme);
+        $this->setThemeName($theme);
     }
 
     public function getTemplateFile($filename, $data)
@@ -40,10 +40,15 @@ class Layout extends Container
         return parent::getTemplateFile($filename, $this); // Pass in layout object to template
     }
 
-    public function setTheme($theme)
+    public function setThemeName($theme)
     {
         $this->_theme = $theme;
         $this->_templateFolder = 'themes/'.$theme.'/templates/layouts';
+    }
+
+    public function getTheme()
+    {
+        return $this->_theme;
     }
 
     /**
@@ -65,6 +70,16 @@ class Layout extends Container
     public function setRegions($data)
     {
         $this->_regions = $data;
+    }
+
+    /**
+     * Get regions
+     * 
+     * @return array $this_regions
+     */
+    public function getRegions()
+    {
+        return $this->_regions;
     }
 
     /**
