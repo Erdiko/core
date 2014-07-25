@@ -20,11 +20,20 @@ class ThemeTest extends ErdikoTestCase
 
     function testSetNameAndGetName()
     {
-        $this->themeObj->setName('bootstrap');
+        //It should return the default name
         $return = $this->themeObj->getName();
         $this->assertEquals($return, 'bootstrap');
+
+        $this->themeObj->setName('Test Name');
+        $return = $this->themeObj->getName();
+        $this->assertEquals($return, 'Test Name');
     }
 
+    /**
+     *
+     *  @depends testSetNameAndGetName
+     *
+     */
     function testGetConfig()
     {
         $this->themeObj->setName('bootstrap');
@@ -35,6 +44,11 @@ class ThemeTest extends ErdikoTestCase
         $this->assertEquals($return, $return2);
     }
 
+    /**
+     *
+     *  @depends testGetConfig
+     *
+     */
     function testAddMetaAndGetMeta()
     {
         $temp = array();
@@ -47,6 +61,11 @@ class ThemeTest extends ErdikoTestCase
         $this->assertEquals($return, $temp);
     }
 
+    /**
+     *
+     *  @depends testAddMetaAndGetMeta
+     *
+     */
     function testAddCssAndGetCss()
     {
         $temp = array();
@@ -59,6 +78,11 @@ class ThemeTest extends ErdikoTestCase
         $this->assertEquals($return, $temp);
     }
 
+    /**
+     *
+     *  @depends testAddCssAndGetCss
+     *
+     */
     function testAddJsAndGetJs()
     {
         $temp = array();
@@ -71,6 +95,11 @@ class ThemeTest extends ErdikoTestCase
         $this->assertEquals($return, $temp);
     }
 
+    /**
+     *
+     *  @depends testAddJsAndGetJs
+     *
+     */
     function testGetPageTitle()
     {
         $page_title = 'Test_Page_Title';
@@ -82,6 +111,11 @@ class ThemeTest extends ErdikoTestCase
         $this->assertEquals($return, $page_title);
     }
 
+    /**
+     *
+     *  @depends testGetPageTitle
+     *
+     */
     function testGetBodyTitle()
     {
         $body_title = 'Test_Body_Title';
@@ -93,18 +127,33 @@ class ThemeTest extends ErdikoTestCase
         $this->assertEquals($return, $body_title);
     }
 
+    /**
+     *
+     *  @depends testGetBodyTitle
+     *
+     */
     function testGetThemeFolder()
     {
         $return = $this->themeObj->getThemeFolder();
         $this->assertEquals($return, '/Users/ColemanTung/ArroyoLabs/erdiko-core/src/app/themes/bootstrap/');
     }
 
+    /**
+     *
+     *  @depends testGetThemeFolder
+     *
+     */
     function testGetTemplateFolder()
     {
         $return = $this->themeObj->getTemplateFolder();
         $this->assertEquals($return, '/Users/ColemanTung/ArroyoLabs/erdiko-core/src/app/themes/bootstrap/templates/');
     }
 
+    /**
+     *
+     *  @depends testGetTemplateFolder
+     *
+     */
     function testSetContentAndGetContent()
     {
         $content = 'It is some content';
@@ -113,6 +162,11 @@ class ThemeTest extends ErdikoTestCase
         $this->assertEquals($return, $content);
     }
 
+    /**
+     *
+     *  @depends testSetContentAndGetContent
+     *
+     */
     function testSetTemplate()
     {
         $template = 'test_template';
@@ -121,6 +175,11 @@ class ThemeTest extends ErdikoTestCase
         $this->assertEquals($template, $return);
     }
 
+    /**
+     *
+     *  @depends testSetTemplate
+     *
+     */
     function testSetNameNGetName()
     {
         $name = "Test_Name";
@@ -129,6 +188,11 @@ class ThemeTest extends ErdikoTestCase
         $this->assertEquals($name, $return);
     }
 
+    /**
+     *
+     *  @depends testSetNameNGetName
+     *
+     */
     function testGetContextConfig()
     {
         $return = $this->themeObj->getContextConfig();
@@ -137,6 +201,11 @@ class ThemeTest extends ErdikoTestCase
         $this->assertArrayHasKey('layout', $return);
     }
 
+    /**
+     *
+     *  @depends testGetContextConfig
+     *
+     */
     function testGetTemplateHtml()
     {
         $return = $this->themeObj->getTemplateHtml('header');
@@ -148,6 +217,11 @@ class ThemeTest extends ErdikoTestCase
         $this->assertTrue($find !== false);
     }
 
+    /**
+     *
+     *  @depends testGetTemplateHtml
+     *
+     */
     function testToHtml()
     {
 
