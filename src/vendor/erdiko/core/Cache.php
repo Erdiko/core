@@ -14,19 +14,43 @@ namespace erdiko\core;
 class Cache
 {
     private static $instance;
+    private static $instanceMemcache;
 
     public static function getCacheObject($cacheConfig = 'default')
     {
-        if (empty(self::$instance)) {
+            //Check if the caller requests a memcache object
+            if ($cacheConfig == 'memcache'){
+                //Check if the object already be created
+                if(empty(self::$instanceMemcache))
+                {
+                    $config = \Erdiko::getConfig('application/default');
+                    if(isset($config["cache"][$cacheConfig]))
+                    {
+                        self::$instanceMemcache = new $config["cache"][$cacheConfig]['class'];
+                    }
+                    else
+                        throw new \Exception("There is no cache config defined ({$cacheConfig})");
+                }
+                
+                return self::$instanceMemcache;
+            }
 
-            $config = \Erdiko::getConfig('application/default');
-            if(isset($config["cache"][$cacheConfig]))
-                self::$instance = new $config["cache"][$cacheConfig]['class'];
-            else
-                throw new \Exception("There is no cache config defined ({$cacheConfig})");
-        }
-
-        return self::$instance;
+            else  //Check if the caller requests a default object
+            if ($cacheConfig == 'default'){
+                //Check if the object already be created
+                if(empty(self::$instance))
+                {
+                    $config = \Erdiko::getConfig('application/default');
+                    if(isset($config["cache"][$cacheConfig]))
+                    {
+                        self::$instance = new $config["cache"][$cacheConfig]['class'];
+                    }
+                    else
+                        throw new \Exception("There is no cache config defined ({$cacheConfig})");
+                }
+                
+                return self::$instance;
+            }
 
     }
 
