@@ -34,7 +34,7 @@ require_once ERDIKO.'/core/cache/CacheInterface.php';
 require_once ERDIKO.'/core/cache/File.php';
 require_once ERDIKO.'/core/Cache.php';
 require_once ERDIKO.'/core/Logger.php';
-require_once ERDIKO.'/core/cache/MemcacheClass.php';
+require_once ERDIKO.'/core/cache/Memcached.php';
 
 // Composer
 require_once VENDOR.'/autoload.php';

@@ -84,9 +84,9 @@
          "class":"\erdiko\core\cache\File",
          "path":"/var/cache"
 	  },
-     "memcache":{        
-         "type":"Memcache",
-         "class":"\erdiko\core\cache\MemcacheClass",
+     "memcached":{        
+         "type":"Memcached",
+         "class":"\erdiko\core\cache\Memcached",
          "path":"/var/cache"
      }
    }
