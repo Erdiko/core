@@ -4,7 +4,7 @@ use erdiko\core\cache\Memcached;
 require_once dirname(__DIR__).'/ErdikoTestCase.php';
 
 
-class MemcacheTest extends ErdikoTestCase
+class MemcachedTest extends ErdikoTestCase
 {
     var $memcacheObj;
 
@@ -77,15 +77,13 @@ class MemcacheTest extends ErdikoTestCase
 				);
 
 		$key = 'arrayTest';
-		//var_dump($arr);
-		$castedArr = (array) $arr;
-		$this->memcacheObj->put($key,$castedArr);
+		$this->memcacheObj->put($key,$arr);
 		$return= $this->memcacheObj->get($key);
 		
 		$castedReturn = (array) $return;
-		$this->assertEquals($castedReturn['index_one'], $castedArr['index_one']);
-		$this->assertEquals($castedReturn['index_two'], $castedArr['index_two']);
-		$this->assertEquals($castedArr, $castedReturn);
+		$this->assertEquals($castedReturn['index_one'], $arr['index_one']);
+		$this->assertEquals($castedReturn['index_two'], $arr['index_two']);
+		$this->assertEquals($arr, $castedReturn);
 
 		/**
 		 *	Null Test
@@ -104,35 +102,45 @@ class MemcacheTest extends ErdikoTestCase
 		 *  Pass a JSON data to cache
 		 */
 		$arr = array(
-				'1' => 'test1',
-				'2' => 'test2'
+				'index_one' => 'test_data_one',
+				'index_two' => 'test_data_two'
 				);
-		$arr = json_encode($arr);
-		$key = 'arrayTest';
-		$this->memcacheObj->put($key,$arr);
+		$jsonArr = json_encode($arr);
+		$key = 'jsonTest';
+		$this->memcacheObj->put($key,$jsonArr);
 		$return= $this->memcacheObj->get($key);
-		$this->assertEquals($return, $arr);
+		//Check if the JSON return equals to the input
+		$this->assertEquals($return, $jsonArr);
+		//Get the original array
+		$return = json_decode($return);
+		$castedReturn = (array) $return;
+
+		$this->assertEquals($castedReturn['index_one'], $arr['index_one']);
+		$this->assertEquals($castedReturn['index_two'], $arr['index_two']);
+		$this->assertEquals($arr, $castedReturn);
+
 
 		/**
 		 *	Oject Test
 		 *
-		 *  Pass a Objectto cache
-		 * !!!!!!!!!!CHECK IF IT IS PUBLIC!!!!!!!!
-		 *create an empty/generic object
-		 * $obj = new stdClass();
+		 *  Pass a Object to cache
+		 *  Custom class won't work
 		 */
 		
 		$obj = new stdClass();
-		var_dump($obj);
+		$obj->var1 = 'Test_one';
 		$key = 'objectTest';
 		$this->memcacheObj->put($key,$obj);
 		$return= $this->memcacheObj->get($key);
-		var_dump($return);
 		$this->assertEquals($obj, $return);
 		
 	}
 
-
+	/**
+	 *
+	 *	@depends testPutAndGet
+	 *
+	 */
 	function testForget()
 	{
 		/**
@@ -199,6 +207,18 @@ class MemcacheTest extends ErdikoTestCase
 		$this->assertTrue($return);
 
 		/**
+		 *	Check the cache in testPutAndGet
+		 **/
+		$return = $this->memcacheObj->has('stringTest');
+		$this->assertTrue($return);
+		$return = $this->memcacheObj->has('arrayTest');
+		$this->assertTrue($return);
+		$return = $this->memcacheObj->has('nullTest');
+		$this->assertTrue($return);
+		$return = $this->memcacheObj->has('objectTest');
+		$this->assertTrue($return);
+
+		/**
 		 *	Remove all data
 		 */
 		$this->memcacheObj->forgetAll();
@@ -207,6 +227,14 @@ class MemcacheTest extends ErdikoTestCase
 		$return = $this->memcacheObj->has($key);
 		$this->assertFalse($return);
 		$return = $this->memcacheObj->has($key2);
+		$this->assertFalse($return);
+		$return = $this->memcacheObj->has('stringTest');
+		$this->assertFalse($return);
+		$return = $this->memcacheObj->has('arrayTest');
+		$this->assertFalse($return);
+		$return = $this->memcacheObj->has('nullTest');
+		$this->assertFalse($return);
+		$return = $this->memcacheObj->has('objectTest');
 		$this->assertFalse($return);
 	}
 
