@@ -6,7 +6,6 @@ require_once dirname(__DIR__).'/ErdikoTestCase.php';
 
 class CacheTest extends ErdikoTestCase
 {
-    var $cacheObj=null;
 
     function setUp() {
         //Cache::forgetAll('memcache');
@@ -14,16 +13,108 @@ class CacheTest extends ErdikoTestCase
 
     function tearDown() {
         Cache::forgetALL();
-        Cache::forgetALL('memcached');
-        unset($this->cacheObj);
     }
 	
 	function testGetCacheObject()
 	{
-		Cache::getCacheObject();
+		$defaultObj = Cache::getCacheObject();
+		Cache::forgetALL();
+		/**
+		 *	Precondition
+		 *
+		 *  Check if there is nothing
+		 */
+		$key = 'Test_Has_Key';
+		$data = 'Test_Has_Data';
+		$return = $defaultObj->has($key);
+		$this->assertFalse($return);
+
+		//Add a data
+		$defaultObj->put($key, $data);
+
+		//Check if the data exists
+		$return = $defaultObj->has($key);
+		$this->assertTrue($return);
+
+
+		$memcache = 'memcached';
+		$memcacheObj = Cache::getCacheObject($memcache)->getObject();
+		Cache::forgetALL($memcache);
+		/**
+		 *	Memcache Object
+		 *
+		 *  Precondition
+		 *
+		 *  Check if there is nothing
+		 */
+		$key = 'Test_Has_Key';
+		$data = 'Test_Has_Data';
+		$return = $memcacheObj->get($key);
+		$this->assertFalse($return);
+
+		//Add a data
+		$memcacheObj->set($key, $data);
+
+		//Validate returned data
+		$return = $memcacheObj->get($key);
+		$this->assertEquals($data, $return);
+
 	}
 
-	function testGetAndPut()
+	/**
+	 *
+	 *	@depends testGetCacheObject
+	 *
+	 */
+	function testHas()
+	{	
+		Cache::forgetAll();
+		Cache::forgetAll('memcached');
+		/**
+		 *	Precondition
+		 *
+		 *  Check if there is nothing
+		 */
+		$key = 'Test_Has_Key';
+		$data = 'Test_Has_Data';
+		$return = Cache::has($key);
+		$this->assertFalse($return);
+
+		//Add a data
+		Cache::put($key, $data);
+
+		//Check if the data exists
+		$return = Cache::has($key);
+		$this->assertTrue($return);
+
+
+		/**
+		 *	Memcache
+		 *
+		 *  Precondition
+		 *
+		 *  Check if there is nothing
+		 */
+		$memcache = 'memcached';
+		$key = 'Test_Has_Key';
+		$data = 'Test_Has_Data';
+		$return = Cache::has($key, $memcache);
+		$this->assertFalse($return);
+
+		//Add a data
+		Cache::put($key, $data, $memcache);
+
+		//Check if the data exists
+		$return = Cache::has($key, $memcache);
+		$this->assertTrue($return);
+	}
+
+	/**
+	 *
+	 *	@depends testHas
+	 *
+	 */
+	function testPutAndGet()
 	{
 		/**
 		 *	Precondition
@@ -85,11 +176,12 @@ class CacheTest extends ErdikoTestCase
 		 *
 		 *  Check if there is nothing
 		 */
-
 		$memcache = 'memcached';
 		$key = 'stringTest';
 		$return = Cache::has($key, $memcache);
 		$this->assertFalse($return);
+		$return = Cache::get('non exist');
+		$this->assertEquals($return, null);
 
 		/**
 		 *	String Test
@@ -106,14 +198,28 @@ class CacheTest extends ErdikoTestCase
 		 *  Pass an array data to cache
 		 */
 		$arr = array(
-				'1' => 'test1',
-				'2' => 'test2'
+				'index_one' => 'test_data_one',
+				'index_two' => 'test_data_two'
 				);
 
 		$key = 'arrayTest';
-		//Cache::put($key,$arr, $memcache);
-		//$return=Cache::get($key, $memcache);
-		//$this->assertEquals($return, $arr);
+		Cache::put($key,$arr, $memcache);
+		$return= Cache::get($key, $memcache);
+		
+		$castedReturn = (array) $return;
+		$this->assertEquals($castedReturn['index_one'], $arr['index_one']);
+		$this->assertEquals($castedReturn['index_two'], $arr['index_two']);
+		$this->assertEquals($arr, $castedReturn);
+
+		/**
+		 *	Null Test
+		 *
+		 *  Pass null to cache
+		 */
+		$key = 'nullTest';
+		Cache::put($key,null, $memcache);
+		$return= Cache::get($key, $memcache);
+		$this->assertEquals($return, null);
 
 		/**
 		 *	JSON Test
@@ -121,59 +227,46 @@ class CacheTest extends ErdikoTestCase
 		 *  Pass a JSON data to cache
 		 */
 		$arr = array(
-				'1' => 'test1',
-				'2' => 'test2'
+				'index_one' => 'test_data_one',
+				'index_two' => 'test_data_two'
 				);
-		$arr = json_encode($arr);
-		$key = 'arrayTest';
-		Cache::put($key,$arr, $memcache);
-		$return=Cache::get($key, $memcache);
-		$this->assertEquals($return, $arr);
+		$jsonArr = json_encode($arr);
+		$key = 'jsonTest';
+		Cache::put($key,$jsonArr, $memcache);
+		$return= Cache::get($key, $memcache);
+		//Check if the JSON return equals to the input
+		$this->assertEquals($return, $jsonArr);
+		//Get the original array
+		$return = json_decode($return);
+		$castedReturn = (array) $return;
 
-	}
-
-	function testHas()
-	{	
-		/**
-		 *	Precondition
-		 *
-		 *  Check if there is nothing
-		 */
-
-		$key = 'Test_Key';
-		$data = 'Test_Data';
-		$return = Cache::has($key);
-		$this->assertFalse($return);
-
-		//Add a data
-		Cache::put($key, $data);
-
-		//Check if the data exists
-		$return = Cache::has($key);
-		$this->assertTrue($return);
-
+		$this->assertEquals($castedReturn['index_one'], $arr['index_one']);
+		$this->assertEquals($castedReturn['index_two'], $arr['index_two']);
+		$this->assertEquals($arr, $castedReturn);
 
 		/**
-		 *	Memcache
+		 *	Oject Test
 		 *
-		 *  Precondition
-		 *
-		 *  Check if there is nothing
+		 *  Pass a Object to cache
+		 *  Custom class won't work
 		 */
-		$memcache = 'memcached';
-		$key = 'Test_Key';
-		$data = 'Test_Data';
-		$return = Cache::has($key, $memcache);
-		$this->assertFalse($return);
+		$obj = new stdClass();
+		$obj->var1 = 'Test_var_one';
+		$obj->var2 = 'Test_var_two';
+		$key = 'objectTest';
+		Cache::put($key,$obj, $memcache);
+		$return= Cache::get($key, $memcache);
+		$this->assertEquals($obj, $return);
+		$this->assertEquals($obj->var1, $return->var1);
+		$this->assertEquals($obj->var2, $return->var2);
 
-		//Add a data
-		Cache::put($key, $data, $memcache);
-
-		//Check if the data exists
-		$return = Cache::has($key, $memcache);
-		$this->assertTrue($return);
 	}
 	
+	/**
+	 *
+	 *	@depends testPutAndGet
+	 *
+	 */
 	function testForget()
 	{
 		/**
@@ -232,6 +325,12 @@ class CacheTest extends ErdikoTestCase
 		$this->assertFalse($return);
 	}	
 	
+	/**
+	 *
+	 *	@depends testPutAndGet
+	 *	@depends testHas
+	 *	@depends testForget
+	 */
 	function testForgetAll()
 	{
 		/**
@@ -318,6 +417,5 @@ class CacheTest extends ErdikoTestCase
 		$return = Cache::has($key2, $memcache);
 		$this->assertFalse($return);
 	}
-
   }
 ?>
