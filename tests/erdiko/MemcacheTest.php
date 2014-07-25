@@ -1,31 +1,30 @@
 <?php
 
-use erdiko\core\Cache;
+use erdiko\core\cache\MemcacheClass;
 require_once dirname(__DIR__).'/ErdikoTestCase.php';
 
 
-class MemcacheTest extends ErdikoTestCase
+class MemcacheClassTest extends ErdikoTestCase
 {
-    var $memcacheObj=null;
+    var $memcacheObj;
 
     function setUp() {
-        $this->memcacheObj = Cache::getCacheObject();
+        $this->memcacheObj = new MemcacheClass;
     }
 
     function tearDown() {
-        $this->memcacheObj->forgetALL();
-        unset($this->cacheObj);
+        $this->memcacheObj->forgetAll();
+        unset($this->memcacheObj);
     }
 	
-	
-	function testPutAndGet()
+    function testPutAndGet()
 	{
 		/**
 		 *	Precondition
 		 *
 		 *  Check if there is nothing
 		 */
-
+		$this->memcacheObj->forgetAll();
 		$key = 'stringTest';
 		$return = $this->memcacheObj->has($key);
 		$this->assertFalse($return);
@@ -91,6 +90,7 @@ class MemcacheTest extends ErdikoTestCase
 		$this->assertTrue($return);
 	}
 
+
 	function testForget()
 	{
 		/**
@@ -118,7 +118,8 @@ class MemcacheTest extends ErdikoTestCase
 		//Check if the data being removed
 		$return = $this->memcacheObj->has($key);
 	}	
-
+	
+	
 	function testForgetAll()
 	{
 		/**
@@ -153,7 +154,7 @@ class MemcacheTest extends ErdikoTestCase
 		/**
 		 *	Remove all data
 		 */
-		$this->memcacheObj->forgetALL();
+		$this->memcacheObj->forgetAll();
 
 		//Check if all data are removed
 		$return = $this->memcacheObj->has($key);
@@ -161,7 +162,6 @@ class MemcacheTest extends ErdikoTestCase
 		$return = $this->memcacheObj->has($key2);
 		$this->assertFalse($return);
 	}
-
 
   }
 ?>
