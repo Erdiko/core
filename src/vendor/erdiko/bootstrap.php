@@ -8,6 +8,10 @@ define('VENDOR', ROOT.'/vendor');
 define('ERDIKO', VENDOR.'/erdiko');
 define('VIEWS', ROOT.'/app/views/');
 
+// Memcache
+define('MEMCACHED_HOST', '127.0.0.1');
+define('MEMCACHED_PORT', '11211');
+
 // Core framework functions (static functions)
 require_once ROOT.'/Erdiko.php';
 
@@ -30,6 +34,7 @@ require_once ERDIKO.'/core/cache/CacheInterface.php';
 require_once ERDIKO.'/core/cache/File.php';
 require_once ERDIKO.'/core/Cache.php';
 require_once ERDIKO.'/core/Logger.php';
+require_once ERDIKO.'/core/cache/MemcacheClass.php';
 
 // Composer
 require_once VENDOR.'/autoload.php';

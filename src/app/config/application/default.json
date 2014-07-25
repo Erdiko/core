@@ -83,6 +83,11 @@
 			"type":"File",
          "class":"\erdiko\core\cache\File",
          "path":"/var/cache"
-	  }
+	  },
+     "memcache":{        
+         "type":"Memcache",
+         "class":"\erdiko\core\cache\MemcacheClass",
+         "path":"/var/cache"
+     }
    }
 }
