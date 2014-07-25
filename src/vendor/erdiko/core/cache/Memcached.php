@@ -53,6 +53,8 @@ class Memcached implements CacheInterface
      *
      *	@parm mixed $key
      *	@parm mixed $data
+     *	@note If you put a object into cache, 
+     *		  the json_encode function will ignore any private property.
      */
 	public function put($key, $data)
 	{
@@ -63,7 +65,10 @@ class Memcached implements CacheInterface
 	}
 	
 	/**
+	 *	Get value from cache
 	 *
+	 *	@parm mixed $key
+	 *	@return string $value
 	 *  @note Any cache array will get return as object
 	 *  @note If you need an array, use (array) $object
 	 *
@@ -76,10 +81,11 @@ class Memcached implements CacheInterface
 	}
 
 	/**
+	 *	Check if the key exists in cache
 	 *
+	 *	@parm mixed $key
 	 *  @return true if the key exist in cache
 	 *  @return false if the key does not exist in cache
-	 *  @note If you need an array, use (array) $object
 	 *
 	 */
 	public function has($key)
@@ -94,12 +100,21 @@ class Memcached implements CacheInterface
 			return true;
 	}
 	
+	/**
+	 *	Remove a key from cache
+	 *
+	 *	@parm mixed $key
+	 *
+	 */
 	public function forget($key)
 	{
 		$filename = $this->getKeyCode($key);
 		$this->memcacheObj->delete($filename);
 	}
 
+	/**
+	 *	Flush all the cache
+	 */
 	public function forgetAll()
 	{
 		$this->memcacheObj->flush();
