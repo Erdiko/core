@@ -37,6 +37,17 @@ class Memcached implements CacheInterface
 	}
 
 	/**
+     * 	Get Cache Object
+     *
+     *	@return Memcache $memcacheObj 
+     *  @note   Please do not modify data if you use the put function in this class
+     */
+	public function getObject()
+	{
+		return $this->memcacheObj;
+	}
+
+	/**
      * 	MD5 encode
      *
      *	@parm mixed $key

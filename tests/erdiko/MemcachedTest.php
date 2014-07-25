@@ -8,6 +8,7 @@ class MemcachedTest extends ErdikoTestCase
 {
     var $memcacheObj;
 
+	
     function setUp() {
         $this->memcacheObj = new Memcached;
     }
@@ -19,13 +20,18 @@ class MemcachedTest extends ErdikoTestCase
 	function testHas()
 	{	
 		/**
+		 *	Remove all data
+		 */
+		$this->memcacheObj->forgetAll();
+
+		/**
 		 *	Precondition
 		 *
 		 *  Check if there is nothing
 		 */
 
-		$key = 'Test_Key';
-		$data = 'Test_Data';
+		$key = 'Test_Has_Key';
+		$data = 'Test_Has_Data';
 		$return =  $this->memcacheObj->has($key);
 		$this->assertFalse($return);
 
@@ -49,7 +55,6 @@ class MemcachedTest extends ErdikoTestCase
 		 *
 		 *  Check if there is nothing
 		 */
-		$this->memcacheObj->forgetAll();
 		$key = 'stringTest';
 		$return = $this->memcacheObj->has($key);
 		$this->assertFalse($return);
@@ -126,14 +131,15 @@ class MemcachedTest extends ErdikoTestCase
 		 *  Pass a Object to cache
 		 *  Custom class won't work
 		 */
-		
 		$obj = new stdClass();
-		$obj->var1 = 'Test_one';
+		$obj->var1 = 'Test_var_one';
+		$obj->var2 = 'Test_var_two';
 		$key = 'objectTest';
 		$this->memcacheObj->put($key,$obj);
 		$return= $this->memcacheObj->get($key);
 		$this->assertEquals($obj, $return);
-		
+		$this->assertEquals($obj->var1, $return->var1);
+		$this->assertEquals($obj->var2, $return->var2);
 	}
 
 	/**
