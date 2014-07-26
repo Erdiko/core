@@ -26,7 +26,15 @@ class Controller
 		$this->_response = new \erdiko\core\Response;
 
 		if($this->_themeName != null)
-			$this->_response->setTheme($this->_themeName);
+			$this->_response->setThemeName($this->_themeName);
+    }
+
+    /**
+     * 
+     */
+    public function prepareTheme()
+    {
+    	$this->getResponse()->setTheme( new \erdiko\core\Theme($this->getThemeName()) );
     }
 
     /**
@@ -45,7 +53,7 @@ class Controller
      */
     public function getThemeName()
     {
-    	return $this->getResponse()->getThemeName();
+		return $this->getResponse()->getThemeName();
     }
 
     /**

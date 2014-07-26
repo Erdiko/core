@@ -19,6 +19,7 @@ class Example extends \erdiko\core\Controller
 	public function _before()
 	{
 		$this->setThemeName('bootstrap');
+		$this->prepareTheme();
 	}
 
 	public function getHello()
@@ -49,7 +50,6 @@ class Example extends \erdiko\core\Controller
 
 	/**
 	 * Homepage Action (index)
-	 * @params array $arguments
 	 */
 	public function getIndex()
 	{
@@ -114,7 +114,6 @@ class Example extends \erdiko\core\Controller
 
 	/**
 	 * Slideshow Action 
-	 * @params array $arguments
 	 */
 	public function getCarousel()
 	{
@@ -122,8 +121,8 @@ class Example extends \erdiko\core\Controller
 		$this->setTitle('Example: Carousel');
 		$this->addView('examples/carousel');
 
-		// Add Extra js file to the page
-		$this->getResponse()->addJs('/themes/bootstrap/js/carousel.js');
+		// Inject the carousel js code
+		$this->getResponse()->getTheme()->addJs('/themes/bootstrap/js/carousel.js');
 	}
 
 	public function getPhpinfo()
@@ -179,6 +178,7 @@ class Example extends \erdiko\core\Controller
 		$this->setTitle('Example: Grid');
 		$this->setContent( $this->getLayout('grid/default', $data) );
 	}
+
 
 
 
