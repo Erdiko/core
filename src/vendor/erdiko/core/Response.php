@@ -22,7 +22,7 @@ class Response
 	
 	/**
 	 * Constructor
-	 * @param Theme $theme, Theme Object (Contaier)
+	 * @param Theme $theme, Theme Object (Container)
 	 */
 	public function __construct($theme = null)
 	{
