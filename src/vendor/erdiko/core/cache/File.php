@@ -14,7 +14,6 @@ use erdiko\core\cache\CacheInterface;
 
 class File extends \erdiko\core\datasource\File implements CacheInterface 
 {
-	protected $_fileData = array();
 	
 	public function __construct($cacheDir=null)
 	{
