@@ -12,19 +12,20 @@ $iterator = Finder::create()
     ->exclude('tests')
     ->in($dir)
 ;
-
+/*
 $versions = GitVersionCollection::create($dir)
-    ->addFromTags('v1.0.*')
-    ->add('1.0', '1.0 branch')
+    //->addFromTags('v1.0.*')
+    //->add('1.0', '1.0 branch')
     ->add('master', 'master branch')
 ;
-
+*/
 return new Sami($iterator, array(
-    'theme'                => 'enhanced',
-    'versions'             => $versions,
+    'theme'                => 'symfony',
+    //'versions'             => $versions,
+    'versions'             => '0.2',
     'title'                => 'Erdiko API',
-    'build_dir'            => __DIR__.'/build/%version%',
-    'cache_dir'            => __DIR__.'/cache/%version%',
+    'build_dir'            => __DIR__.'/build/',
+    'cache_dir'            => __DIR__.'/cache/',
     //  'simulate_namespaces'  => true, 
-    'default_opened_level' => 2,
+    'default_opened_level' => 1,
 ));
