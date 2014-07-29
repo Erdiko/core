@@ -14,13 +14,14 @@ $iterator = Finder::create()
 ;
 
 $versions = GitVersionCollection::create($dir)
-    //->addFromTags('v1.0.*')
-    //->add('1.0', '1.0 branch')
+    ->addFromTags('v1.0.*')
+    //->add('1.0', 'master branch')
+    //->addFromTags('*')
     ->add('master', 'master branch')
 ;
 
 return new Sami($iterator, array(
-    'theme'                => 'symfony',
+    'theme'                => 'enhanced',
     'versions'             => $versions,
     //'versions'             => '0.2',
     'title'                => 'Erdiko API',
