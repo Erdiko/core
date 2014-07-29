@@ -16,7 +16,7 @@ class Erdiko
 	/**
 	 * Load a template file from a module
 	 * @param string $filename
-	 * @param mixed $data, data to expose to template
+	 * @param mixed $data , data to expose to template
 	 * 
 	 * @todo can we deprecate this function and only use the one in the theme engine? -John
 	 */
@@ -34,8 +34,8 @@ class Erdiko
 	/**
 	 * Load a view from the current theme with the given data
 	 * 
+	 * @param string $viewName
 	 * @param array $data
-	 * @param string $file
 	 */
 	public static function getView($viewName, $data = null)
 	{
@@ -45,7 +45,8 @@ class Erdiko
 	
 	/**
 	 * Read JSON config file and return array
-	 * @param filename $filename
+	 *
+	 * @param string $file
 	 * @return array $config
 	 */
 	public static function getConfigFile($file)
@@ -95,7 +96,7 @@ class Erdiko
 	 * @usage Erdiko::log('Sample notice',Logger::LogLevel,'Default')
 	 * Need to import erdiko\core\Logger to use this function
 	 * @todo add log level as a number instead of a constant
-	 * @return 
+	 * @return bool $sucess
 	 */
 	public static function log($logString, $logLevel = null, $logKey = null)
 	{
@@ -111,7 +112,8 @@ class Erdiko
 	
 	/*
 	* Get the configured cache instance using name
-	* returns the instance of the cache type
+	* 
+	* @return cache $cache returns the instance of the cache type
 	*/	
 	public static function getCache($cacheType=null)
 	{
