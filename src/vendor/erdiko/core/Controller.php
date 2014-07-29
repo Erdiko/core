@@ -31,7 +31,8 @@ class Controller
 
     /**
      * Set the theme name in the response
-     * @param string $name, the name/id of the theme
+     *
+     * @param string $name , the name/id of the theme
      */
     public function setThemeName($name)
     {
@@ -50,6 +51,7 @@ class Controller
 
     /**
      * Set the theme template used to render the page
+     *
      * @param string $template 
      */
     public function setThemeTemplate($template)
@@ -75,16 +77,31 @@ class Controller
 		// do something...
 	}
 
+	/**
+     * Get the Response object
+     * 
+     * @return Response
+     */
     public function getResponse()
     {
     	return $this->_response;
     }
 
+    /**
+     * Call the render function of the Response object
+     * 
+     */
     final public function send()
     {
     	echo $this->getResponse()->render();
     }
 
+    /**
+     * Set data and value of Response object
+     * 
+     * @param mixed $key
+     * @param mixed $value
+     */
     public function setResponseDataValue($key, $value)
     {
     	$this->getResponse()->setDataValue($key, $value);
@@ -92,6 +109,8 @@ class Controller
 
 	/**
 	 * Add page title text to current page
+	 *
+	 * @param string $title
 	 */
 	public function setPageTitle($title)
 	{
@@ -110,6 +129,7 @@ class Controller
 
 	/**
 	 * Set both the title (header) and page title (body) at the same time
+	 *
 	 * @param string $title
 	 */
 	public function setTitle($title)
@@ -120,6 +140,8 @@ class Controller
 
 	/**
 	 * Set the response content
+	 *
+	 * @param string $content
 	 */
 	public function setContent($content)
 	{
@@ -128,6 +150,8 @@ class Controller
 
 	/**
 	 * Add/append html text to the response content
+	 *
+	 * @param string $content
 	 */
 	public function appendContent($content)
 	{
@@ -135,7 +159,10 @@ class Controller
 	}
 
 	/**
+	 * Auto Action
 	 *
+	 * @param mixed $var
+	 * @param string $httpMethod
 	 */
 	protected function _autoaction($var, $httpMethod = 'get')
 	{
@@ -157,7 +184,9 @@ class Controller
 
     /**
      * Modify the action name coming from the URL into proper action name
-     * @param string $name: The raw controller action name
+     *
+     * @param string $name , The raw controller action name
+     * @param string $httpMethod
      * @return string
      */
     public function urlToActionName($name, $httpMethod)
@@ -283,7 +312,7 @@ class Controller
 	 * Add Meta Tags to the page
 	 * 
 	 * @param string $content
-	 * @param string $name, html meta name (e.g. 'description' or 'keywords')
+	 * @param string $name , html meta name (e.g. 'description' or 'keywords')
 	 */
 	public function addMeta($content, $name = 'description')
 	{

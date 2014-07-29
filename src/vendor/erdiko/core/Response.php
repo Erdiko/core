@@ -22,7 +22,8 @@ class Response
 	
 	/**
 	 * Constructor
-	 * @param Theme $theme, Theme Object (Contaier)
+     *
+	 * @param Theme $theme , Theme Object (Contaier)
 	 */
 	public function __construct($theme = null)
 	{
@@ -72,7 +73,7 @@ class Response
     }
 
     /**
-     * @param string $themeName
+     * @param string $template
      */
     public function setThemeTemplate($template)
     {
@@ -91,7 +92,7 @@ class Response
 
 
     /**
-     * @param Container $content, e.g. View or Layout Object
+     * @param Container $content , e.g. View or Layout Object
      */
     public function setContent($content)
     {

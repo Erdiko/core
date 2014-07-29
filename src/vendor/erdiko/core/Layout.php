@@ -21,8 +21,10 @@ class Layout extends Container
 
     /**
      * Constructor
-     * @param string $template, Theme Object (Contaier)
+     *
+     * @param string $template , Theme Object (Contaier)
      * @param mixed $data
+     * @param string $theme
      */
     public function __construct($template = null, $data = null, $theme = null)
     {
@@ -55,7 +57,7 @@ class Layout extends Container
      * set region
      *
      * @param string $name
-     * @param mixed $content, typically a string, Container object or other object
+     * @param mixed $content , Typically a string, Container object or other object
      */
     public function setRegion($name, $content)
     {
@@ -65,7 +67,7 @@ class Layout extends Container
     /**
      * Set all regions at once
      * 
-     * @param array $data, associative array of containers/strings
+     * @param array $data , Associative array of containers/strings
      */
     public function setRegions($data)
     {

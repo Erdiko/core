@@ -24,8 +24,10 @@ class Theme extends Container
 
     /**
      * Constructor
-     * @param string $template, Theme Object (Contaier)
+     *
+     * @param string $name
      * @param mixed $data
+     * @param string $template , Theme Object (Contaier)
      */
     public function __construct($name = null, $data = null, $template = 'default')
     {
@@ -71,7 +73,8 @@ class Theme extends Container
     /**
      * Add meta file to page
      *
-     * @param string $metaName and $metaContent
+     * @param string $name
+     * @param string $content
      */
     public function addMeta($name, $content)
     {
@@ -104,7 +107,7 @@ class Theme extends Container
     }
 
     /**
-     * get array of css files to include in theme
+     * Get array of css files to include in theme
      *
      * @return array $css
      */
@@ -118,7 +121,7 @@ class Theme extends Container
 
     /**
      * Add css file to page
-     * @param string $cssFile, uri of injected css file
+     * @param string $cssFile , URL of injected css file
      */
     public function addCss($cssFile)
     {
@@ -144,7 +147,7 @@ class Theme extends Container
     /**
      * Add js file to page
      *
-     * @param string $jsFile, link to js file
+     * @param string $jsFile , link to js file
      */
     public function addJs($jsFile)
     {
@@ -173,7 +176,7 @@ class Theme extends Container
 
 
     /**
-     * @param Container $content, e.g. View or Layout Object???
+     * @param Container $content , e.g. View or Layout Object???
      */
     public function setContent($content)
     {
@@ -206,7 +209,8 @@ class Theme extends Container
 
     /**
      * Set the theme name, the name is also the id of the theme
-     * @param string $name, Theme name
+     *
+     * @param string $name , Theme name
      */
     public function setName($name)
     {

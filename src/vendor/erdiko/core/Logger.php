@@ -53,8 +53,12 @@ class Logger extends File{
 	}
 	
 	/**
-	 * @param string $logstring
-	 * return value true/false
+	 * Log
+	 *
+	 * @param string $log
+	 * @param string $logLevel
+	 * @param string $logKey 
+	 * @return bool
 	 */
 	public function log($log,$logLevel=null,$logKey=null)
 	{

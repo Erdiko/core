@@ -20,7 +20,7 @@ abstract class Container
 
     /**
      * Constructor
-     * @param string $template, Theme Object (Contaier)
+     * @param string $template , Theme Object (Contaier)
      * @param mixed $data
      */
     public function __construct($template = null, $data = null)
@@ -41,7 +41,7 @@ abstract class Container
     }
 
     /**
-     * @param mixed $data, data injected into the container
+     * @param mixed $data , data injected into the container
      */
     public function setData($data)
     {
@@ -49,7 +49,7 @@ abstract class Container
     }
 
     /**
-     * @return mixed $data, data injected into the container
+     * @return mixed $data , data injected into the container
      */
     public function getData()
     {
@@ -69,9 +69,9 @@ abstract class Container
      * Accepts one of the types of template files in this order:
      * php (.php), html/mustache (.html), markdown (.md)
      * 
-     * @param string $filename, file without extension
-     * @param array $data, associative array of data
-     * @throws \Exception, template file does not exist
+     * @param string $filename , file without extension
+     * @param array $data , associative array of data
+     * @throws \Exception , template file does not exist
      */
     public function getTemplateFile($filename, $data)
     {

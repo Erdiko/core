@@ -27,10 +27,15 @@ class File
 	}
 	
 	/**
-	 * @param string $filename, string $path
+	 * Write string to file
+	 *
+	 * @param string $content
+	 * @param string $filename
+	 * @param string $pathToFile
+	 * @param string $mode , Default mode: w
 	 * @return int $ret - bytes written to file
 	 */
-	public function write($string, $filename, $pathToFile=null, $mode=null)
+	public function write($content, $filename, $pathToFile=null, $mode=null)
 	{
 		if($pathToFile==null)
 			$pathToFile=$this->_defaultPath;

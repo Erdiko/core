@@ -16,6 +16,12 @@ class Cache
     private static $instance = array();
     //private static $instanceMemcache;
 
+    /**
+     * Get the cache instance
+     *
+     * @param string $cacheConfig
+     * @return object
+     */
     public static function getCacheObject($cacheConfig = 'default')
     {
             //Check if the caller requests an new object
@@ -38,6 +44,7 @@ class Cache
      * Get the value stored at the given key
      *
      * @param string $key
+     * @param string $cacheConfig
      */
     public static function get($key, $cacheConfig = 'default')
     {
@@ -49,6 +56,7 @@ class Cache
      *
      * @param string $key
      * @param mixed $value
+     * @param string $cacheConfig
      */
     public static function put($key, $value, $cacheConfig = 'default')
     {
@@ -56,8 +64,11 @@ class Cache
     }
     
     /**
+     * Check if the key exist
      *
      * @param string $key
+     * @param string $cacheConfig
+     * @return bool
      */
     public static function has($key, $cacheConfig = 'default')
     {
@@ -65,8 +76,11 @@ class Cache
     }
 
     /**
-     * retrieve the cache value and then delete it before returning that value
+     * Retrieve the cache value and then delete it before returning that value
+     *
      * @param string $key
+     * @param string $cacheConfig
+     * @return mixed
      */
     public static function pull($key, $cacheConfig = 'default')
     {
@@ -78,7 +92,10 @@ class Cache
 
     /**
      * Remove an item from the cache
+     *
      * @param string $key
+     * @param string $cacheConfig
+     * @return bool
      */
     public static function forget($key, $cacheConfig = 'default')
     {
@@ -87,6 +104,9 @@ class Cache
 
     /**
      * Forget all cache keys (Purge)
+     *
+     * @param string $cacheConfig
+     * @return bool
      */
     public static function forgetAll($cacheConfig = 'default')
     {
