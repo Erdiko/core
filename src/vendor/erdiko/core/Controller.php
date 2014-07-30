@@ -147,7 +147,6 @@ class Controller
 	 */
 	protected function _autoaction($var, $httpMethod = 'get')
 	{
-		// error_log("httpMethod: $httpMethod");
 		$method = $this->urlToActionName($var, $httpMethod);
 		if(method_exists($this, $method))
 			return $this->$method();

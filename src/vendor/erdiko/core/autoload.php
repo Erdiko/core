@@ -13,7 +13,7 @@ ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . ROOT . PATH_S
 
 spl_autoload_register(function($name) 
 {
-	error_log("autoload: $name");
+	// error_log("autoload: $name");
 
 	if(strpos($name, '\\') !== false)
 	{
@@ -21,8 +21,7 @@ spl_autoload_register(function($name)
 		$class = basename($path);
 		$dir = '/'.dirname($path);
 		$filename = ROOT.$dir.'/'.$class.'.php';
-		
-		error_log("file: $filename");
+		// error_log("file: $filename");
 
 		if(is_file($filename))
 		{

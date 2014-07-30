@@ -89,5 +89,10 @@
          "class":"\erdiko\core\cache\Memcached",
          "path":"/var/cache"
      }
+   },
+   "analytics":{
+      "google":{
+         "id":""
+      }
    }
 }

@@ -30,22 +30,15 @@ class Example extends \erdiko\core\Controller
 
 	public function get($var = null)
 	{
-		if($var != null)
+		// error_log("var: $var");
+		if(!empty($var))
 		{
-			// load action
+			// load action based off of naming conventions
 			return $this->_autoaction($var, 'get');
+
+		} else {
+			return $this->getIndex();
 		}
-
-		$m = new \Mustache_Engine;
-		$test = $m->render('Hello, {{ planet }}!', array('planet' => 'world')); // Hello, world!
-
-		// error_log("mustache = {$test}");
-		// error_log("var: ".print_r($var, true));
-
-		$data = array("hello", "world");
-		$view = new \erdiko\core\View('examples/helloworld', $data);
-		
-		$this->setContent($view);
 	}
 
 	/**
@@ -177,27 +170,5 @@ class Example extends \erdiko\core\Controller
 		
 		$this->setTitle('Example: Grid');
 		$this->setContent( $this->getLayout('grid/default', $data) );
-	}
-
-
-
-
-
-
-	public function dataAction()
-	{
-		// Include multiple views indirectly (and page title)
-		$page = array(
-			'content' => array(
-				'view1' => $this->getView(null, 'examples/one'),
-				'view2' => $this->getView(null, 'examples/two'),
-				'view3' => $this->getView(null, 'examples/three')
-				),
-			'title' => 'Example: Page with multiple views'
-			);
-
-		$this->setData($page);
-		$this->setTitle('This is the title in the browser tab');		
-		$this->addView('examples/setview2.php');
 	}
 }

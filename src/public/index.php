@@ -17,5 +17,5 @@ try {
 
 } catch(\Exception $e) {
 	echo $e->getMessage();
-	// @todo return a 500 error
+	// @todo return a 500 error & log error
 }

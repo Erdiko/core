@@ -46,5 +46,7 @@ $(document).ready(function() {
 });
 /* ]]> */</script>
 
+<?php echo $data->getTemplateHtml('analytics') ?>
+
 </body>
 </html>
