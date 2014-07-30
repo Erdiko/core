@@ -14,10 +14,9 @@ $iterator = Finder::create()
 ;
 
 $versions = GitVersionCollection::create($dir)
-    ->addFromTags('v1.0.*')
-    //->add('1.0', 'master branch')
-    //->addFromTags('*')
     ->add('master', 'master branch')
+    ->add('unitTest', 'unitTest')
+    ->add('filecache','filecache')
 ;
 
 return new Sami($iterator, array(
@@ -30,3 +29,5 @@ return new Sami($iterator, array(
     //  'simulate_namespaces'  => true, 
     'default_opened_level' => 1,
 ));
+
+//php ../sami.phar update ./sami/sami_conf.php
