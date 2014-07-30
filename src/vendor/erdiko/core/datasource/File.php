@@ -9,10 +9,18 @@
  */
 namespace erdiko\core\datasource;
 
+/**
+ * File Class
+ */
 class File
 {
 	protected $_defaultPath = null;
 	
+	/**
+ 	* Contructor
+ 	*
+ 	* @param string $defaultPath
+ 	*/
 	public function __construct($defaultPath=null)
 	{	
 		if(isset($defaultPath))
@@ -32,8 +40,8 @@ class File
 	 * @param string $content
 	 * @param string $filename
 	 * @param string $pathToFile
-	 * @param string $mode , Default mode: w
-	 * @return int $ret - bytes written to file
+	 * @param string $mode - Default mode: w
+	 * @return int - bytes written to file
 	 */
 	public function write($content, $filename, $pathToFile=null, $mode=null)
 	{
@@ -52,6 +60,13 @@ class File
 			return false;
 	}
 	
+	/**
+	 * Read string to file
+	 *
+	 * @param string $filename
+	 * @param string $pathToFile
+	 * @return string
+	 */
 	public function read($filename, $pathToFile=null)
 	{
 		if($pathToFile==null)
@@ -60,6 +75,13 @@ class File
 			return file_get_contents($pathToFile."/".$filename);
 	}
 	
+	/**
+	 * Delete a file
+	 *
+	 * @param string $filename
+	 * @param string $pathToFile
+	 * @return bool
+	 */
 	public function delete($filename, $pathToFile=null)
 	{
 		if($pathToFile==null)
@@ -69,7 +91,15 @@ class File
 		else 
 			return false;
 	}
-	
+
+	/**
+	 * Move a file
+	 *
+	 * @param string $filename
+	 * @param string $pathTo
+	 * @param string $pathToFrom
+	 * @return bool
+	 */
 	public function move($filename, $pathTo, $pathFrom=null)
 	{
 		if($pathFrom==null)
@@ -80,6 +110,14 @@ class File
 			return null;
 	}
 	
+	/**
+	 * Rename a file
+	 *
+	 * @param string $oldName
+	 * @param string $pathTo
+	 * @param string $pathToFrom
+	 * @return bool
+	 */
 	public function rename($oldName, $newName, $pathToFile=null)
 	{
 		if($pathToFile==null)
@@ -90,6 +128,15 @@ class File
 			return false;
 	}
 	
+	/**
+	 * Copy a file
+	 *
+	 * @param string $filename
+	 * @param string $newFilePath
+	 * @param string $newFileName
+	 * @param string $pathToFile
+	 * @return bool
+	 */
 	public function copy($filename, $newFilePath, $newFileName=null, $pathToFile=null)
 	{
 		if($pathToFile==null)
@@ -102,6 +149,13 @@ class File
 			return false;
 	}
 	
+	/**
+	 * Check if a file exists
+	 *
+	 * @param string $filename
+	 * @param string $pathToFile
+	 * @return bool
+	 */
 	public function fileExists($filename, $pathToFile=null)
 	{
 		if($pathToFile==null)
@@ -109,6 +163,9 @@ class File
 		return file_exists($pathToFile."/".$filename);
 	}
 	
+	/**
+	 * Destructor
+	 */
 	public function __destruct()
 	{
 	}

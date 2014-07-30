@@ -1,6 +1,7 @@
 <?php
 /**
  * Erdiko
+ *
  * All global helpers
  * 
  * @category	Erdiko
@@ -10,15 +11,21 @@
  * @author		John Arroyo, john@arroyolabs.com
  */
 
+/**
+ * Erdiko Class
+ */
 class Erdiko
 {
+	/**
+ 	 * Log Object
+	 */
 	protected static $_logObject=null; // @todo get rid of this...
 	
 	/**
 	 * Load a template file from a module
+	 *
 	 * @param string $filename
 	 * @param mixed $data , data to expose to template
-	 * 
 	 * @todo can we deprecate this function and only use the one in the theme engine? -John
 	 */
 	public static function getTemplate($filename, $data)
@@ -58,6 +65,9 @@ class Erdiko
 		return $json;
 	}
 	
+	/**
+	 * Get configuration
+	 */
 	public static function getConfig($name = 'default')
 	{
 		$filename = APPROOT.'/config/'.$name.'.json';
@@ -94,6 +104,7 @@ class Erdiko
 	
 	/**
 	 * log
+	 *
 	 * @usage Erdiko::log('Sample notice',Logger::LogLevel,'Default')
 	 * Need to import erdiko\core\Logger to use this function
 	 * @todo add log level as a number instead of a constant
@@ -111,7 +122,7 @@ class Erdiko
 		return Erdiko::$_logObject->log($logString, $logLevel, $logKey);
 	}
 	
-	/*
+	/**
 	* Get the configured cache instance using name
 	* 
 	* @return cache $cache returns the instance of the cache type
