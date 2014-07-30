@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/app.html">\app</a></li>
+                                                        <li><a href="../namespaces/Composer.html">\Composer</a></li>
+                                                        <li><a href="../namespaces/erdiko.html">\erdiko</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">734</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">5</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-561768474"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-561768474" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1632300143"></a>
+                                <a href="../namespaces/app.html" style="margin-left: 30px; padding-left: 0">app</a>
+            </div>
+            <div id="namespace-1632300143" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1630276455"></a>
+                                <a href="../namespaces/app.controllers.html" style="margin-left: 30px; padding-left: 0">controllers</a>
+            </div>
+            <div id="namespace-1630276455" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/app.controllers.AjaxExample.html">AjaxExample</a></li>
+                                                    <li class="class"><a href="../classes/app.controllers.Example.html">Example</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1882171916"></a>
+                                <a href="../namespaces/Composer.html" style="margin-left: 30px; padding-left: 0">Composer</a>
+            </div>
+            <div id="namespace-1882171916" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1329426777"></a>
+                                <a href="../namespaces/Composer.Autoload.html" style="margin-left: 30px; padding-left: 0">Autoload</a>
+            </div>
+            <div id="namespace-1329426777" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Composer.Autoload.ClassLoader.html">ClassLoader</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-816308018"></a>
+                                <a href="../namespaces/erdiko.html" style="margin-left: 30px; padding-left: 0">erdiko</a>
+            </div>
+            <div id="namespace-816308018" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-667989183"></a>
+                                <a href="../namespaces/erdiko.core.html" style="margin-left: 30px; padding-left: 0">core</a>
+            </div>
+            <div id="namespace-667989183" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1795882942"></a>
+                                <a href="../namespaces/erdiko.core.cache.html" style="margin-left: 30px; padding-left: 0">cache</a>
+            </div>
+            <div id="namespace-1795882942" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/erdiko.core.cache.CacheInterface.html">CacheInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/erdiko.core.cache.File.html">File</a></li>
+                                                    <li class="class"><a href="../classes/erdiko.core.cache.Memcached.html">Memcached</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2037995926"></a>
+                                <a href="../namespaces/erdiko.core.datasource.html" style="margin-left: 30px; padding-left: 0">datasource</a>
+            </div>
+            <div id="namespace-2037995926" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/erdiko.core.datasource.File.html">File</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/erdiko.core.AjaxController.html">AjaxController</a></li>
+                                                    <li class="class"><a href="../classes/erdiko.core.AjaxResponse.html">AjaxResponse</a></li>
+                                                    <li class="class"><a href="../classes/erdiko.core.Cache.html">Cache</a></li>
+                                                    <li class="class"><a href="../classes/erdiko.core.Container.html">Container</a></li>
+                                                    <li class="class"><a href="../classes/erdiko.core.Controller.html">Controller</a></li>
+                                                    <li class="class"><a href="../classes/erdiko.core.Layout.html">Layout</a></li>
+                                                    <li class="class"><a href="../classes/erdiko.core.Logger.html">Logger</a></li>
+                                                    <li class="class"><a href="../classes/erdiko.core.ModelAbstract.html">ModelAbstract</a></li>
+                                                    <li class="class"><a href="../classes/erdiko.core.Response.html">Response</a></li>
+                                                    <li class="class"><a href="../classes/erdiko.core.Theme.html">Theme</a></li>
+                                                    <li class="class"><a href="../classes/erdiko.core.View.html">View</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Mustache_Cache.html">Mustache_Cache</a></li>
+                                                    <li class="interface"><a href="../classes/Mustache_Exception.html">Mustache_Exception</a></li>
+                                                    <li class="interface"><a href="../classes/Mustache_Loader.html">Mustache_Loader</a></li>
+                                                    <li class="interface"><a href="../classes/Mustache_Loader_MutableLoader.html">Mustache_Loader_MutableLoader</a></li>
+                                                    <li class="interface"><a href="../classes/Mustache_Logger.html">Mustache_Logger</a></li>
+                                                                                                    <li class="class"><a href="../classes/CacheStub.html">CacheStub</a></li>
+                                                    <li class="class"><a href="../classes/ChildContext.html">ChildContext</a></li>
+                                                    <li class="class"><a href="../classes/Comments.html">Comments</a></li>
+                                                    <li class="class"><a href="../classes/Complex.html">Complex</a></li>
+                                                    <li class="class"><a href="../classes/ComposerAutoloaderInitd8242f852da43cb5ec3b803d3f4783df.html">ComposerAutoloaderInitd8242f852da43cb5ec3b803d3f4783df</a></li>
+                                                    <li class="class"><a href="../classes/Delimiters.html">Delimiters</a></li>
+                                                    <li class="class"><a href="../classes/DotNotation.html">DotNotation</a></li>
+                                                    <li class="class"><a href="../classes/DoubleSection.html">DoubleSection</a></li>
+                                                    <li class="class"><a href="../classes/Erdiko.html">Erdiko</a></li>
+                                                    <li class="class"><a href="../classes/Escaped.html">Escaped</a></li>
+                                                    <li class="class"><a href="../classes/GrandParentContext.html">GrandParentContext</a></li>
+                                                    <li class="class"><a href="../classes/I18n.html">I18n</a></li>
+                                                    <li class="class"><a href="../classes/ImplicitIterator.html">ImplicitIterator</a></li>
+                                                    <li class="class"><a href="../classes/InvertedDoubleSection.html">InvertedDoubleSection</a></li>
+                                                    <li class="class"><a href="../classes/InvertedSection.html">InvertedSection</a></li>
+                                                    <li class="class"><a href="../classes/MagicObject.html">MagicObject</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Autoloader.html">Mustache_Autoloader</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Bar.html">Mustache_Bar</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Cache_AbstractCache.html">Mustache_Cache_AbstractCache</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Cache_FilesystemCache.html">Mustache_Cache_FilesystemCache</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Cache_NoopCache.html">Mustache_Cache_NoopCache</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Compiler.html">Mustache_Compiler</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Context.html">Mustache_Context</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Engine.html">Mustache_Engine</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Exception_InvalidArgumentException.html">Mustache_Exception_InvalidArgumentException</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Exception_LogicException.html">Mustache_Exception_LogicException</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Exception_RuntimeException.html">Mustache_Exception_RuntimeException</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Exception_SyntaxException.html">Mustache_Exception_SyntaxException</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Exception_UnknownFilterException.html">Mustache_Exception_UnknownFilterException</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Exception_UnknownHelperException.html">Mustache_Exception_UnknownHelperException</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Exception_UnknownTemplateException.html">Mustache_Exception_UnknownTemplateException</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Foo.html">Mustache_Foo</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_HelperCollection.html">Mustache_HelperCollection</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_LambdaHelper.html">Mustache_LambdaHelper</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Loader_ArrayLoader.html">Mustache_Loader_ArrayLoader</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Loader_CascadingLoader.html">Mustache_Loader_CascadingLoader</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Loader_FilesystemLoader.html">Mustache_Loader_FilesystemLoader</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Loader_InlineLoader.html">Mustache_Loader_InlineLoader</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Loader_StringLoader.html">Mustache_Loader_StringLoader</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Logger_AbstractLogger.html">Mustache_Logger_AbstractLogger</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Logger_StreamLogger.html">Mustache_Logger_StreamLogger</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Parser.html">Mustache_Parser</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Template.html">Mustache_Template</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_AllTheThings.html">Mustache_Test_AllTheThings</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_AutoloaderTest.html">Mustache_Test_AutoloaderTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Cache_AbstractCacheTest.html">Mustache_Test_Cache_AbstractCacheTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Cache_FilesystemCacheTest.html">Mustache_Test_Cache_FilesystemCacheTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_CompilerTest.html">Mustache_Test_CompilerTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_ContextTest.html">Mustache_Test_ContextTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_EngineTest.html">Mustache_Test_EngineTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Exception_SyntaxExceptionTest.html">Mustache_Test_Exception_SyntaxExceptionTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Exception_UnknownFilterExceptionTest.html">Mustache_Test_Exception_UnknownFilterExceptionTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Exception_UnknownHelperExceptionTest.html">Mustache_Test_Exception_UnknownHelperExceptionTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Exception_UnknownTemplateExceptionTest.html">Mustache_Test_Exception_UnknownTemplateExceptionTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_FiveThree_Functional_ClassWithLambda.html">Mustache_Test_FiveThree_Functional_ClassWithLambda</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_FiveThree_Functional_ClosureQuirksTest.html">Mustache_Test_FiveThree_Functional_ClosureQuirksTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_FiveThree_Functional_FiltersTest.html">Mustache_Test_FiveThree_Functional_FiltersTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_FiveThree_Functional_Foo.html">Mustache_Test_FiveThree_Functional_Foo</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_FiveThree_Functional_HigherOrderSectionsTest.html">Mustache_Test_FiveThree_Functional_HigherOrderSectionsTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_FiveThree_Functional_LambdaHelperTest.html">Mustache_Test_FiveThree_Functional_LambdaHelperTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_FiveThree_Functional_MustacheSpecTest.html">Mustache_Test_FiveThree_Functional_MustacheSpecTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_FiveThree_Functional_PartialLambdaIndentTest.html">Mustache_Test_FiveThree_Functional_PartialLambdaIndentTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_FiveThree_Functional_StrictCallablesTest.html">Mustache_Test_FiveThree_Functional_StrictCallablesTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Functional_Alpha.html">Mustache_Test_Functional_Alpha</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Functional_Beta.html">Mustache_Test_Functional_Beta</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Functional_CallTest.html">Mustache_Test_Functional_CallTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Functional_ClassWithCall.html">Mustache_Test_Functional_ClassWithCall</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Functional_Delta.html">Mustache_Test_Functional_Delta</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Functional_ExamplesTest.html">Mustache_Test_Functional_ExamplesTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Functional_Foo.html">Mustache_Test_Functional_Foo</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Functional_Gamma.html">Mustache_Test_Functional_Gamma</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Functional_HigherOrderSectionsTest.html">Mustache_Test_Functional_HigherOrderSectionsTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Functional_Monster.html">Mustache_Test_Functional_Monster</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Functional_MustacheInjectionTest.html">Mustache_Test_Functional_MustacheInjectionTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Functional_MustacheSpecTest.html">Mustache_Test_Functional_MustacheSpecTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Functional_ObjectSectionTest.html">Mustache_Test_Functional_ObjectSectionTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_FunctionalTestCase.html">Mustache_Test_FunctionalTestCase</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_HelperCollectionTest.html">Mustache_Test_HelperCollectionTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Loader_ArrayLoaderTest.html">Mustache_Test_Loader_ArrayLoaderTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Loader_CascadingLoaderTest.html">Mustache_Test_Loader_CascadingLoaderTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Loader_FilesystemLoaderTest.html">Mustache_Test_Loader_FilesystemLoaderTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Loader_InlineLoaderTest.html">Mustache_Test_Loader_InlineLoaderTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Loader_StringLoaderTest.html">Mustache_Test_Loader_StringLoaderTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Logger_AbstractLoggerTest.html">Mustache_Test_Logger_AbstractLoggerTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Logger_StreamLoggerTest.html">Mustache_Test_Logger_StreamLoggerTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_Logger_TestLogger.html">Mustache_Test_Logger_TestLogger</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_ParserTest.html">Mustache_Test_ParserTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_SpecTestCase.html">Mustache_Test_SpecTestCase</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_TemplateStub.html">Mustache_Test_TemplateStub</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_TemplateTest.html">Mustache_Test_TemplateTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_TestArrayAccess.html">Mustache_Test_TestArrayAccess</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_TestDummy.html">Mustache_Test_TestDummy</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Test_TokenizerTest.html">Mustache_Test_TokenizerTest</a></li>
+                                                    <li class="class"><a href="../classes/Mustache_Tokenizer.html">Mustache_Tokenizer</a></li>
+                                                    <li class="class"><a href="../classes/MustacheStub.html">MustacheStub</a></li>
+                                                    <li class="class"><a href="../classes/NestedPartials.html">NestedPartials</a></li>
+                                                    <li class="class"><a href="../classes/NonMustacheClass.html">NonMustacheClass</a></li>
+                                                    <li class="class"><a href="../classes/Partials.html">Partials</a></li>
+                                                    <li class="class"><a href="../classes/RecursivePartials.html">RecursivePartials</a></li>
+                                                    <li class="class"><a href="../classes/SectionIteratorObjects.html">SectionIteratorObjects</a></li>
+                                                    <li class="class"><a href="../classes/SectionMagicObjects.html">SectionMagicObjects</a></li>
+                                                    <li class="class"><a href="../classes/SectionObject.html">SectionObject</a></li>
+                                                    <li class="class"><a href="../classes/SectionObjects.html">SectionObjects</a></li>
+                                                    <li class="class"><a href="../classes/Sections.html">Sections</a></li>
+                                                    <li class="class"><a href="../classes/SectionsNested.html">SectionsNested</a></li>
+                                                    <li class="class"><a href="../classes/Simple.html">Simple</a></li>
+                                                    <li class="class"><a href="../classes/SymfonyClassCollectionLoader.html">SymfonyClassCollectionLoader</a></li>
+                                                    <li class="class"><a href="../classes/Toro.html">Toro</a></li>
+                                                    <li class="class"><a href="../classes/ToroHook.html">ToroHook</a></li>
+                                                    <li class="class"><a href="../classes/Unescaped.html">Unescaped</a></li>
+                                                    <li class="class"><a href="../classes/UTF8.html">UTF8</a></li>
+                                                    <li class="class"><a href="../classes/UTF8Unescaped.html">UTF8Unescaped</a></li>
+                                                    <li class="class"><a href="../classes/Whitespace.html">Whitespace</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>Mustache_Compiler</h1>
+                    <p><em>Mustache Compiler class.</em></p>
+                    <p>This class is responsible for turning a Mustache token parse tree into normal PHP source code.</p>
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Mustache_Compiler.html#method_compile" class="">compile()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_KLASS" class="">KLASS</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_KLASS_NO_LAMBDAS" class="">KLASS_NO_LAMBDAS</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_STRICT_CALLABLE" class="">STRICT_CALLABLE</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_SECTION_CALL" class="">SECTION_CALL</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_SECTION" class="">SECTION</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_INVERTED_SECTION" class="">INVERTED_SECTION</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_PARTIAL" class="">PARTIAL</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_VARIABLE" class="">VARIABLE</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_FILTER" class="">FILTER</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_LINE" class="">LINE</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_TEXT" class="">TEXT</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_DEFAULT_ESCAPE" class="">DEFAULT_ESCAPE</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_CUSTOM_ESCAPE" class="">CUSTOM_ESCAPE</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_IS_CALLABLE" class="">IS_CALLABLE</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_STRICT_IS_CALLABLE" class="">STRICT_IS_CALLABLE</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#constant_LINE_INDENT" class="">LINE_INDENT</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/Mustache_Compiler.html#method_walk" class="">walk()</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#method_writeCode" class="">writeCode()</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#method_section" class="">section()</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#method_invertedSection" class="">invertedSection()</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#method_partial" class="">partial()</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#method_variable" class="">variable()</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#method_getFilters" class="">getFilters()</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#method_getFilter" class="">getFilter()</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#method_text" class="">text()</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#method_prepare" class="">prepare()</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#method_getEscape" class="">getEscape()</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#method_getFindMethod" class="">getFindMethod()</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#method_getCallable" class="">getCallable()</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#method_flushIndent" class="">flushIndent()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Mustache_Compiler.html#property_sections" class="">$sections</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#property_source" class="">$source</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#property_indentNextLine" class="">$indentNextLine</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#property_customEscape" class="">$customEscape</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#property_entityFlags" class="">$entityFlags</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#property_charset" class="">$charset</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#property_strictCallables" class="">$strictCallables</a><br />
+                                                                    <a href="../classes/Mustache_Compiler.html#property_pragmas" class="">$pragmas</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/vendor.mustache.mustache.src.Mustache.Compiler.html"><div class="path-wrapper">vendor/mustache/mustache/src/Mustache/Compiler.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Mustache_Compiler</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_KLASS" name="constant_KLASS" class="anchor"></a>
+            <article id="constant_KLASS" class="constant">
+                <h3 class="">KLASS</h3>
+                <pre class="signature">KLASS</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_KLASS_NO_LAMBDAS" name="constant_KLASS_NO_LAMBDAS" class="anchor"></a>
+            <article id="constant_KLASS_NO_LAMBDAS" class="constant">
+                <h3 class="">KLASS_NO_LAMBDAS</h3>
+                <pre class="signature">KLASS_NO_LAMBDAS</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_STRICT_CALLABLE" name="constant_STRICT_CALLABLE" class="anchor"></a>
+            <article id="constant_STRICT_CALLABLE" class="constant">
+                <h3 class="">STRICT_CALLABLE</h3>
+                <pre class="signature">STRICT_CALLABLE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SECTION_CALL" name="constant_SECTION_CALL" class="anchor"></a>
+            <article id="constant_SECTION_CALL" class="constant">
+                <h3 class="">SECTION_CALL</h3>
+                <pre class="signature">SECTION_CALL</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SECTION" name="constant_SECTION" class="anchor"></a>
+            <article id="constant_SECTION" class="constant">
+                <h3 class="">SECTION</h3>
+                <pre class="signature">SECTION</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_INVERTED_SECTION" name="constant_INVERTED_SECTION" class="anchor"></a>
+            <article id="constant_INVERTED_SECTION" class="constant">
+                <h3 class="">INVERTED_SECTION</h3>
+                <pre class="signature">INVERTED_SECTION</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_PARTIAL" name="constant_PARTIAL" class="anchor"></a>
+            <article id="constant_PARTIAL" class="constant">
+                <h3 class="">PARTIAL</h3>
+                <pre class="signature">PARTIAL</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_VARIABLE" name="constant_VARIABLE" class="anchor"></a>
+            <article id="constant_VARIABLE" class="constant">
+                <h3 class="">VARIABLE</h3>
+                <pre class="signature">VARIABLE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_FILTER" name="constant_FILTER" class="anchor"></a>
+            <article id="constant_FILTER" class="constant">
+                <h3 class="">FILTER</h3>
+                <pre class="signature">FILTER</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_LINE" name="constant_LINE" class="anchor"></a>
+            <article id="constant_LINE" class="constant">
+                <h3 class="">LINE</h3>
+                <pre class="signature">LINE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_TEXT" name="constant_TEXT" class="anchor"></a>
+            <article id="constant_TEXT" class="constant">
+                <h3 class="">TEXT</h3>
+                <pre class="signature">TEXT</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_DEFAULT_ESCAPE" name="constant_DEFAULT_ESCAPE" class="anchor"></a>
+            <article id="constant_DEFAULT_ESCAPE" class="constant">
+                <h3 class="">DEFAULT_ESCAPE</h3>
+                <pre class="signature">DEFAULT_ESCAPE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_CUSTOM_ESCAPE" name="constant_CUSTOM_ESCAPE" class="anchor"></a>
+            <article id="constant_CUSTOM_ESCAPE" class="constant">
+                <h3 class="">CUSTOM_ESCAPE</h3>
+                <pre class="signature">CUSTOM_ESCAPE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_IS_CALLABLE" name="constant_IS_CALLABLE" class="anchor"></a>
+            <article id="constant_IS_CALLABLE" class="constant">
+                <h3 class="">IS_CALLABLE</h3>
+                <pre class="signature">IS_CALLABLE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_STRICT_IS_CALLABLE" name="constant_STRICT_IS_CALLABLE" class="anchor"></a>
+            <article id="constant_STRICT_IS_CALLABLE" class="constant">
+                <h3 class="">STRICT_IS_CALLABLE</h3>
+                <pre class="signature">STRICT_IS_CALLABLE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_LINE_INDENT" name="constant_LINE_INDENT" class="anchor"></a>
+            <article id="constant_LINE_INDENT" class="constant">
+                <h3 class="">LINE_INDENT</h3>
+                <pre class="signature">LINE_INDENT</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_sections" name="property_sections" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$sections</h3>
+                <pre class="signature">$sections : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_source" name="property_source" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$source</h3>
+                <pre class="signature">$source : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_indentNextLine" name="property_indentNextLine" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$indentNextLine</h3>
+                <pre class="signature">$indentNextLine : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_customEscape" name="property_customEscape" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$customEscape</h3>
+                <pre class="signature">$customEscape : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_entityFlags" name="property_entityFlags" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$entityFlags</h3>
+                <pre class="signature">$entityFlags : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_charset" name="property_charset" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$charset</h3>
+                <pre class="signature">$charset : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_strictCallables" name="property_strictCallables" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$strictCallables</h3>
+                <pre class="signature">$strictCallables : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_pragmas" name="property_pragmas" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$pragmas</h3>
+                <pre class="signature">$pragmas : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_compile" name="method_compile" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">compile()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">compile(string <span class="argument">$source</span>, string <span class="argument">$tree</span>, string <span class="argument">$name</span>, boolean <span class="argument">$customEscape</span>, string <span class="argument">$charset</span>, boolean <span class="argument">$strictCallables</span>, integer <span class="argument">$entityFlags</span>) : string</pre>
+                <p><em>Compile a Mustache token parse tree into PHP source code.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$source </td>
+                                <td><p>Mustache Template source code</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$tree </td>
+                                <td><p>Parse tree of Mustache tokens</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td><p>Mustache Template class name</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$customEscape </td>
+                                <td><p>(default: false)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$charset </td>
+                                <td><p>(default: 'UTF-8')</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$strictCallables </td>
+                                <td><p>(default: false)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$entityFlags </td>
+                                <td><p>(default: ENT_COMPAT)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Generated PHP source code</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_walk" name="method_walk" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">walk()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">walk(array <span class="argument">$tree</span>, integer <span class="argument">$level</span>) : string</pre>
+                <p><em>Helper function for walking the Mustache token parse tree.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$tree </td>
+                                <td><p>Parse tree of Mustache tokens</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$level </td>
+                                <td><p>(default: 0)</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Mustache_Exception_SyntaxException</dt>
+                            <dd><p>upon encountering unknown token types.</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Generated PHP source code</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_writeCode" name="method_writeCode" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">writeCode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">writeCode(array <span class="argument">$tree</span>, string <span class="argument">$name</span>) : string</pre>
+                <p><em>Generate Mustache Template class PHP source.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$tree </td>
+                                <td><p>Parse tree of Mustache tokens</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td><p>Mustache Template class name</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Generated PHP source code</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_section" name="method_section" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">section()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">section(array <span class="argument">$nodes</span>, string <span class="argument">$id</span>, integer <span class="argument">$start</span>, integer <span class="argument">$end</span>, string <span class="argument">$otag</span>, string <span class="argument">$ctag</span>, integer <span class="argument">$level</span>) : string</pre>
+                <p><em>Generate Mustache Template section PHP source.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$nodes </td>
+                                <td><p>Array of child tokens</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$id </td>
+                                <td><p>Section name</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$start </td>
+                                <td><p>Section start offset</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$end </td>
+                                <td><p>Section end offset</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$otag </td>
+                                <td><p>Current Mustache opening tag</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$ctag </td>
+                                <td><p>Current Mustache closing tag</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$level </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Generated section PHP source code</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_invertedSection" name="method_invertedSection" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">invertedSection()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">invertedSection(array <span class="argument">$nodes</span>, string <span class="argument">$id</span>, integer <span class="argument">$level</span>) : string</pre>
+                <p><em>Generate Mustache Template inverted section PHP source.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$nodes </td>
+                                <td><p>Array of child tokens</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$id </td>
+                                <td><p>Section name</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$level </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Generated inverted section PHP source code</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_partial" name="method_partial" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">partial()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">partial(string <span class="argument">$id</span>, string <span class="argument">$indent</span>, integer <span class="argument">$level</span>) : string</pre>
+                <p><em>Generate Mustache Template partial call PHP source.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$id </td>
+                                <td><p>Partial name</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$indent </td>
+                                <td><p>Whitespace indent to apply to partial</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$level </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Generated partial call PHP source code</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_variable" name="method_variable" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">variable()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">variable(string <span class="argument">$id</span>, boolean <span class="argument">$escape</span>, integer <span class="argument">$level</span>) : string</pre>
+                <p><em>Generate Mustache Template variable interpolation PHP source.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$id </td>
+                                <td><p>Variable name</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$escape </td>
+                                <td><p>Escape the variable value for output?</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$level </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Generated variable interpolation PHP source</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFilters" name="method_getFilters" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getFilters()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFilters(string <span class="argument">$id</span>, integer <span class="argument">$level</span>) : string</pre>
+                <p><em>Generate Mustache Template variable filtering PHP source.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$id </td>
+                                <td><p>Variable name</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$level </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Generated variable filtering PHP source</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFilter" name="method_getFilter" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getFilter()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFilter(array <span class="argument">$filters</span>, integer <span class="argument">$level</span>) : string</pre>
+                <p><em>Generate PHP source for a single filter.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$filters </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$level </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Generated filter PHP source</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_text" name="method_text" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">text()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">text(string <span class="argument">$text</span>, integer <span class="argument">$level</span>) : string</pre>
+                <p><em>Generate Mustache Template output Buffer call PHP source.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$text </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$level </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Generated output Buffer call PHP source</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_prepare" name="method_prepare" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">prepare()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">prepare(string <span class="argument">$text</span>, integer <span class="argument">$bonus</span>, boolean <span class="argument">$prependNewline</span>, boolean <span class="argument">$appendNewline</span>) : string</pre>
+                <p><em>Prepare PHP source code snippet for output.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$text </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$bonus </td>
+                                <td><p>Additional indent level (default: 0)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$prependNewline </td>
+                                <td><p>Prepend a newline to the snippet? (default: true)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$appendNewline </td>
+                                <td><p>Append a newline to the snippet? (default: false)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>PHP source code snippet</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getEscape" name="method_getEscape" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getEscape()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getEscape(string <span class="argument">$value</span>) : string</pre>
+                <p><em>Get the current escaper.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value </td>
+                                <td><p>(default: '$value')</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Either a custom callback, or an inline call to <code>htmlspecialchars</code></p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFindMethod" name="method_getFindMethod" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getFindMethod()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFindMethod(string <span class="argument">$id</span>) : string</pre>
+                <p><em>Select the appropriate Context `find` method for a given $id.</em></p>
+                <p>The return value will be one of <code>find</code>, <code>findDot</code> or <code>last</code>.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$id </td>
+                                <td><p>Variable name</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p><code>find</code> method name</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getCallable" name="method_getCallable" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getCallable()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getCallable( <span class="argument">$variable</span>)</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$variable </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_flushIndent" name="method_flushIndent" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">flushIndent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">flushIndent() : string</pre>
+                <p><em>Get the current $indent prefix to write to the buffer.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>"$indent . " or ""</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">Compiler.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/vendor/mustache/mustache/src/Mustache/Compiler.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/app.html">\app</a></li>
+                                                                            <li><a href="../namespaces/Composer.html">\Composer</a></li>
+                                                                            <li><a href="../namespaces/erdiko.html">\erdiko</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on July 30th, 2014 at 02:39.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
