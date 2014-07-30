@@ -77,6 +77,8 @@ class Response
     public function setThemeTemplate($template)
     {
         $this->_themeTemplate = $template;
+        if($this->getTheme() != null)
+            $this->getTheme()->setTemplate($this->_themeTemplate);
     }
 
     /**
@@ -88,7 +90,6 @@ class Response
     {
         return $this->_themeTemplate;
     }
-
 
     /**
      * @param Container $content, e.g. View or Layout Object

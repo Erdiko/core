@@ -5,7 +5,10 @@ class Toro
     public static function serve($routes)
     {
         ToroHook::fire('before_request', compact('routes'));
-
+        
+        // Determine action (and set default)
+        if (empty($_SERVER['REQUEST_METHOD']))
+            $_SERVER['REQUEST_METHOD'] = 'GET';
         $action = strtolower($_SERVER['REQUEST_METHOD']); // e.g. get, put, post, delete
 
         $path_info = '/';
@@ -64,9 +67,9 @@ class Toro
                         $arguments = $regex_matches; // Toro compatible
                     }
 
-                    error_log("regex_matches: ".print_r($regex_matches, true));
-                    error_log("action: $action");
-                    error_log("arguments: ".print_r($arguments, true));
+                    // error_log("regex_matches: ".print_r($regex_matches, true));
+                    // error_log("action: $action");
+                    // error_log("arguments: ".print_r($arguments, true));
 
                     break;
                 }
@@ -114,6 +117,7 @@ class Toro
                 } catch (\Exception $e) {
                     error_log("Exception running controller method: ".$e->getMessage()); // @todo switch to erdiko log
                     ToroHook::fire('500', $e->getMessage());
+                    // @todo log error
                 }
                 
             }

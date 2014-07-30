@@ -246,12 +246,12 @@ class Theme extends Container
      */
     public function toHtml($content, $data)
     {
+        // error_log("toHtml");
         $this->setContent($content); // rendered html (body content)
         $this->setData($data); // data injected from Response/Controller
         $this->getConfig(); // load the site config
 
         $filename = $this->getTemplateFolder().$this->_template;
-        // error_log("theme filename: $filename");
         $html = $this->getTemplateFile($filename, $this);
 
         return $html;

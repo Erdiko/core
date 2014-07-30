@@ -9,5 +9,4 @@
 	<li><a href="/examples/carousel">Carousel</a></li>
 	<li><a href="/examples/twocolumn">2 column Layout</a></li>
 	<li><a href="/examples/threecolumn">3 column Layout</a></li>
-	<li><a href="/examples/data">Inject page elements with data array</a></li>
 </ul>
