@@ -6,7 +6,7 @@
  * @category   Erdiko
  * @package    Core
  * @copyright  Copyright (c) 2014, Arroyo Labs, http://www.arroyolabs.com
- * @author	   John Arroyo
+ * @author     John Arroyo
  */
 namespace erdiko\core;
 use Erdiko;
@@ -14,20 +14,19 @@ use Erdiko;
 
 class Response
 {
-	protected $_theme;
+    protected $_theme;
     protected $_themeName;
     protected $_themeTemplate = 'default';
-	protected $_content = null;
+    protected $_content = null;
     protected $_data = array();
-	
-	/**
-	 * Constructor
-     *
-	 * @param Theme $theme , Theme Object (Contaier)
-	 */
-	public function __construct($theme = null)
-	{
-		$this->_theme = $theme;
+    
+    /**
+     * Constructor
+     * @param Theme $theme, Theme Object (Container)
+     */
+    public function __construct($theme = null)
+    {
+        $this->_theme = $theme;
     }
 
     public function setDataValue($key, $value)
@@ -45,7 +44,7 @@ class Response
      */
     public function setTheme($theme)
     {
-    	$this->_theme = $theme;
+        $this->_theme = $theme;
     }
 
     public function getTheme()
@@ -73,7 +72,7 @@ class Response
     }
 
     /**
-     * @param string $template
+     * @param string $themeName
      */
     public function setThemeTemplate($template)
     {
@@ -92,11 +91,11 @@ class Response
 
 
     /**
-     * @param Container $content , e.g. View or Layout Object
+     * @param Container $content, e.g. View or Layout Object
      */
     public function setContent($content)
     {
-    	$this->_content = $content;
+        $this->_content = $content;
     }
 
     public function getContent()

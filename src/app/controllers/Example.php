@@ -15,11 +15,11 @@ use erdiko\core\Config;
 
 class Example extends \erdiko\core\Controller
 {
-	
 
 	public function _before()
 	{
 		$this->setThemeName('bootstrap');
+		$this->prepareTheme();
 	}
 
 	public function getHello()
@@ -50,13 +50,12 @@ class Example extends \erdiko\core\Controller
 
 	/**
 	 * Homepage Action (index)
-	 * @params array $arguments
 	 */
 	public function getIndex()
 	{
 		// Add page data
 		$this->setTitle('Examples');
-		$this->setView('examples/index');
+		$this->addView('examples/index');
 	}
 
 	public function getBaseline()
@@ -73,7 +72,7 @@ class Example extends \erdiko\core\Controller
 	public function getSetview()
 	{
 		$this->setTitle('Example: Page with a single view');
-		$this->setView('examples/setview');
+		$this->addView('examples/setview');
 	}
 
 	public function getSetmultipleviews()
@@ -92,7 +91,7 @@ class Example extends \erdiko\core\Controller
 	{
 		$this->setTitle('Example: Page with multiple views (alt)');
 
-		// Add multiple views using api
+		// Add multiple views using api (better approach)
 		$this->addView('examples/one');
 		$this->addView('examples/two');
 		$this->addView('examples/three');
@@ -110,21 +109,20 @@ class Example extends \erdiko\core\Controller
 			);
 
 		$this->setTitle('Example: Multiple views take 2');		
-		$this->setView('examples/setview2', $page);
+		$this->addView('examples/setview2', $page);
 	}
 
 	/**
 	 * Slideshow Action 
-	 * @params array $arguments
 	 */
 	public function getCarousel()
 	{
 		// Add page data
 		$this->setTitle('Example: Carousel');
-		$this->setView('examples/carousel');
+		$this->addView('examples/carousel');
 
-		// Add Extra js
-		$this->addJs('/themes/bootstrap/js/carousel.js');
+		// Inject the carousel js code
+		$this->getResponse()->getTheme()->addJs('/themes/bootstrap/js/carousel.js');
 	}
 
 	public function getPhpinfo()
@@ -139,21 +137,18 @@ class Example extends \erdiko\core\Controller
 			This is an alternate way to add page content data
 			You can load a view directly into the content.
 			This is not the preferred way to add content.
-			Use the setView() method when possible.
+			Use the addView() method or a Layout when possible.
 		*/
 		$this->setTitle('Example Mark-Up');
 		$this->setContent( $this->getView('examples/markup') );
 	}
 
 	public function getTwocolumn()
-	{	
-		$right = $this->getView('examples/two');
-		$right .= $this->getView('examples/three');
-
+	{
 		// Set columns directly using a layout
 		$columns = array(
 			'one' => $this->getView('examples/one'),
-			'two' => $right
+			'two' => $this->getView('examples/two') . $this->getView('examples/three')
 			);
 		
 		$this->setTitle('Example: 2 Column Layout Page');
@@ -188,6 +183,7 @@ class Example extends \erdiko\core\Controller
 
 
 
+
 	public function dataAction()
 	{
 		// Include multiple views indirectly (and page title)
@@ -202,6 +198,6 @@ class Example extends \erdiko\core\Controller
 
 		$this->setData($page);
 		$this->setTitle('This is the title in the browser tab');		
-		$this->setView('examples/setview2.php');
+		$this->addView('examples/setview2.php');
 	}
 }
