@@ -11,15 +11,23 @@
 namespace erdiko\core;
 use Erdiko;
 
-
+/** 
+ * Controller Class 
+ */
 class Controller 
 {
+	/** Response */
 	protected $_response;
+	/** Webroot */
 	protected $_webroot;
+	/** Theme name */
 	protected $_themeName = null;
+	/** Theme */
 	protected $_theme = null;
 
-	
+	/** 
+ 	 * Constructor 
+	 */
 	public function __construct()
 	{
 		$this->_webroot = ROOT;
@@ -30,7 +38,7 @@ class Controller
     }
 
     /**
-     * 
+     * Prepare theme
      */
     public function prepareTheme()
     {
@@ -83,16 +91,30 @@ class Controller
 		// do something...
 	}
 
+	/**
+	 * Get Response object
+	 *
+	 * @return ResponseObject
+	 */
     public function getResponse()
     {
     	return $this->_response;
     }
 
+    /**
+	 * Send
+	 */
     final public function send()
     {
     	echo $this->getResponse()->render();
     }
 
+    /**
+	 * Set Response data value
+	 *
+	 * @param string $key
+	 * @param mixed $value
+	 */
     public function setResponseDataValue($key, $value)
     {
     	$this->getResponse()->setDataValue($key, $value);
@@ -100,6 +122,8 @@ class Controller
 
 	/**
 	 * Add page title text to current page
+	 * 
+	 * @param string $title
 	 */
 	public function setPageTitle($title)
 	{
@@ -128,6 +152,8 @@ class Controller
 
 	/**
 	 * Set the response content
+	 *
+	 * @param string @content
 	 */
 	public function setContent($content)
 	{
@@ -136,6 +162,8 @@ class Controller
 
 	/**
 	 * Add/append html text to the response content
+	 *
+	 * @param string @content
 	 */
 	public function appendContent($content)
 	{
@@ -143,7 +171,10 @@ class Controller
 	}
 
 	/**
+	 *  Autoaction
 	 *
+	 * @param string @var
+	 * @param string @httpMethod
 	 */
 	protected function _autoaction($var, $httpMethod = 'get')
 	{
@@ -243,6 +274,8 @@ class Controller
 
 
 	/**
+	 * Parse Arguments
+	 *
 	 * @param string $arguments
 	 * @return array $arguments
 	 */
@@ -253,6 +286,8 @@ class Controller
 	}
 
 	/**
+	 * Compile name value
+	 *
 	 * @param array $intArray
 	 * @return array $keyArray
 	 */
@@ -268,6 +303,9 @@ class Controller
 
     /**
      * Add phpToJs variable to be set on the current page
+     *
+     * @param mixed $key
+     * @param mixed $value
      */
     public function addPhpToJs($key, $value)
     {
@@ -290,7 +328,7 @@ class Controller
 	 * Add Meta Tags to the page
 	 * 
 	 * @param string $content
-	 * @param string $name, html meta name (e.g. 'description' or 'keywords')
+	 * @param string $name - html meta name (e.g. 'description' or 'keywords')
 	 */
 	public function addMeta($content, $name = 'description')
 	{
@@ -300,7 +338,9 @@ class Controller
 
 
 	/**
-	 * 
+	 *  Get Exception Html
+	 *
+	 * @param string $message
 	 */
 	public function getExceptionHtml($message)
 	{

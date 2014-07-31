@@ -1,6 +1,7 @@
 <?php
 /**
  * Erdiko
+ *
  * All global helpers
  * 
  * @category	Erdiko
@@ -9,15 +10,21 @@
  * @author		John Arroyo, john@arroyolabs.com
  */
 
+/**
+ * Erdiko Class
+ */
 class Erdiko
 {
+	/**
+ 	 * Log Object
+	 */
 	protected static $_logObject=null; // @todo get rid of this...
 	
 	/**
 	 * Load a template file from a module
+	 *
 	 * @param string $filename
-	 * @param mixed $data, data to expose to template
-	 * 
+	 * @param mixed $data , data to expose to template
 	 * @todo can we deprecate this function and only use the one in the theme engine? -John
 	 */
 	public static function getTemplate($filename, $data)
@@ -34,8 +41,8 @@ class Erdiko
 	/**
 	 * Load a view from the current theme with the given data
 	 * 
+	 * @param string $viewName
 	 * @param array $data
-	 * @param string $file
 	 */
 	public static function getView($viewName, $data = null)
 	{
@@ -45,7 +52,8 @@ class Erdiko
 	
 	/**
 	 * Read JSON config file and return array
-	 * @param filename $filename
+	 *
+	 * @param string $file
 	 * @return array $config
 	 */
 	public static function getConfigFile($file)
@@ -56,6 +64,9 @@ class Erdiko
 		return $json;
 	}
 	
+	/**
+	 * Get configuration
+	 */
 	public static function getConfig($name = 'default')
 	{
 		$filename = APPROOT.'/config/'.$name.'.json';
@@ -92,10 +103,11 @@ class Erdiko
 	
 	/**
 	 * log
+	 *
 	 * @usage Erdiko::log('Sample notice',Logger::LogLevel,'Default')
 	 * Need to import erdiko\core\Logger to use this function
 	 * @todo add log level as a number instead of a constant
-	 * @return 
+	 * @return bool $sucess
 	 */
 	public static function log($logString, $logLevel = null, $logKey = null)
 	{
@@ -109,9 +121,10 @@ class Erdiko
 		return Erdiko::$_logObject->log($logString, $logLevel, $logKey);
 	}
 	
-	/*
+	/**
 	* Get the configured cache instance using name
-	* returns the instance of the cache type
+	* 
+	* @return cache $cache returns the instance of the cache type
 	*/	
 	public static function getCache($cacheType=null)
 	{

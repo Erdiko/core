@@ -16,6 +16,8 @@
         "erusev/parsedown": "dev-master"
     },
     "config": {
-        "vendor-dir": "src/vendor"
-    }
+        "vendor-dir": "src/vendor",
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "stable"
 }

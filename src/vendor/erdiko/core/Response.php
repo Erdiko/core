@@ -6,53 +6,80 @@
  * @category   Erdiko
  * @package    Core
  * @copyright  Copyright (c) 2014, Arroyo Labs, http://www.arroyolabs.com
- * @author	   John Arroyo
+ * @author     John Arroyo
  */
 namespace erdiko\core;
 use Erdiko;
 
-
+/** Response Class */
 class Response
 {
-	protected $_theme;
+    /** Theme object */
+    protected $_theme;
+    /** Theme name */
     protected $_themeName;
+    /** Theme template */
     protected $_themeTemplate = 'default';
-	protected $_content = null;
+    /** Content */
+    protected $_content = null;
+    /** Data */
     protected $_data = array();
-	
-	/**
-	 * Constructor
-	 * @param Theme $theme, Theme Object (Container)
-	 */
-	public function __construct($theme = null)
-	{
-		$this->_theme = $theme;
+    
+    /**
+     * Constructor
+     *
+     * @param Theme $theme - Theme Object (Container)
+     */
+    public function __construct($theme = null)
+    {
+        $this->_theme = $theme;
     }
 
+    /**
+     * Set data value
+     *
+     * @param mixed $key
+     * @param mixed $value
+     */
     public function setDataValue($key, $value)
     {
         $this->_data[$key] = $value;
     }
 
+    /**
+     * Get data value
+     *
+     * @param mixed $key
+     * @return mixed
+     */
     public function getDataValue($key)
     {
         return $this->_data[$key];
     }
 
     /**
-     * @param Theme object $theme, Theme Object (Container)
+     * Set theme
+     *
+     * @param Theme object $theme - Theme Object (Container)
      */
     public function setTheme($theme)
     {
-    	$this->_theme = $theme;
+        $this->_theme = $theme;
     }
 
+    /**
+     * Get theme
+     *
+     * @return Theme
+     */
     public function getTheme()
     {
         return $this->_theme;
     }
 
     /**
+     * Set Theme Name
+     *
      * @param string $themeName
      */
     public function setThemeName($themeName)
@@ -72,7 +99,9 @@ class Response
     }
 
     /**
-     * @param string $themeName
+     * Set Theme Template
+     *
+     * @param string $tamplate
      */
     public function setThemeTemplate($template)
     {
@@ -92,13 +121,20 @@ class Response
     }
 
     /**
-     * @param Container $content, e.g. View or Layout Object
+     * Set content
+     *
+     * @param Container $content - e.g. View or Layout Object
      */
     public function setContent($content)
     {
-    	$this->_content = $content;
+        $this->_content = $content;
     }
 
+    /**
+     * Get content
+     *
+     * @return string
+     */
     public function getContent()
     {
         return $this->_content;
@@ -115,6 +151,11 @@ class Response
         $this->_content .= $content;
     }
     
+    /**
+     * Render
+     *
+     * @return string
+     */
     public function render()
     {
         // error_log("themeName: {$this->_themeName}");
@@ -136,6 +177,7 @@ class Response
 
     /**
      * Render and send data to browser then end request
+     *
      * @notice USE WITH CAUTION
      */
     public function send()

@@ -11,9 +11,14 @@
 namespace erdiko\core\cache;
 use erdiko\core\cache\CacheInterface;
 
-
+/**
+ * Memcached Class
+ */
 class Memcached implements CacheInterface 
 {
+	/**
+     * Memcached Object
+     */
 	protected $memcacheObj;
 	
 	/**

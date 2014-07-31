@@ -13,8 +13,14 @@ namespace app\controllers;
 use Erdiko;
 use erdiko\core\Config;
 
+/**
+ * AjaxExample Class
+ */
 class AjaxExample extends \erdiko\core\AjaxController
 {
+	/**
+     * Get
+     */
 	public function get($var = null)
 	{
 		if($var != null)
@@ -35,6 +41,9 @@ class AjaxExample extends \erdiko\core\AjaxController
 		$this->setContent($view);
 	}
 
+	/**
+     * Get Example
+     */
 	public function getExample()
 	{
 		$content = array(

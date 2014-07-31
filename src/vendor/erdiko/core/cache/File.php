@@ -11,10 +11,10 @@
 namespace erdiko\core\cache;
 use erdiko\core\cache\CacheInterface;
 
-
+/** File */
 class File extends \erdiko\core\datasource\File implements CacheInterface 
 {
-	
+	/** Constructor */
 	public function __construct($cacheDir=null)
 	{
 		if(!isset($cacheDir))
@@ -24,11 +24,23 @@ class File extends \erdiko\core\datasource\File implements CacheInterface
 		parent::__construct($cacheDir);
 	}
 
+	/**
+	 * Get Key Code
+	 *
+	 * @param string $key
+	 * @return string
+	 */
 	public function getKeyCode($key)
 	{
 		return md5($key);
 	}
 
+	/**
+	 * Put Key
+	 *
+	 * @param mixed $key
+	 * @param mixed $data
+	 */
 	public function put($key, $data)
 	{
 		$filename = $this->getKeyCode($key);
@@ -36,6 +48,12 @@ class File extends \erdiko\core\datasource\File implements CacheInterface
 		$this->write($data, $filename);
 	}
 	
+	/**
+	 * Get Key
+	 *
+	 * @param string @key
+	 * @return mixed
+	 */
 	public function get($key)
 	{
 		$filename = $this->getKeyCode($key);
@@ -48,12 +66,20 @@ class File extends \erdiko\core\datasource\File implements CacheInterface
 		return json_decode($value, true);
 	}
 	
+	/**
+	 * Forget a key
+	 *
+	 * @param string @key
+	 */
 	public function forget($key)
 	{
 		$filename = $this->getKeyCode($key);
 		$this->delete($filename);
 	}
 
+	/**
+	 * Forget all key
+	 */
 	public function forgetAll()
 	{
 		$files = glob( VARROOT."/cache/*");
@@ -64,6 +90,13 @@ class File extends \erdiko\core\datasource\File implements CacheInterface
     		}
 		}
 	}
+
+	/**
+	 * Check if a key exists
+	 *
+	 * @param mixed $key
+	 * @return bool
+	 */
 	public function has($key)
 	{
 		$filename = $this->getKeyCode($key);
