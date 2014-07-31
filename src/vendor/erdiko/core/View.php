@@ -9,9 +9,10 @@
  */
 namespace erdiko\core;
 
-
+/** View Class */
 class View extends Container
 {	
+	/** Template Folder */
 	protected $_templateFolder = 'views';
 
 }

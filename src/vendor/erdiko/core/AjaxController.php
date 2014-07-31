@@ -1,6 +1,7 @@
 <?php
 /**
  * Controller
+ *
  * Base request handler, All controllers should inherit this class.
  * 
  * @category   Erdiko
@@ -11,10 +12,14 @@
 namespace erdiko\core;
 use Erdiko;
 
-
+/**
+ * AjaxController class
+ */
 class AjaxController extends Controller 
 {
-	
+	/**
+ 	 * Contructor
+ 	 */
 	public function __construct()
 	{
 		$this->_webroot = ROOT;
