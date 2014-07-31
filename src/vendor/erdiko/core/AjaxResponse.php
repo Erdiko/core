@@ -10,12 +10,25 @@
 namespace erdiko\core;
 use Erdiko;
 
-
+/**
+ * AjaxResponse class
+ */
 class AjaxResponse extends Response 
 {
+    /**
+     * Theme
+     */
 	protected $_theme;
+    /**
+     * Content
+     */
 	protected $_content = null;
 
+    /**
+     * Ajax render function
+     *
+     * @return string
+     */
     public function render()
     {
         $responseData = array(

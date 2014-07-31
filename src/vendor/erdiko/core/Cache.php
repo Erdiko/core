@@ -10,9 +10,12 @@
  */
 namespace erdiko\core;
 
-
+/**
+ * Cache class
+ */
 class Cache
 {
+    /** Cache singleton instance */
     private static $instance = array();
     //private static $instanceMemcache;
 

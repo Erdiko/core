@@ -10,7 +10,9 @@
  */
 namespace erdiko\core;
 
-
+/**
+ * Model Class
+ */
 abstract class ModelAbstract 
 {	
 	

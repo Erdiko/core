@@ -10,12 +10,18 @@
  */
 namespace erdiko\core;
 
-
+/**
+ * Container Class
+ */
 abstract class Container
 {
+    /** Template */
     protected $_template = null;
+    /** Data */
     protected $_data = null;
+    /** Default Template */
     protected $_defaultTemplate = 'default';
+    /** Template Folder */
     protected $_templateFolder = null;
 
     /**
@@ -41,6 +47,8 @@ abstract class Container
     }
 
     /**
+     * Set data
+     *
      * @param mixed $data , data injected into the container
      */
     public function setData($data)
@@ -49,6 +57,8 @@ abstract class Container
     }
 
     /**
+     * Get data
+     *
      * @return mixed $data , data injected into the container
      */
     public function getData()
@@ -57,7 +67,7 @@ abstract class Container
     }
 
     /**
-     *
+     * Get Template folder
      */
     public function getTemplateFolder()
     {

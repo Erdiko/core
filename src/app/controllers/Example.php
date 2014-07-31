@@ -13,21 +13,31 @@ namespace app\controllers;
 use Erdiko;
 use erdiko\core\Config;
 
+/**
+ * Example Controller Class
+ */
 class Example extends \erdiko\core\Controller
 {
-
+	/** Before */
 	public function _before()
 	{
 		$this->setThemeName('bootstrap');
 		$this->prepareTheme();
 	}
 
+	/** Get Hello */
 	public function getHello()
 	{
 		$this->setTitle('Hello World');
 		$this->setContent("Hello World");
 	}
 
+	/**
+	 * Get
+	 *
+	 * @param mixed $var
+	 * @return mixed
+	 */
 	public function get($var = null)
 	{
 		// error_log("var: $var");
@@ -51,23 +61,35 @@ class Example extends \erdiko\core\Controller
 		$this->addView('examples/index');
 	}
 
+	/**
+	 * Get base line
+	 */
 	public function getBaseline()
 	{
 		$this->setContent( "The simplest page possible" );
 	}
 
+	/**
+	 * Get full page
+	 */
 	public function getFullpage()
 	{
 		$this->setThemeTemplate('fullpage');
 		$this->setContent( "This is a fullpage layout (sans header/footer)" );
 	}
 
+	/**
+	 * Get set view
+	 */
 	public function getSetview()
 	{
 		$this->setTitle('Example: Page with a single view');
 		$this->addView('examples/setview');
 	}
 
+	/**
+	 * Get multiple views
+	 */
 	public function getSetmultipleviews()
 	{
 		$this->setTitle('Example: Page with multiple views');
@@ -80,6 +102,9 @@ class Example extends \erdiko\core\Controller
 		$this->setContent( $content );
 	}
 
+	/**
+	 * Get multiple views at
+	 */
 	public function getSetmultipleviewsAlt()
 	{
 		$this->setTitle('Example: Page with multiple views (alt)');
@@ -90,6 +115,9 @@ class Example extends \erdiko\core\Controller
 		$this->addView('examples/three');
 	}
 
+	/**
+	 * Get view2
+	 */
 	public function getSetview2()
 	{
 		// Include multiple views indirectly 
@@ -118,24 +146,32 @@ class Example extends \erdiko\core\Controller
 		$this->getResponse()->getTheme()->addJs('/themes/bootstrap/js/carousel.js');
 	}
 
+	/**
+	 * Get php info
+	 */
 	public function getPhpinfo()
 	{
 		phpinfo();
 		exit;
 	}
 
+	/**
+	 * Get Mark Up
+	 *
+	 * @usage This is an alternate way to add page content data
+	    You can load a view directly into the content.
+	 	This is not the preferred way to add content.
+	 	Use the addView() method or a Layout when possible.
+	 */
 	public function getMarkup()
 	{
-		/*
-			This is an alternate way to add page content data
-			You can load a view directly into the content.
-			This is not the preferred way to add content.
-			Use the addView() method or a Layout when possible.
-		*/
 		$this->setTitle('Example Mark-Up');
 		$this->setContent( $this->getView('examples/markup') );
 	}
 
+	/**
+	 * Get two column
+	 */
 	public function getTwocolumn()
 	{
 		// Set columns directly using a layout
@@ -148,6 +184,9 @@ class Example extends \erdiko\core\Controller
 		$this->setContent( $this->getLayout('2column', $columns) );
 	}
 
+	/**
+	 * Get three column
+	 */
 	public function getThreecolumn()
 	{
 		// Set each column using a layout
@@ -161,6 +200,9 @@ class Example extends \erdiko\core\Controller
 		$this->setContent( $this->getLayout('3column', $columns) );
 	}
 
+	/**
+	 * Get grid
+	 */
 	public function getGrid()
 	{
 		$data = array(

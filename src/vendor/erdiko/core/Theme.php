@@ -10,15 +10,26 @@
 namespace erdiko\core;
 use Erdiko;
 
+/**
+ * Theme class
+ */
 class Theme extends Container
 {	
+    /** Template folder */
 	protected $_templateFolder = 'themes';
+    /** Name */
     protected $_name = null;
+    /** Default Name */
     protected $_defaultName = 'default';
+    /** Config */
     protected $_config = null;
+    /** Content */
     protected $_content = null;
+    /** Extra css array */
     protected $_extraCss = array();
+    /** Extra javascript array */
     protected $_extraJs = array();
+    /** Extra Meta array */
     protected $_extraMeta = array();
 
 
@@ -38,7 +49,9 @@ class Theme extends Container
     }
 
     /**
+     * Get configuration
      *
+     * @return string
      */
     public function getConfig()
     {
@@ -51,7 +64,9 @@ class Theme extends Container
     }
 
     /**
+     * Get Meta
      *
+     * @return string
      */
     public function getMeta()
     {
@@ -85,6 +100,8 @@ class Theme extends Container
     }
 
     /**
+     *  Get page title
+     *
      *  @return string $page_title
      */
     public function getPageTitle()
@@ -96,6 +113,8 @@ class Theme extends Container
     }
 
     /**
+     * Get boby title
+     *
      *  @return string $body_title
      */
     public function getBodyTitle()
@@ -121,6 +140,7 @@ class Theme extends Container
 
     /**
      * Add css file to page
+     *
      * @param string $cssFile , URL of injected css file
      */
     public function addCss($cssFile)
@@ -131,7 +151,7 @@ class Theme extends Container
             );
     }
 
-    /**$this->_extraCss
+    /**
      * Get array of js files to include
      * 
      * @return array $js
@@ -159,6 +179,7 @@ class Theme extends Container
 
     /**
      * Get the theme folder
+     *
      * @return string $folder
      */
     public function getThemeFolder()
@@ -168,6 +189,8 @@ class Theme extends Container
 
     /**
      * Get template folder relative to the theme root
+     *
+     * @return string
      */
     public function getTemplateFolder()
     {
@@ -176,6 +199,8 @@ class Theme extends Container
 
 
     /**
+     * Set content
+     *
      * @param Container $content , e.g. View or Layout Object???
      */
     public function setContent($content)
@@ -184,6 +209,8 @@ class Theme extends Container
     }
 
     /**
+     * Get content
+     *
      * @return string $content???
      */
     public function getContent()
@@ -192,6 +219,8 @@ class Theme extends Container
     }
 
     /**
+     * Set template
+     *
      * @param string $template
      */
     public function setTemplate($template)
@@ -200,6 +229,8 @@ class Theme extends Container
     }
 
     /**
+     * Get template
+     *
      * @return string $template
      */
     public function getTemplate()
@@ -217,6 +248,11 @@ class Theme extends Container
         $this->_name = $name;
     }
 
+    /**
+     * Get name
+     *
+     * @return string - Return Theme name
+     */
     public function getName()
     {
         return $this->_name;
@@ -224,8 +260,11 @@ class Theme extends Container
 
     /**
      * Get template file populated by the config
-     * Partial render need to be declared in theme.json
+     * 
+     * @usage Partial render need to be declared in theme.json
      * e.g. get header/footer
+     * @param string $partial
+     * @param string $context
      * @return string $html
      */
     public function getTemplateHtml($partial, $context = 'default')
@@ -238,7 +277,10 @@ class Theme extends Container
     }
 
     /**
+     * Get context config
      *
+     * @param string $context
+     * @return string
      */
     public function getContextConfig($context = 'default')
     {
@@ -246,7 +288,11 @@ class Theme extends Container
     }
 
     /**
+     * Output content to html
      *
+     * @param string @content
+     * @param string @data
+     * @return string
      */
     public function toHtml($content, $data)
     {

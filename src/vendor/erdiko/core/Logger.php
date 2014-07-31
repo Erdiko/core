@@ -11,8 +11,12 @@ namespace erdiko\core;
 
 use erdiko\core\datasource\File;
 
+/**
+ * Logger Class
+ */
 class Logger extends File{
 	
+	/** Log files */
 	protected $_logFiles = array(
 		"default" => "erdiko.log",
 	);
@@ -22,6 +26,7 @@ class Logger extends File{
 	const NOTICE = "Notice";
 	const INFO = "Info";
 	
+	/** Constructor */
 	public function __construct($logFiles=array(),$logDir=null)
 	{
 		// Set the log files
@@ -39,12 +44,24 @@ class Logger extends File{
 		}
 	}
 	
+	/**
+	 * Add log file
+	 *
+	 * @param mixed $key
+	 * @param string $logFileName
+	 * @return bool
+	 */
 	public function addLogFile($key,$logFileName)
 	{
 		$arrayKey=strtolower($key);
 		return $this->_logFiles[$arrayKey] = $logFileName;
 	}
 	
+	/**
+	 * Remove log file
+	 *
+	 * @param mixed $key
+	 */
 	public function removeLogFile($key)
 	{
 		$arrayKey=strtolower($key);
@@ -90,6 +107,12 @@ class Logger extends File{
 		return $this->write($logString,$logFileName,null,"a");	
 	}
 	
+	/**
+	 * Clear Log
+	 *
+	 * @param string $logKey
+	 * @return bool
+	 */
 	public function clearLog($logKey=null)
 	{
 		$ret=true;
@@ -109,6 +132,7 @@ class Logger extends File{
 		}
 	}
 	
+	/** Destructor */
 	public function __destruct()
 	{
 	}

@@ -14,6 +14,9 @@ namespace erdiko\core\datasource;
  */
 class File
 {
+	/**
+     * Default Path
+     */
 	protected $_defaultPath = null;
 	
 	/**
