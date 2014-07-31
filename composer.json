@@ -1,6 +1,5 @@
 {
 	"name":"erdiko/core",
-    "version": "1.0.0",
 	"type": "metapackage",
     "description": "Enterprise Glue (Micro MVC)",
     "keywords": ["framework"],
@@ -18,6 +17,8 @@
         "erusev/parsedown": "dev-master"
     },
     "config": {
-        "vendor-dir": "src/vendor"
-    }
+        "vendor-dir": "src/vendor",
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "stable"
 }
