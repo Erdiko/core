@@ -1,6 +1,5 @@
 {
 	"name":"erdiko/core",
-	"type": "metapackage",
     "description": "Enterprise Glue (Micro MVC)",
     "keywords": ["framework"],
     "homepage": "http://erdiko.org",
