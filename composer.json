@@ -17,7 +17,6 @@
     },
     "config": {
         "vendor-dir": "src/vendor",
-        "preferred-install": "dist"
-    },
-    "minimum-stability": "stable"
+        "minimum-stability": "dev"
+    }
 }
