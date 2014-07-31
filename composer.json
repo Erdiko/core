@@ -20,5 +20,10 @@
         "vendor-dir": "src/vendor",
         "preferred-install": "dist"
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "4.2-dev"
+    }
+    }
 }
