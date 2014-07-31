@@ -18,6 +18,6 @@
         "erusev/parsedown": "dev-master"
     },
     "config": {
-        "vendor-dir": "vendor"
+        "vendor-dir": "src/vendor"
     }
 }

@@ -5823,3 +5823,9 @@ header .navbar-toggle .icon-bar {
   margin-left: 0;
   padding-left: 0;
 }
+/*  =Carousel
+----------------------------------------------- */
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  width: 100%;
+}
