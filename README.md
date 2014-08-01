@@ -11,11 +11,12 @@ The goal is a lightweight but powerful MVC micro framework.  Get work done witho
 
 ## Documentation
 
-Visit [erdiko.org](http://www.erdiko.org/) for full documentation and installation structions
+Visit [erdiko.org](http://www.erdiko.org/) for full documentation and installation instructions.
 
 ## Contributors
 
 John Arroyo
+
 Coleman Tung
 
 ## Credits
