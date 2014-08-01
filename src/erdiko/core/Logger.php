@@ -39,7 +39,7 @@ class Logger extends File{
 			$this->_defaultPath=$logDir;
 		else
 		{
-			$rootFolder=dirname(dirname(__DIR__));
+			$rootFolder= \ROOT;
 			$this->_defaultPath=$rootFolder."/var/logs";
 		}
 	}
