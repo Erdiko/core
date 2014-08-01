@@ -47,8 +47,17 @@ class FileTest extends ErdikoTestCase
         $this->fileObj->write($string3,"sample3.txt", $this->webRoot."/tests/", "a");
         $result3=$this->fileObj->read("sample3.txt", $this->webRoot."/tests/");
         $this->assertTrue($result3 == $string3);
+
     }
 
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     */
+    function testReadNotExistFile() {
+        $result4=$this->fileObj->read("not_exist.txt", $this->webRoot."/tests/");
+        $this->assertTrue($result4 === false);
+    }
+    
     /**
      * @depends testWriteAndRead
      */
