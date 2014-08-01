@@ -1,7 +1,7 @@
 {
 	"name":"erdiko/core",
     "description": "Enterprise Glue (Micro MVC)",
-    "keywords": ["framework"],
+    "keywords": ["framework", "erdiko", "erdiko-core"],
     "homepage": "http://erdiko.org",
     "license": "MIT",
     "authors": [
@@ -13,16 +13,11 @@
     "require": {
     	"php": ">=5.3.3",
         "mustache/mustache": "2.6.*",
-        "erusev/parsedown": "dev-master"
+        "erusev/parsedown": "1.0.*",
+        "twbs/bootstrap": "3.2.*"
     },
     "config": {
         "vendor-dir": "src/vendor",
-        "preferred-install": "dist"
-    },
-    "minimum-stability": "dev",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "4.2-dev"
-    }
+        "minimum-stability": "dev"
     }
 }
