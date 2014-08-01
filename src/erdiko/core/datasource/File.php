@@ -55,7 +55,7 @@ class File
 		if(is_dir($pathToFile))
 		{
 			$fh=fopen($pathToFile."/".$filename,$mode);
-			$ret=fwrite($fh,$string);
+			$ret=fwrite($fh,$content);
 			fclose($fh);
 			return $ret;
 		}
