@@ -135,7 +135,8 @@ class ThemeTest extends ErdikoTestCase
     function testGetThemeFolder()
     {
         $return = $this->themeObj->getThemeFolder();
-        $this->assertEquals($return, '/Users/ColemanTung/ArroyoLabs/erdiko-core/src/app/themes/bootstrap/');
+        $folder = APPROOT.'/themes/bootstrap/';
+        $this->assertEquals($return, $folder);
     }
 
     /**
@@ -146,7 +147,8 @@ class ThemeTest extends ErdikoTestCase
     function testGetTemplateFolder()
     {
         $return = $this->themeObj->getTemplateFolder();
-        $this->assertEquals($return, '/Users/ColemanTung/ArroyoLabs/erdiko-core/src/app/themes/bootstrap/templates/');
+        $folder = APPROOT.'/themes/bootstrap/templates/';
+        $this->assertEquals($return, $folder);
     }
 
     /**
