@@ -11,7 +11,7 @@ Erdiko micro is a work in progress, do not use it quite yet.  Use the full versi
 
 ## Version (SemVer)
 
-0.7.0
+0.7.1
 
 ## Installation 
 
