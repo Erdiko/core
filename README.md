@@ -1,32 +1,25 @@
-Erdiko
-======
+Erdiko Core
+===========
 
-*Erdiko Micro MVC Framework*
+*Erdiko MVC micro framework's core components*
 
-The goal is a lightweight but powerful MVC micro framework.  Get work done without the bloat.
-
-For a full featured middleware framework see the [full version of Erdiko](https://github.com/arroyo/Erdiko). If this is still too much code for you, check out [ToroPHP](http://toroweb.org/)
-
-Erdiko micro is a work in progress, do not use it quite yet.  Use the full version of Erdiko for now.  When Erdiko micro is stable it will become the basis Erdiko (full version).  If you start with micro and your application grows you can always easily upgrade to Erdiko full.  Afterall the new version of Erdiko will always be built on top of Erdiko micro. 
+The goal is a lightweight but powerful MVC micro framework.  Get work done without the bloat!
 
 ## Version (SemVer)
 
-0.7.1
+0.8.2
 
-## Installation 
+## Documentation
 
-coming soon
-
-## Support
-
-coming soon
+Visit [erdiko.org](http://www.erdiko.org/) for full documentation and installation structions
 
 ## Contributors
 
-John Arroyo 
+John Arroyo
+Coleman Tung
 
 ## Credits
 
-[ToroPHP](http://toroweb.org/)	- The basis of the Erdiko router
-
 [ArroyoLabs](http://www.arroyolabs.com/) - Sponsor
+
+[ToroPHP](http://toroweb.org/)	- The basis of the Erdiko router
