@@ -19,5 +19,8 @@
     "config": {
         "vendor-dir": "src/vendor",
         "minimum-stability": "dev"
+    },
+    "autoload": {
+        "psr-0":{ "erdiko":"src/" }
     }
 }
