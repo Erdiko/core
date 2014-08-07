@@ -158,10 +158,6 @@ class ToroHook
         $instance = self::get_instance();
         if (isset($instance->hooks[$hook_name])) {
             foreach ($instance->hooks[$hook_name] as $fn) {
-                if($hook_name == '404')
-                    Erdiko::log('404 Error', null, 'system');
-                if($hook_name == '500')
-                    Erdiko::log('500 Error', 'Exception', 'exception');
                 call_user_func_array($fn, array(&$params));
             }
         }
