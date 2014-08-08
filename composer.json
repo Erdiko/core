@@ -21,6 +21,6 @@
         "minimum-stability": "dev"
     },
     "autoload": {
-        "psr-0":{ "erdiko":"src/" }
+        "psr-0":{ "erdiko\\core":"src/" }
     }
 }
