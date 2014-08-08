@@ -213,9 +213,15 @@ class Controller
 	 * @param array $data
 	 * @return string $html, view contents
 	 */
-	public function getView($viewName, $data = null)
+	public function getView($viewName, $data = null, $templateRootFolder = null)
 	{
 		$view = new \erdiko\core\View($viewName, $data);
+
+		if ($templateRootFolder != null)
+		{
+			$view->setTemplateRootFolder($templateRootFolder);
+		}
+
 		return  $view->toHtml();
 	}
 
@@ -239,9 +245,16 @@ class Controller
 	 * @param array $data
 	 * @return string $html, layout contents
 	 */
-	public function getLayout($layoutName, $data = null)
+	public function getLayout($layoutName, $data = null, $templateRootFolder = null)
 	{
 		$layout = new \erdiko\core\Layout($layoutName, $data, $this->getThemeName());
+
+		if ($templateRootFolder != null)
+		{
+			$layout->setViewRootFolder($templateRootFolder);
+			$layout->setTemplateRootFolder($templateRootFolder);
+		}
+
 		return  $layout->toHtml();
 	}
 
