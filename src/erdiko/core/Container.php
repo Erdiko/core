@@ -21,6 +21,8 @@ abstract class Container
     protected $_data = null;
     /** Default Template */
     protected $_defaultTemplate = 'default';
+    /** Default Template Root Folder */
+    protected $_templateRootFolder = APPROOT;
     /** Template Folder */
     protected $_templateFolder = null;
 
@@ -44,6 +46,16 @@ abstract class Container
     public function setTemplate($template)
     {
     	$this->_template = $template;
+    }
+
+    /**
+     * Set template root folder
+     * 
+     * @param string $TemplateRootFolder
+     */
+    public function setTemplateRootFolder($templateRootFolder)
+    {
+        $this->_templateRootFolder = $templateRootFolder;
     }
 
     /**
@@ -71,7 +83,7 @@ abstract class Container
      */
     public function getTemplateFolder()
     {
-        return APPROOT.'/'.$this->_templateFolder.'/';
+        return $this->_templateRootFolder.'/'.$this->_templateFolder.'/';
     }
 
     /**
@@ -114,7 +126,7 @@ abstract class Container
         $filename = $this->getTemplateFolder().$this->_template;
         $data = (is_subclass_of($this->_data, 'erdiko\core\Container')) ? $this->_data->toHtml() : $this->_data;
         // error_log("toHtml filename: $filename");
-
+        //echo $filename;
         return $this->getTemplateFile($filename, $data);
     }
 }

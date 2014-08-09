@@ -1,5 +1,8 @@
 <?php
-
+/**
+ *	Please make sure to start Memcached service before running this test.
+ *
+ */
 use erdiko\core\cache\Memcached;
 require_once dirname(__DIR__).'/ErdikoTestCase.php';
 

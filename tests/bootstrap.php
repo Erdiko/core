@@ -1,3 +1,3 @@
 <?php
-
-require_once dirname(__DIR__).'/src/vendor/erdiko/bootstrap.php'; // boot up Erdiko
+echo dirname(dirname(dirname(dirname(__DIR__)))).'/bootstrap.php';
+require_once dirname(dirname(dirname(dirname(__DIR__)))).'/bootstrap.php'; // boot up Erdiko

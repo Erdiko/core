@@ -23,6 +23,8 @@ class Layout extends Container
     protected $_data = array();
     /** Theme */
     protected $_theme;
+    /** Theme */
+    protected $_viewRootFolder;
     
 
     /**
@@ -53,6 +55,16 @@ class Layout extends Container
         // Push the data into regions and then pass a pointer to this class to the layout
         $this->setRegions($data);
         return parent::getTemplateFile($filename, $this); // Pass in layout object to template
+    }
+
+    /**
+     * Set View Root Folder
+     *
+     * @param string $folder
+     */
+    public function setViewRootFolder($folder)
+    {
+        $this->_viewRootFolder = $folder;
     }
 
     /**

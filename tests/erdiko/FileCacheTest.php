@@ -16,6 +16,7 @@ class FileCacheTest extends ErdikoTestCase
         // create a new instance of String with the
         // string 'abc'
         $this->cacheObj = Erdiko::getCache("default");
+        
 		//$this->cacheObj = new Cache();
     }
 

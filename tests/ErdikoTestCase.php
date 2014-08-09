@@ -3,7 +3,7 @@
  * ErdikoTestCase
  * Erdiko base test case. Extend this for all unit tests and place shared utility functions here
  */
-require_once dirname(__DIR__).'/src/vendor/erdiko/bootstrap.php'; 
+require_once dirname(dirname(dirname(dirname(__DIR__)))).'/bootstrap.php'; 
 
 use \Erdiko;
 

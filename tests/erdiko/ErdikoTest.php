@@ -86,8 +86,7 @@ class ErdikoTest extends ErdikoTestCase
 	{
 		//Initialize a File object locally
 		$fileObj = new \erdiko\core\datasource\File;
-		$webRoot = dirname(dirname(__DIR__));
-		$logFolder = $webRoot."/src/vendor/var/logs";
+		$logFolder = \ROOT."/var/logs";
 
 		$sampleText="This is a sample log for Erdiko class test";
 		
@@ -97,7 +96,7 @@ class ErdikoTest extends ErdikoTestCase
 		 *  Log a regular message
 		 */
 		Erdiko::log($sampleText);
-		$return= $fileObj->read("default.log", $logFolder);
+		$return= $fileObj->read("erdiko.log", $logFolder);
 		$this->assertTrue(strpos($return,$sampleText) !== false );	
 
 		/**
@@ -111,8 +110,8 @@ class ErdikoTest extends ErdikoTestCase
 		$this->assertTrue(strpos($return,$sampleText) !== false );	
 
 		//Clean up
-    	$fileObj->delete("default.log", $webRoot."/src/vendor/var/logs");
-    	$fileObj->delete("exception.log", $webRoot."/src/vendor/var/logs");
+    	$fileObj->delete("erdiko.log", $logFolder);
+    	$fileObj->delete("exception.log", $logFolder);
 	}
 
 	public function getCache()
