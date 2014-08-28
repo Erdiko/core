@@ -7,7 +7,7 @@ The goal is a lightweight but powerful MVC micro framework.  Get work done witho
 
 ## Version (SemVer)
 
-0.8.4
+0.8.5
 
 ## Documentation
 

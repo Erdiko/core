@@ -5,7 +5,7 @@
  * @category   Erdiko
  * @package    Core
  * @copyright  Copyright (c) 2014, Arroyo Labs, http://www.arroyolabs.com
- * @author	   John Arroyo
+ * @author     John Arroyo
  */
 namespace erdiko\core;
 use Erdiko;
@@ -14,9 +14,9 @@ use Erdiko;
  * Theme class
  */
 class Theme extends Container
-{	
+{   
     /** Template folder */
-	protected $_templateFolder = 'themes';
+    protected $_templateFolder = 'themes';
     /** Name */
     protected $_name = null;
     /** Default Name */
@@ -205,7 +205,7 @@ class Theme extends Container
      */
     public function setContent($content)
     {
-    	$this->_content = $content;
+        $this->_content = $content;
     }
 
     /**
@@ -294,16 +294,12 @@ class Theme extends Container
      * @param string @data
      * @return string
      */
-    public function toHtml($content, $data)
+    public function toHtml()
     {
-        // error_log("toHtml");
-        $this->setContent($content); // rendered html (body content)
-        $this->setData($data); // data injected from Response/Controller
         $this->getConfig(); // load the site config
-
         $filename = $this->getTemplateFolder().$this->_template;
         $html = $this->getTemplateFile($filename, $this);
-
+        
         return $html;
     }
 }

@@ -125,8 +125,7 @@ abstract class Container
     {
         $filename = $this->getTemplateFolder().$this->_template;
         $data = (is_subclass_of($this->_data, 'erdiko\core\Container')) ? $this->_data->toHtml() : $this->_data;
-        // error_log("toHtml filename: $filename");
-        //echo $filename;
+        
         return $this->getTemplateFile($filename, $data);
     }
 }
