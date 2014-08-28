@@ -2,10 +2,12 @@
 /**
  * Logging utility for Erdiko
  * 
- * @category   Erdiko
- * @package    core
- * @copyright Copyright (c) 2012, Arroyo Labs, www.arroyolabs.com
- * @author	Varun Brahme varun@arroyolabs.com
+ * @category  	Erdiko
+ * @package   	core
+ * @copyright 	Copyright (c) 2014, Arroyo Labs, www.arroyolabs.com
+ * @author		Varun Brahme
+ * @author		Coleman Tung, coleman@arroyolabs.com
+ * @author		John Arroyo, john@arroyolabs.com
  */
 namespace erdiko\core;
 
@@ -14,33 +16,44 @@ use erdiko\core\datasource\File;
 /**
  * Logger Class
  */
-class Logger extends File{
+class Logger extends File
+{
 	
 	/** Log files */
 	protected $_logFiles = array(
-		"default" => "erdiko.log",
+		"default" => "system.log",
 	);
+	protected $_defaultPath = '/var/logs';
+	
 	
 	const WARNING = "Warning";
 	const ERROR = "Error";
 	const NOTICE = "Notice";
 	const INFO = "Info";
 	
-	/** Constructor */
-	public function __construct($logFiles=array(),$logDir=null)
+	/** 
+	 * Constructor 
+	 * 
+	 * @param array $logFiles
+	 * @param string $logDir, fully qualified path or a path relative to the erdiko root
+	 */
+	public function __construct($logFiles = array(), $logDir = null)
 	{
 		// Set the log files
 		if(!empty($logFiles))
-			$this->_logFiles = array_merge($this->_logFiles,array_change_key_case($logFiles));
-			
+			$this->_logFiles = array_merge($this->_logFiles, array_change_key_case($logFiles));
 		
 		// Set the logging directory
-		if($logDir!=null && is_dir($logDir))
-			$this->_defaultPath=$logDir;
+		if($logDir != null)
+		{
+			if(is_dir($logDir))
+				$this->_filePath = $logDir; // fully qualified & valid path
+			else
+				$this->_filePath = \ROOT.$logDir; // otherwise assume it's relative to the root
+		}
 		else
 		{
-			$rootFolder= \ROOT;
-			$this->_defaultPath=$rootFolder."/var/logs";
+			$this->_filePath = \ROOT.$this->_defaultPath;
 		}
 	}
 	
@@ -77,7 +90,7 @@ class Logger extends File{
 	 * @param string $logKey 
 	 * @return bool
 	 */
-	public function log($log,$logLevel=null,$logKey=null)
+	public function log($log, $logLevel=null, $logKey=null)
 	{
 		$logFileName="";
 		$logString="";
@@ -104,7 +117,7 @@ class Logger extends File{
 				$logFileName=$this->_logFiles["default"]; // Otherwise use the default log file
 		}
 		
-		return $this->write($logString,$logFileName,null,"a");	
+		return $this->write($logString, $logFileName, null, "a");
 	}
 	
 	/**
@@ -119,14 +132,14 @@ class Logger extends File{
 		if($logKey==null)
 		{
 			foreach($this->_logFiles as $key => $logFile)
-				$ret = $ret && $this->write("",$logFile,null,"w");
+				$ret = $ret && $this->write("", $logFile);
 			return $ret;
 		}
 		else
 		{
 			$arrayKey=strtolower($logKey);
 			if(isset($this->_logFiles[$arrayKey]))
-				return $this->write("",$this->_logFiles[$arrayKey],null,"w");
+				return $this->write("", $this->_logFiles[$arrayKey]);
 			else
 				return 0;
 		}

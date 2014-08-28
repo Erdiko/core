@@ -6,6 +6,8 @@
  * @package  	core
  * @copyright	Copyright (c) 2014, Arroyo Labs, www.arroyolabs.com
  * @author 		Varun Brahme
+ * @author		Coleman Tung, coleman@arroyolabs.com
+ * @author		John Arroyo, john@arroyolabs.com
  */
 namespace erdiko\core\datasource;
 
@@ -17,7 +19,7 @@ class File
 	/**
      * Default Path
      */
-	protected $_defaultPath = null;
+	protected $_filePath = null;
 	
 	/**
  	* Contructor
@@ -27,14 +29,14 @@ class File
 	public function __construct($defaultPath=null)
 	{	
 		if(isset($defaultPath))
-			$this->_defaultPath=$defaultPath;
+			$this->_filePath=$defaultPath;
 		else
 		{
 			$rootFolder=dirname(dirname(dirname(__DIR__))); 
-			$this->_defaultPath=$rootFolder."/var";
+			$this->_filePath=$rootFolder."/var";
 		}
-		if(!is_dir($this->_defaultPath))
-			mkdir($this->_defaultPath, null, true);
+		if(!is_dir($this->_filePath))
+			mkdir($this->_filePath, null, true);
 	}
 	
 	/**
@@ -46,21 +48,23 @@ class File
 	 * @param string $mode - Default mode: w
 	 * @return int - bytes written to file
 	 */
-	public function write($content, $filename, $pathToFile=null, $mode=null)
+	public function write($content, $filename, $pathToFile = null, $mode = "w")
 	{
-		if($pathToFile==null)
-			$pathToFile=$this->_defaultPath;
-		if($mode==null)
-			$mode="w";
-		if(is_dir($pathToFile))
+		if($pathToFile == null)
+			$pathToFile = $this->_filePath;
+
+		if(	!is_dir($pathToFile) )
 		{
-			$fh=fopen($pathToFile."/".$filename,$mode);
-			$ret=fwrite($fh,$content);
-			fclose($fh);
-			return $ret;
+			$success = mkdir($pathToFile, 01775, true);
+			if(!$success)
+				throw new \Exception("Cannot create folder. Check file system permissions.");
 		}
-		else
-			return false;
+
+		$fileHandle = fopen($pathToFile."/".$filename, $mode);
+		$success = fwrite($fileHandle, $content);
+		fclose($fileHandle);
+
+		return $success;
 	}
 	
 	/**
@@ -73,7 +77,7 @@ class File
 	public function read($filename, $pathToFile=null)
 	{
 		if($pathToFile==null)
-			return file_get_contents($this->_defaultPath."/".$filename);
+			return file_get_contents($this->_filePath."/".$filename);
 		else
 			return file_get_contents($pathToFile."/".$filename);
 	}
@@ -88,7 +92,7 @@ class File
 	public function delete($filename, $pathToFile=null)
 	{
 		if($pathToFile==null)
-			$pathToFile=$this->_defaultPath;
+			$pathToFile=$this->_filePath;
 		if(file_exists($pathToFile."/".$filename))
 			return unlink($pathToFile."/".$filename);
 		else 
@@ -106,7 +110,7 @@ class File
 	public function move($filename, $pathTo, $pathFrom=null)
 	{
 		if($pathFrom==null)
-			$pathFrom=$this->_defaultPath;
+			$pathFrom=$this->_filePath;
 		if(file_exists($pathFrom."/".$filename))
 			return rename($pathFrom."/".$filename,$pathTo."/".$filename);
 		else 
@@ -124,7 +128,7 @@ class File
 	public function rename($oldName, $newName, $pathToFile=null)
 	{
 		if($pathToFile==null)
-			$pathToFile=$this->_defaultPath;
+			$pathToFile=$this->_filePath;
 		if(file_exists($pathToFile."/".$oldName))
 			return rename($pathToFile."/".$oldName,$pathToFile."/".$newName);
 		else 
@@ -143,7 +147,7 @@ class File
 	public function copy($filename, $newFilePath, $newFileName=null, $pathToFile=null)
 	{
 		if($pathToFile==null)
-			$pathToFile=$this->_defaultPath;
+			$pathToFile=$this->_filePath;
 		if($newFileName==null)
 			$newFileName=$filename;
 		if(file_exists($pathToFile."/".$filename))
@@ -162,7 +166,7 @@ class File
 	public function fileExists($filename, $pathToFile=null)
 	{
 		if($pathToFile==null)
-			$pathToFile=$this->_defaultPath;
+			$pathToFile=$this->_filePath;
 		return file_exists($pathToFile."/".$filename);
 	}
 	
