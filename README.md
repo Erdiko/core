@@ -7,13 +7,13 @@ The goal is a lightweight but powerful MVC micro framework.  Get work done witho
 
 ## Version (SemVer)
 
-0.8.5
+0.8.6
 
 ## Documentation
 
 Visit [erdiko.org](http://www.erdiko.org/) for full documentation and installation instructions.
 
-## Contributors
+## Active Contributors
 
 John Arroyo
 
