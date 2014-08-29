@@ -25,11 +25,10 @@ class Logger extends File
 	);
 	protected $_defaultPath = '/var/logs';
 	
-	
-	const WARNING = "Warning";
-	const ERROR = "Error";
+	const LOG = "Log";
 	const NOTICE = "Notice";
-	const INFO = "Info";
+	const WARNING = "Warning";
+	const EXCEPTION = "Exception";
 	
 	/** 
 	 * Constructor 
@@ -97,13 +96,13 @@ class Logger extends File
 		if(is_string($log))
 		{
 			if($logLevel==null)
-				$logLevel=Logger::INFO;
-			$logString=date('Y-m-d H:i:s')." ".$logLevel." ".$log.PHP_EOL;
+				$logLevel = Logger::LOG;
+			$logString=date('Y-m-d H:i:s')." ".$logLevel.": ".$log.PHP_EOL;
 		}
 		else
 		{
 			if("Exception" == get_class($log))
-				$logString=date('Y-m-d H:i:s')." ".Logger::ERROR." ".$log.PHP_EOL;
+				$logString=date('Y-m-d H:i:s')." ".Logger::EXCEPTION.": ".$log.PHP_EOL;
 		}
 		
 		if($logKey==null)

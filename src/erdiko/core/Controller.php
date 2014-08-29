@@ -24,6 +24,8 @@ class Controller
 	protected $_themeName = null;
 	/** Theme */
 	protected $_theme = null;
+	/** Request URI */
+	protected $_pathInfo = null;
 
 	/** 
  	 * Constructor 
@@ -35,6 +37,14 @@ class Controller
 
 		if($this->_themeName != null)
 			$this->_response->setThemeName($this->_themeName);
+    }
+
+    /**
+     * Set Path Info (Requested URI)
+     */
+    public function setPathInfo($pathInfo)
+    {
+    	$this->_pathInfo = $pathInfo;
     }
 
     /**
@@ -153,7 +163,7 @@ class Controller
 	/**
 	 * Set the response content
 	 *
-	 * @param string @content
+	 * @param string $content
 	 */
 	public function setContent($content)
 	{
@@ -173,16 +183,20 @@ class Controller
 	/**
 	 *  Autoaction
 	 *
-	 * @param string @var
-	 * @param string @httpMethod
+	 * @param string $var
+	 * @param string $httpMethod
 	 */
 	protected function _autoaction($var, $httpMethod = 'get')
 	{
 		$method = $this->urlToActionName($var, $httpMethod);
 		if(method_exists($this, $method))
 			return $this->$method();
-		else
-			\ToroHook::fire('404');
+		else {
+			\ToroHook::fire('404', array(
+				"error" => "Controller ".get_class($this)." does not contain $method action",
+				"path_info" => $this->_pathInfo )
+			);
+		}
 	}
 
 	/**
@@ -277,42 +291,8 @@ class Controller
 	 * 
 	 * 
 	 * 
-	 * 
-	 * 
-	 * 
 	 */
 
-
-
-
-
-	/**
-	 * Parse Arguments
-	 *
-	 * @param string $arguments
-	 * @return array $arguments
-	 */
-	public function parseArguments($arguments)
-	{
-		$arguments = explode("/", $arguments);
-		return $arguments;
-	}
-
-	/**
-	 * Compile name value
-	 *
-	 * @param array $intArray
-	 * @return array $keyArray
-	 */
-	public function compileNameValue($intArray)
-	{
-		$keyArray = array();
-		for($i = 0; $i < count($intArray); $i += 2)
-		{
-			$keyArray[$intArray[$i]] = $intArray[$i+1];
-		}
-		return $keyArray;
-	}
 
     /**
      * Add phpToJs variable to be set on the current page
@@ -346,17 +326,5 @@ class Controller
 	public function addMeta($content, $name = 'description')
 	{
 		$this->_themeExtras['meta'][$name] = $content;
-	}
-
-
-
-	/**
-	 *  Get Exception Html
-	 *
-	 * @param string $message
-	 */
-	public function getExceptionHtml($message)
-	{
-		return "<div class=\"exception\">$message</div>";
 	}
 }

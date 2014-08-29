@@ -77,8 +77,8 @@ class Toro
         }
 
         $result = null;
-
         $handler_instance = null;
+
         if ($discovered_handler) {
             if (is_string($discovered_handler)) {
                 $handler_instance = new $discovered_handler();
@@ -104,6 +104,7 @@ class Toro
             if (method_exists($handler_instance, $action)) {
 
                 try{
+                    $handler_instance->setPathInfo($path_info);
                     ToroHook::fire('before_handler', compact('routes', 'discovered_handler', 'action', 'arguments'));
                     $handler_instance->_before();
 
@@ -115,18 +116,15 @@ class Toro
                     ToroHook::fire('after_handler', compact('routes', 'discovered_handler', 'action', 'arguments', 'result'));
 
                 } catch (\Exception $e) {
-                    error_log("Exception running controller method: ".$e->getMessage()); // @todo switch to erdiko log
-                    ToroHook::fire('500', $e->getMessage());
-                    // @todo log error
+                    ToroHook::fire('500', array('error' => $e->getMessage(), 'path_info' => $path_info));
                 }
-                
             }
             else {
-                ToroHook::fire('404', compact('routes', 'discovered_handler', 'action', 'arguments'));
+                ToroHook::fire('404', compact('discovered_handler', 'action', 'arguments', 'path_info'));
             }
         }
         else {
-            ToroHook::fire('404', compact('routes', 'discovered_handler', 'action', 'arguments'));
+            ToroHook::fire('404', compact('discovered_handler', 'action', 'arguments', 'path_info'));
         }
 
         ToroHook::fire('after_request', compact('routes', 'discovered_handler', 'action', 'arguments', 'result'));
