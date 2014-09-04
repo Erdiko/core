@@ -96,7 +96,7 @@ class ErdikoTest extends ErdikoTestCase
 		 *  Log a regular message
 		 */
 		Erdiko::log($sampleText);
-		$return= $fileObj->read("erdiko.log", $logFolder);
+		$return= $fileObj->read("system.log", $logFolder);
 		$this->assertTrue(strpos($return,$sampleText) !== false );	
 
 		/**
@@ -110,7 +110,7 @@ class ErdikoTest extends ErdikoTestCase
 		$this->assertTrue(strpos($return,$sampleText) !== false );	
 
 		//Clean up
-    	$fileObj->delete("erdiko.log", $logFolder);
+    	$fileObj->delete("system.log", $logFolder);
     	$fileObj->delete("exception.log", $logFolder);
 	}
 
