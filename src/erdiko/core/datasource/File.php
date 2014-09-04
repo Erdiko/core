@@ -36,7 +36,7 @@ class File
 			$this->_filePath=$rootFolder."/var";
 		}
 		if(!is_dir($this->_filePath))
-			mkdir($this->_filePath, null, true);
+			mkdir($this->_filePath, 0775, true);
 	}
 	
 	/**
@@ -55,7 +55,7 @@ class File
 
 		if(	!is_dir($pathToFile) )
 		{
-			$success = mkdir($pathToFile, 01775, true);
+			$success = mkdir($pathToFile, 0775, true);
 			if(!$success)
 				throw new \Exception("Cannot create folder. Check file system permissions.");
 		}
