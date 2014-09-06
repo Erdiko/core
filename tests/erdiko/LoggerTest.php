@@ -53,11 +53,11 @@ class LoggerTest extends ErdikoTestCase
 		$return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
 		$this->assertTrue(strpos($return,'This is a test warning log') != false );	
 		
-		//Error Log Test
+		//Notice Log Test
 		$this->loggerObject->clearLog();
-		$this->loggerObject->log('This is a test error log',Logger::ERROR,"errorLog");
+		$this->loggerObject->log('This is a test notice log',Logger::NOTICE,"errorLog");
 		$return= $this->fileObj->read("erdiko_error.log", $this->webRoot."/var/logs");
-		$this->assertTrue(strpos($return,'This is a test error log') != false );
+		$this->assertTrue(strpos($return,'This is a test notice log') != false );
 		
 		//Error Log Test 2
 		$this->loggerObject->clearLog();

@@ -192,35 +192,6 @@ class ControllerTest extends ErdikoTestCase
         unset($controllerObj);
     }
 
-    function testParseArguments()
-    {
-        //First Test
-        $return = $this->controllerObj->parseArguments('test/parse');
-        $tempArr = Array('test', 'parse');
-        $this->assertEquals( $return, $tempArr);
-        
-        //Second Test
-        $return = $this->controllerObj->parseArguments('test/parse/arguments');
-        $tempArr = Array('test', 'parse', 'arguments');
-        $this->assertEquals( $return, $tempArr);
-    }
-
-    function testCompileNameValue()
-    {
-        //Pass an array to compileNameValue function
-        $tempArr = Array(1, 2, 3, 4, 5, 6);
-        $return = $this->controllerObj->compileNameValue($tempArr);
-
-        $tempArr2 = Array(
-                        1 => 2,
-                        3 => 4,
-                        5 => 6,
-                        );
-
-        //Validate the two array
-        $this->assertEquals($return, $tempArr2);
-    }
-
 
     function testRedirect()
     {
