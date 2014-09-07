@@ -45,7 +45,7 @@ class Toro
                 if (preg_match('#^/?' . $pattern . '/?$#', $path_info, $matches)) {
                     $discovered_handler = $handler_name;
                     $regex_matches = $matches;
-                    $params = explode("/", $regex_matches[1]);
+                    $params = isset($regex_matches[1]) ? explode("/", $regex_matches[1]) : array();
                     // e.g. getActionName($regex_matches), User::getProfile($vars)
 
                     // Determine action and arguments
