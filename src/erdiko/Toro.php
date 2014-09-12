@@ -46,21 +46,26 @@ class Toro
                     $discovered_handler = $handler_name;
                     $regex_matches = $matches;
                     $params = isset($regex_matches[1]) ? explode("/", $regex_matches[1]) : array();
-                    // e.g. getActionName($regex_matches), User::getProfile($vars)
 
                     // Determine action and arguments
                     if(count($params) > 1)
                     {
                         // @todo add different parsers here...possibly pass route function in routes.json
-                        $int = 1;
+                        $action .= ucfirst($params[0]);
+                        unset($params[0]);
+                        // $int = 1;
+
                         foreach($params as $param)
                         {
+                            $arguments[] = $param;
+                            /*
                             // if even param
                             if($int % 2 == 0)
                                 $action .= ucfirst($param);
                             else
                                 $arguments[] = $param;
                             $int++;
+                            */
                         }
                     } else {
                         unset($regex_matches[0]);
