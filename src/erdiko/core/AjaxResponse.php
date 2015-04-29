@@ -27,6 +27,13 @@ class AjaxResponse extends Response
     protected $_statusCode = 200;
 
     /**
+     * _errors 
+     *
+     *
+     */
+    protected $_errors = false;
+
+    /**
      * Theme
      */
     protected $_theme;
@@ -48,6 +55,18 @@ class AjaxResponse extends Response
       }
     }
 
+    public function setErrors($errors = null) 
+    {
+      if(!empty($errors)) {
+
+        if(!is_array($errors)) {
+          $errors = array($errors);
+        }
+
+        $this->_errors = $errors;
+      }
+    }
+
     /**
      * Ajax render function
      *
@@ -57,8 +76,8 @@ class AjaxResponse extends Response
     {
       $responseData = array(
                               "status" => $this->_statusCode,
-                              "body" => $this->_content,
-                              "errors" => array()
+                              "body"   => $this->_content,
+                              "errors" => $this->_errors
                             );
 
       return json_encode($responseData);

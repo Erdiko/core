@@ -40,4 +40,10 @@ class AjaxController extends Controller
     }
   }
 
+  public function setErrors($errors = null)
+  {
+    if(!empty($errors)) {
+      $this->_response->setErrors($errors);
+    }
+  }
 }
