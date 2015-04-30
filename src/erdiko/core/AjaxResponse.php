@@ -43,6 +43,8 @@ class AjaxResponse extends Response
      */
     protected $_content = null;
 
+
+
     /**
      * setStatusCode
      * 
@@ -79,6 +81,9 @@ class AjaxResponse extends Response
                               "body"   => $this->_content,
                               "errors" => $this->_errors
                             );
+
+      // set the mime type to JSON
+      header('Content-Type: application/json');
 
       return json_encode($responseData);
     }
