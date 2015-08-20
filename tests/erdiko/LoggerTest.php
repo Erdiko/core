@@ -9,10 +9,10 @@ class LoggerTest extends ErdikoTestCase
     var $fileObj;
     var $webRoot;
 
+
     function setUp() {
 		$logFiles=array(
 			"default" => "erdiko_default.log",
-			"errorLog" => "erdiko_error.log",
 		);
 
 		$this->loggerObject=new Logger($logFiles);
@@ -24,70 +24,53 @@ class LoggerTest extends ErdikoTestCase
     function tearDown() {
 
     	$this->loggerObject->delete("erdiko_default.log", $this->webRoot."/var/logs");
-    	$this->loggerObject->delete("erdiko_error.log", $this->webRoot."/var/logs");
-    	$this->loggerObject->delete("erdiko_test_temp_log.log", $this->webRoot."/var/logs");
+    //	$this->loggerObject->delete("erdiko_error.log", $this->webRoot."/var/logs");
+    //	$this->loggerObject->delete("erdiko_test_temp_log.log", $this->webRoot."/var/logs");
         unset($this->loggerObject);
         unset($this->fileObj);
     }
 
     function testLog() {
-	
 
-		//Test the clearlog functon
+        $this->loggerObject->log("INFO", 'This is a test log in default test file');
+        $return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
+        $this->assertTrue(strpos($return,'This is a test log in default test file') != false );
+        //Test the clearlog functon
+
+        $this->loggerObject->clearLog();
+        $return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
+        $return = trim($return);
+        $this->assertTrue(empty($return));
+
+
+        //Should log to the default log...
+        $this->loggerObject->clearLog();
+        // $this->loggerObject->log('This is a test log in default test file');
+        $this->loggerObject->info('This is a test log in default test file');
+        $return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
+        $this->assertTrue(strpos($return,'This is a test log in default test file') != false );
+
+        //Warning Log test
+        $this->loggerObject->clearLog();
+        //	$this->loggerObject->log('This is a test warning log',Logger::WARNING);
+        $this->loggerObject->warning('Warning {msg} created', array('msg' => 'This is a test warning log'));
+        $return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
+        $this->assertTrue(strpos($return,'This is a test warning log') != false );
+
+        //Notice Log Test
+        $this->loggerObject->clearLog();
+        //	$this->loggerObject->log('This is a test notice log',Logger::NOTICE,"errorLog");
+        $this->loggerObject->notice('This is a test notice log');
+        $return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
+        $this->assertTrue(strpos($return,'This is a test notice log') != false );
+
+        //Error Log Test 2
+        $this->loggerObject->clearLog();
+        //$this->loggerObject->log(new Exception("This is a test error log 2"),null,"errorLog");
+        $this->loggerObject->error('This is a test error log 2');
+        $return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
+        $this->assertTrue(strpos($return,'This is a test error log 2') != false );
 		
-		$this->loggerObject->clearLog();
-		$return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
-		$return = trim($return);
-		$this->assertTrue(empty($return));	
-
-
-		//Should log to the default log... 
-		$this->loggerObject->clearLog();
-        $this->loggerObject->log('This is a test log in default test file');
-		$return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
-		$this->assertTrue(strpos($return,'This is a test log in default test file') != false );	
-		
-		//Warning Log test
-		$this->loggerObject->clearLog();
-		$this->loggerObject->log('This is a test warning log',Logger::WARNING);
-		$return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
-		$this->assertTrue(strpos($return,'This is a test warning log') != false );	
-		
-		//Notice Log Test
-		$this->loggerObject->clearLog();
-		$this->loggerObject->log('This is a test notice log',Logger::NOTICE,"errorLog");
-		$return= $this->fileObj->read("erdiko_error.log", $this->webRoot."/var/logs");
-		$this->assertTrue(strpos($return,'This is a test notice log') != false );
-		
-		//Error Log Test 2
-		$this->loggerObject->clearLog();
-		$this->loggerObject->log(new Exception("This is a test error log 2"),null,"errorLog");
-		$return= $this->fileObj->read("erdiko_error.log", $this->webRoot."/var/logs");
-		$this->assertTrue(strpos($return,'This is a test error log 2') != false );
-		
-    }
-
-    function testAddLogFile(){
-
-    	$this->loggerObject->addLogFile("temp", "erdiko_test_temp_log.log");
-    	$this->loggerObject->log('This is a test log in test temp file', null, "temp");
-    	$return= $this->fileObj->read("erdiko_test_temp_log.log" , $this->webRoot."/var/logs");
-		$this->assertTrue(strpos($return, 'This is a test log in test temp file') != false);	
-
-    }
-    
-
-    /**
-     * @depends testAddLogFile
-     */
-    function testRemoveLogFile(){
-
-    	//Once the removeLogFile() is called, the log will be written into the default log file.
-    	$this->loggerObject->removeLogFile("temp");
-    	$this->loggerObject->log('This is a test log in test temp file 2', null, "temp");
-    	$return=$this->fileObj->read("erdiko_default.log" , $this->webRoot."/var/logs");
-		$this->assertTrue(strpos($return, 'This is a test log in test temp file 2') != false );
-		$this->loggerObject->delete("erdiko_temp_log.log", $this->webRoot."/var/logs");
     }
   }
 ?>
