@@ -149,11 +149,11 @@ class Logger extends File implements LoggerInterface
      * @param string $logFileName
      * @return bool
      */
-  /*  public function addLogFile($key,$logFileName)
+    public function addLogFile($key,$logFileName)
     {
         $arrayKey=strtolower($key);
         return $this->_logFiles[$arrayKey] = $logFileName;
-    }*/
+    }
 
     /**
      * Remove log file
@@ -161,12 +161,13 @@ class Logger extends File implements LoggerInterface
      *
      * @param mixed $key
      */
-    /*  public function removeLogFile($key)
+    public function removeLogFile($key)
      {
          $arrayKey=strtolower($key);
          unset($this->_logFiles[$arrayKey]);
          return true;
-     }/*
+     }
+
      /**
       * Clear Log
       *
@@ -191,7 +192,6 @@ class Logger extends File implements LoggerInterface
                 return 0;
         }
     }
-
 
     /** Destructor */
 	public function __destruct()
