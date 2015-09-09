@@ -24,13 +24,15 @@ class LoggerTest extends ErdikoTestCase
     function tearDown() {
 
     	$this->loggerObject->delete("erdiko_default.log", $this->webRoot."/var/logs");
+    //	$this->loggerObject->delete("erdiko_error.log", $this->webRoot."/var/logs");
+    //	$this->loggerObject->delete("erdiko_test_temp_log.log", $this->webRoot."/var/logs");
         unset($this->loggerObject);
         unset($this->fileObj);
     }
 
     function testLog() {
 
-        $this->loggerObject->log("info", 'This is a test log in default test file');
+        $this->loggerObject->log(\Psr\Log\LogLevel::INFO, 'This is a test log in default test file');
         $return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
         $this->assertTrue(strpos($return,'This is a test log in default test file') != false );
         //Test the clearlog functon
@@ -51,7 +53,7 @@ class LoggerTest extends ErdikoTestCase
         //Warning Log test
         $this->loggerObject->clearLog();
         //	$this->loggerObject->log('This is a test warning log',Logger::WARNING);
-        $this->loggerObject->warning('This is a test warning log');
+        $this->loggerObject->warning('Warning {msg} created', array('msg' => 'This is a test warning log'));
         $return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
         $this->assertTrue(strpos($return,'This is a test warning log') != false );
 
