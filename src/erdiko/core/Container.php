@@ -2,11 +2,11 @@
 /**
  * Container
  * Base view layer object
- * 
+ *
  * @category   Erdiko
  * @package    Core
  * @copyright  Copyright (c) 2014, Arroyo Labs, http://www.arroyolabs.com
- * @author	   John Arroyo
+ * @author     John Arroyo
  */
 namespace erdiko\core;
 
@@ -37,20 +37,20 @@ abstract class Container
         $this->setTemplate($template);
         $this->setData($data);
     }
-	
+    
     /**
      * Set Container template
-     * 
+     *
      * @param string $template
      */
     public function setTemplate($template)
     {
-    	$this->_template = $template;
+        $this->_template = $template;
     }
 
     /**
      * Set template root folder
-     * 
+     *
      * @param string $TemplateRootFolder
      */
     public function setTemplateRootFolder($templateRootFolder)
@@ -90,15 +90,14 @@ abstract class Container
      * Get rendered template file
      * Accepts one of the types of template files in this order:
      * php (.php), html/mustache (.html), markdown (.md)
-     * 
+     *
      * @param string $filename , file without extension
      * @param array $data , associative array of data
      * @throws \Exception , template file does not exist
      */
     public function getTemplateFile($filename, $data)
     {
-        if (is_file($filename.'.php'))
-        {
+        if (is_file($filename.'.php')) {
             ob_start();
             include $filename.'.php';
             return ob_get_clean();
@@ -106,7 +105,7 @@ abstract class Container
         } elseif (is_file($filename.'.html')) {
             $file = file_get_contents($filename.'.html');
             $m = new \Mustache_Engine;
-            return $m->render($file, $data); 
+            return $m->render($file, $data);
 
         } elseif (is_file($filename.'.md')) {
             $parsedown = new \Parsedown();
@@ -118,7 +117,7 @@ abstract class Container
 
     /**
      * Render container to HTML
-     * 
+     *
      * @return string $html
      */
     public function toHtml()

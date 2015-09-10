@@ -1,24 +1,27 @@
 <?php
+namespace tests\erdiko;
 
 use erdiko\core\Theme;
+
 require_once dirname(__DIR__).'/ErdikoTestCase.php';
 
 
-class ThemeTest extends ErdikoTestCase
+class ThemeTest extends \tests\ErdikoTestCase
 {
-    var $themeObj = null;
+    public $themeObj = null;
 
-    function setUp()
+    public function setUp()
     {
         $this->themeObj = new \erdiko\core\Theme;
         $this->themeObj->setName('bootstrap');
     }
 
-    function tearDown() {
+    public function tearDown()
+    {
         unset($this->themeObj);
     }
 
-    function testSetNameAndGetName()
+    public function testSetNameAndGetName()
     {
         //It should return the default name
         $return = $this->themeObj->getName();
@@ -34,7 +37,7 @@ class ThemeTest extends ErdikoTestCase
      *  @depends testSetNameAndGetName
      *
      */
-    function testGetConfig()
+    public function testGetConfig()
     {
         $this->themeObj->setName('bootstrap');
         $return = $this->themeObj->getConfig();
@@ -49,7 +52,7 @@ class ThemeTest extends ErdikoTestCase
      *  @depends testGetConfig
      *
      */
-    function testAddMetaAndGetMeta()
+    public function testAddMetaAndGetMeta()
     {
         $temp = array();
         $temp[] = array(
@@ -66,7 +69,7 @@ class ThemeTest extends ErdikoTestCase
      *  @depends testAddMetaAndGetMeta
      *
      */
-    function testAddCssAndGetCss()
+    public function testAddCssAndGetCss()
     {
         $temp = array();
         $temp[] = array(
@@ -83,7 +86,7 @@ class ThemeTest extends ErdikoTestCase
      *  @depends testAddCssAndGetCss
      *
      */
-    function testAddJsAndGetJs()
+    public function testAddJsAndGetJs()
     {
         $temp = array();
         $temp[] = array(
@@ -100,7 +103,7 @@ class ThemeTest extends ErdikoTestCase
      *  @depends testAddJsAndGetJs
      *
      */
-    function testGetPageTitle()
+    public function testGetPageTitle()
     {
         $page_title = 'Test_Page_Title';
         $temp = array(
@@ -116,7 +119,7 @@ class ThemeTest extends ErdikoTestCase
      *  @depends testGetPageTitle
      *
      */
-    function testGetBodyTitle()
+    public function testGetBodyTitle()
     {
         $body_title = 'Test_Body_Title';
         $temp = array(
@@ -132,7 +135,7 @@ class ThemeTest extends ErdikoTestCase
      *  @depends testGetBodyTitle
      *
      */
-    function testGetThemeFolder()
+    public function testGetThemeFolder()
     {
         $return = $this->themeObj->getThemeFolder();
         $folder = APPROOT.'/themes/bootstrap/';
@@ -144,7 +147,7 @@ class ThemeTest extends ErdikoTestCase
      *  @depends testGetThemeFolder
      *
      */
-    function testGetTemplateFolder()
+    public function testGetTemplateFolder()
     {
         $return = $this->themeObj->getTemplateFolder();
         $folder = APPROOT.'/themes/bootstrap/templates/';
@@ -156,7 +159,7 @@ class ThemeTest extends ErdikoTestCase
      *  @depends testGetTemplateFolder
      *
      */
-    function testSetContentAndGetContent()
+    public function testSetContentAndGetContent()
     {
         $content = 'It is some content';
         $this->themeObj->setContent($content);
@@ -169,7 +172,7 @@ class ThemeTest extends ErdikoTestCase
      *  @depends testSetContentAndGetContent
      *
      */
-    function testSetTemplate()
+    public function testSetTemplate()
     {
         $template = 'test_template';
         $this->themeObj->setTemplate($template);
@@ -182,7 +185,7 @@ class ThemeTest extends ErdikoTestCase
      *  @depends testSetTemplate
      *
      */
-    function testSetNameNGetName()
+    public function testSetNameNGetName()
     {
         $name = "Test_Name";
         $this->themeObj->setName($name);
@@ -195,7 +198,7 @@ class ThemeTest extends ErdikoTestCase
      *  @depends testSetNameNGetName
      *
      */
-    function testGetContextConfig()
+    public function testGetContextConfig()
     {
         $return = $this->themeObj->getContextConfig();
         $this->assertArrayHasKey('site', $return);
@@ -208,7 +211,7 @@ class ThemeTest extends ErdikoTestCase
      *  @depends testGetContextConfig
      *
      */
-    function testGetTemplateHtml()
+    public function testGetTemplateHtml()
     {
         $return = $this->themeObj->getTemplateHtml('header');
 
@@ -224,7 +227,7 @@ class ThemeTest extends ErdikoTestCase
      *  @depends testGetTemplateHtml
      *
      */
-    function testToHtml()
+    public function testToHtml()
     {
 
         $content = 'It is some content';
@@ -247,7 +250,4 @@ class ThemeTest extends ErdikoTestCase
         $pos = strrpos($header, $data);
         $this->assertTrue($find !== false);
     }
-
-
-  }
-?>
+}

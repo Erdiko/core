@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-    	"php": ">=5.3.3",
+        "php": ">=5.3.3",
         "mustache/mustache": "2.7.*",
         "erusev/parsedown": "1.0.*",
         "twbs/bootstrap": "^3.3",

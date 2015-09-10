@@ -1,26 +1,26 @@
 <?php
+namespace tests\erdiko;
 
 use erdiko\core\AjaxController;
+
 require_once dirname(__DIR__).'/ErdikoTestCase.php';
 
-
-class AjaxControllerTest extends ErdikoTestCase
+class AjaxControllerTest extends \tests\ErdikoTestCase
 {
-    var $AjaxControllerObj = null;
+    public $AjaxControllerObj = null;
 
-    function setUp()
+    public function setUp()
     {
         $this->AjaxControllerObj = new \erdiko\core\AjaxController;
     }
 
-    function tearDown() {
+    public function tearDown()
+    {
         unset($this->AjaxControllerObj);
     }
 
-    function testNoFunctino()
+    public function testNoFunctino()
     {
-        //There is no function in AjaxController class   
+        //There is no function in AjaxController class
     }
-
-  }
-?>
+}

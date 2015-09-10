@@ -1,27 +1,30 @@
 <?php
+namespace tests\erdiko;
 
 use erdiko\core\Layout;
+
 require_once dirname(__DIR__).'/ErdikoTestCase.php';
 
 
-class LayoutTest extends ErdikoTestCase
+class LayoutTest extends \tests\ErdikoTestCase
 {
-    var $LayoutObj = null;
+    public $LayoutObj = null;
 
-    function setUp()
+    public function setUp()
     {
         $this->LayoutObj = new \erdiko\core\Layout;
     }
 
-    function tearDown() {
+    public function tearDown()
+    {
         unset($this->LayoutObj);
     }
 
-    function testGetTemplateFile()
+    public function testGetTemplateFile()
     {
         /**
          * First test
-         * 
+         *
          * Get the html through getTemplateFile function
          */
         $this->LayoutObj->setThemeName('bootstrap');
@@ -32,14 +35,16 @@ class LayoutTest extends ErdikoTestCase
         $return = $this->LayoutObj->getTemplateFile($templateName, $data);
 
         //Get contents of the template through file_get_contents function
-        $content = file_get_contents(APPROOT.'/'.'themes/'.$this->LayoutObj->getTheme().'/templates/layouts/1column.php');
+        $content = file_get_contents(
+            APPROOT.'/'.'themes/'.$this->LayoutObj->getTheme().'/templates/layouts/1column.php'
+        );
         //Search for the key word, which is right before php tag
         $pos = strrpos($content, 'role="main"');
         //Perform a substring action
         $content = substr($content, 0, $pos);
         //Check if two content are matched
         $find = strrpos($return, $content);
-        $this->assertTrue($find !== false); 
+        $this->assertTrue($find !== false);
 
         /**
          * Second test
@@ -54,24 +59,26 @@ class LayoutTest extends ErdikoTestCase
         $return = $this->LayoutObj->getTemplateFile($templateName, $data);
 
         //Get contents of the template through file_get_contents function
-        $content = file_get_contents(APPROOT.'/'.'themes/'.$this->LayoutObj->getTheme().'/templates/layouts/1column.php');
+        $content = file_get_contents(
+            APPROOT.'/'.'themes/'.$this->LayoutObj->getTheme().'/templates/layouts/1column.php'
+        );
         //Search for the key word, which is right before php tag
         $pos = strrpos($content, 'role="main"');
         //Perform a substring action
         $content = substr($content, 0, $pos);
         //Check if two content are matched
         $find = strrpos($return, $content);
-        $this->assertFalse($find !== false); 
+        $this->assertFalse($find !== false);
     }
 
     /**
      * @expectedException Exception
      */
-    function testGetTemplateFileException()
+    public function testGetTemplateFileException()
     {
         /**
          * Third test
-         * 
+         *
          * Try to open a non exist template file
          */
         $this->LayoutObj->setThemeName('bootstrap');
@@ -82,11 +89,11 @@ class LayoutTest extends ErdikoTestCase
         $return = $this->LayoutObj->getTemplateFile($templateName, $data);
     }
 
-    function testSetThemeNameAndGetTheme()
+    public function testSetThemeNameAndGetTheme()
     {
         /**
          * First test
-         * 
+         *
          * Pass a string to setThemeName function
          */
         $theme = "Test Theme";
@@ -96,7 +103,7 @@ class LayoutTest extends ErdikoTestCase
 
         /**
          * Second test
-         * 
+         *
          * Pass a theme object to setTheme function
          */
         //The setTheme does not accept theme object
@@ -108,7 +115,7 @@ class LayoutTest extends ErdikoTestCase
         */
     }
 
-    function testSetRegionAndGetRegion()
+    public function testSetRegionAndGetRegion()
     {
         $content = 'Test content of region one';
         $this->LayoutObj->setRegion('one', $content);
@@ -116,7 +123,7 @@ class LayoutTest extends ErdikoTestCase
         $this->assertEquals($return, $content);
     }
 
-    function testSetRegions()
+    public function testSetRegions()
     {
         $arr = array(
                 'one' => 'region one',
@@ -126,6 +133,4 @@ class LayoutTest extends ErdikoTestCase
         $return = $this->LayoutObj->getRegions();
         $this->assertEquals($return, $arr);
     }
-
-  }
-?>
+}

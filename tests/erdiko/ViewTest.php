@@ -1,26 +1,27 @@
 <?php
+namespace tests\erdiko;
 
 use erdiko\core\View;
+
 require_once dirname(__DIR__).'/ErdikoTestCase.php';
 
 
-class ViewTest extends ErdikoTestCase
+class ViewTest extends \tests\ErdikoTestCase
 {
-    var $viewObj = null;
+    public $viewObj = null;
 
-    function setUp()
+    public function setUp()
     {
         $this->viewObj = new \erdiko\core\View;
     }
 
-    function tearDown() {
+    public function tearDown()
+    {
         unset($this->viewObj);
     }
 
-    function testNoFunctino()
+    public function testNoFunctino()
     {
         //There is no function in view class
     }
-
-  }
-?>
+}

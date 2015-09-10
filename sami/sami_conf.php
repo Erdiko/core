@@ -16,7 +16,7 @@ $iterator = Finder::create()
 $versions = GitVersionCollection::create($dir)
     ->add('master', 'master branch')
     ->add('unitTest', 'unitTest')
-    ->add('filecache','filecache')
+    ->add('filecache', 'filecache')
 ;
 
 return new Sami($iterator, array(
@@ -26,7 +26,7 @@ return new Sami($iterator, array(
     'title'                => 'Erdiko API',
     'build_dir'            => __DIR__.'/build/%version%/',
     'cache_dir'            => __DIR__.'/cache/%version%/',
-    //  'simulate_namespaces'  => true, 
+    //  'simulate_namespaces'  => true,
     'default_opened_level' => 1,
 ));
 

@@ -1,13 +1,13 @@
 <?php
 /**
  * Logging utility for Erdiko
- * 
- * @category  	Erdiko
- * @package   	core
- * @copyright 	Copyright (c) 2014, Arroyo Labs, www.arroyolabs.com
- * @author		Varun Brahme
- * @author		Coleman Tung, coleman@arroyolabs.com
- * @author		John Arroyo, john@arroyolabs.com
+ *
+ * @category    Erdiko
+ * @package     core
+ * @copyright   Copyright (c) 2014, Arroyo Labs, www.arroyolabs.com
+ * @author      Varun Brahme
+ * @author      Coleman Tung, coleman@arroyolabs.com
+ * @author      John Arroyo, john@arroyolabs.com
  */
 namespace erdiko\core;
 
@@ -21,48 +21,48 @@ use \Psr\Log\LogLevel;
  */
 class Logger extends File implements LoggerInterface
 {
-	
-	/** Log files */
-	protected $_logFiles = array(
-		"default" => "system.log",
-	);
-	protected $_defaultPath = '/var/logs';
-	
-	/** 
-	 * Constructor 
-	 * 
-	 * @param array $logFiles
-	 * @param string $logDir, fully qualified path or a path relative to the erdiko root
-	 */
-	public function __construct($logFiles = array(), $logDir = null)
-	{
-		// Set the log files
-		if(!empty($logFiles))
-			$this->_logFiles = array_merge($this->_logFiles, array_change_key_case($logFiles));
-		
-		// Set the logging directory
-		if($logDir != null)
-		{
-			if(is_dir($logDir))
-				$this->_filePath = $logDir; // fully qualified & valid path
-			else
-				$this->_filePath = \ROOT.$logDir; // otherwise assume it's relative to the root
-		}
-		else
-		{
-			$this->_filePath = \ROOT.$this->_defaultPath;
-		}
-	}
-	
-	/**
-	 * Log
-	 *
-	 * @param string $level
-	 * @param string or an object with a __toString() method$ message
-	 * @param array $context
-	 * @return bool
-	 */
-    public function log($level, $message, array $context = array()){
+    
+    /** Log files */
+    protected $_logFiles = array(
+        "default" => "system.log",
+    );
+    protected $_defaultPath = '/var/logs';
+    
+    /**
+     * Constructor
+     *
+     * @param array $logFiles
+     * @param string $logDir, fully qualified path or a path relative to the erdiko root
+     */
+    public function __construct($logFiles = array(), $logDir = null)
+    {
+        // Set the log files
+        if (!empty($logFiles)) {
+            $this->_logFiles = array_merge($this->_logFiles, array_change_key_case($logFiles));
+        }
+        
+        // Set the logging directory
+        if ($logDir != null) {
+            if (is_dir($logDir)) {
+                $this->_filePath = $logDir; // fully qualified & valid path
+            } else {
+                $this->_filePath = \ROOT.$logDir; // otherwise assume it's relative to the root
+            }
+        } else {
+            $this->_filePath = \ROOT.$this->_defaultPath;
+        }
+    }
+    
+    /**
+     * Log
+     *
+     * @param string $level
+     * @param string or an object with a __toString() method$ message
+     * @param array $context
+     * @return bool
+     */
+    public function log($level, $message, array $context = array())
+    {
         switch ($level) {
             case \Psr\Log\LogLevel::EMERGENCY:
                 return $this->emergency($message, $context);
@@ -130,9 +130,9 @@ class Logger extends File implements LoggerInterface
         // build a replacement array with braces around the context keys
         $replace = array();
         foreach ($context as $key => $val) {
-            if($key == "exception" && $val instanceof \Exception){
+            if ($key == "exception" && $val instanceof \Exception) {
                 $replace['{' . $key . '}'] = $val->getMessage();
-            } else{
+            } else {
                 $replace['{' . $key . '}'] = $val;
             }
         }
@@ -149,7 +149,7 @@ class Logger extends File implements LoggerInterface
      * @param string $logFileName
      * @return bool
      */
-    public function addLogFile($key,$logFileName)
+    public function addLogFile($key, $logFileName)
     {
         $arrayKey=strtolower($key);
         return $this->_logFiles[$arrayKey] = $logFileName;
@@ -162,11 +162,11 @@ class Logger extends File implements LoggerInterface
      * @param mixed $key
      */
     public function removeLogFile($key)
-     {
+    {
          $arrayKey=strtolower($key);
          unset($this->_logFiles[$arrayKey]);
          return true;
-     }
+    }
 
      /**
       * Clear Log
@@ -174,29 +174,28 @@ class Logger extends File implements LoggerInterface
       * @param string $logKey
       * @return bool
       */
-    public function clearLog($logKey=null)
+    public function clearLog($logKey = null)
     {
         $ret=true;
-        if($logKey==null)
-        {
-            foreach($this->_logFiles as $key => $logFile)
+        if ($logKey==null) {
+            foreach ($this->_logFiles as $key => $logFile) {
                 $ret = $ret && $this->write("", $logFile);
+            }
             return $ret;
-        }
-        else
-        {
+        } else {
             $arrayKey=strtolower($logKey);
-            if(isset($this->_logFiles[$arrayKey]))
+            if (isset($this->_logFiles[$arrayKey])) {
                 return $this->write("", $this->_logFiles[$arrayKey]);
-            else
+            } else {
                 return 0;
+            }
         }
     }
 
     /** Destructor */
-	public function __destruct()
-	{
-	}
+    public function __destruct()
+    {
+    }
 
     /**
      * System is unusable.
@@ -321,5 +320,3 @@ class Logger extends File implements LoggerInterface
         return $this->addRecord(\Psr\Log\LogLevel::DEBUG, $message, $context);
     }
 }
-
-?>

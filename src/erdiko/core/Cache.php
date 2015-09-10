@@ -1,12 +1,12 @@
 <?php
 /**
  * Cache
- * Dependency injected cache API 
- * 
+ * Dependency injected cache API
+ *
  * @category   Erdiko
  * @package    Core
  * @copyright  Copyright (c) 2014, Arroyo Labs, http://www.arroyolabs.com
- * @author	   John Arroyo
+ * @author     John Arroyo
  */
 namespace erdiko\core;
 
@@ -28,16 +28,16 @@ class Cache
     public static function getCacheObject($cacheConfig = 'default')
     {
             //Check if the caller requests an new object
-            if (empty(self::$instance[$cacheConfig])) {
+        if (empty(self::$instance[$cacheConfig])) {
+            $config = \Erdiko::getConfig('application/default');
 
-                $config = \Erdiko::getConfig('application/default');
-
-                //Check if the object already be created
-                if(isset($config["cache"][$cacheConfig]))
-                    self::$instance[$cacheConfig] = new $config["cache"][$cacheConfig]['class'];
-                else
-                    throw new \Exception("There is no cache config defined ({$cacheConfig})");
+            //Check if the object already be created
+            if (isset($config["cache"][$cacheConfig])) {
+                self::$instance[$cacheConfig] = new $config["cache"][$cacheConfig]['class'];
+            } else {
+                throw new \Exception("There is no cache config defined ({$cacheConfig})");
             }
+        }
 
         return self::$instance[$cacheConfig];
 
@@ -115,5 +115,4 @@ class Cache
     {
         return self::getCacheObject($cacheConfig)->forgetAll();
     }
-
 }
