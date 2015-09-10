@@ -14,7 +14,6 @@
         "php": ">=5.3.3",
         "mustache/mustache": "2.7.*",
         "erusev/parsedown": "1.0.*",
-        "twbs/bootstrap": "^3.3",
         "Psr/Log": "^1.0"
     },
     "config": {
