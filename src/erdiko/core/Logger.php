@@ -89,11 +89,10 @@ class Logger extends File implements LoggerInterface
                 return $this->debug($message, $context);
                 break;
             default:
-                // PSR-3 states that we must throw a
-                // PsrLogInvalidArgumentException if we don't
-                // recognize the level
+                // PSR-3 states that we must throw a \Psr\Log\InvalidArgumentException
+                // if we don't recognize the level
                 throw new \InvalidArgumentException(
-                    "Unknown severity level"
+                    "Unknown severity level passed to Logger"
                 );
         }
     }
