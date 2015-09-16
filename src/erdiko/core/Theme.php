@@ -1,20 +1,22 @@
 <?php
 /**
  * Theme
- * 
+ *
  * @category   Erdiko
  * @package    Core
  * @copyright  Copyright (c) 2014, Arroyo Labs, http://www.arroyolabs.com
  * @author     John Arroyo
  */
 namespace erdiko\core;
+
 use Erdiko;
 
 /**
  * Theme class
  */
 class Theme extends Container
-{   
+{
+
     /** Template folder */
     protected $_templateFolder = 'themes';
     /** Name */
@@ -55,8 +57,7 @@ class Theme extends Container
      */
     public function getConfig()
     {
-        if(empty($this->config))
-        {
+        if (empty($this->config)) {
             $file = $this->getThemeFolder() . 'theme.json';
             $this->_config = Erdiko::getConfigFile($file);
         }
@@ -72,10 +73,11 @@ class Theme extends Container
     {
         //return array_merge($this->_data['meta'], $this->_extraMeta);
         
-        if(isset($this->_data['meta']))
+        if (isset($this->_data['meta'])) {
             return array_merge($this->_data['meta'], $this->_extraMeta);
-        else 
+        } else {
             return $this->_extraMeta;
+        }
 
         /*
         if(isset($this->_data['meta']))
@@ -106,10 +108,11 @@ class Theme extends Container
      */
     public function getPageTitle()
     {
-        if(isset($this->_data['page_title']))
+        if (isset($this->_data['page_title'])) {
             return $this->_data['page_title'];
-        else 
+        } else {
             return null;
+        }
     }
 
     /**
@@ -119,10 +122,11 @@ class Theme extends Container
      */
     public function getBodyTitle()
     {
-        if(isset($this->_data['body_title']))
+        if (isset($this->_data['body_title'])) {
             return $this->_data['body_title'];
-        else 
+        } else {
             return null;
+        }
     }
 
     /**
@@ -132,10 +136,11 @@ class Theme extends Container
      */
     public function getCss()
     {
-        if(isset($this->_config['css']))
+        if (isset($this->_config['css'])) {
             return array_merge($this->_config['css'], $this->_extraCss);
-        else
+        } else {
             return $this->_extraCss;
+        }
     }
 
     /**
@@ -153,15 +158,16 @@ class Theme extends Container
 
     /**
      * Get array of js files to include
-     * 
+     *
      * @return array $js
      */
     public function getJs()
     {
-        if(isset($this->_config['js']))
+        if (isset($this->_config['js'])) {
             return array_merge($this->_config['js'], $this->_extraJs);
-        else
+        } else {
             return $this->_extraJs;
+        }
     }
 
     /**
@@ -260,7 +266,7 @@ class Theme extends Container
 
     /**
      * Get template file populated by the config
-     * 
+     *
      * @usage Partial render need to be declared in theme.json
      * e.g. get header/footer
      * @param string $partial

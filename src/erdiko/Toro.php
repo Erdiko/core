@@ -7,20 +7,20 @@ class Toro
         ToroHook::fire('before_request', compact('routes'));
         
         // Determine action (and set default)
-        if (empty($_SERVER['REQUEST_METHOD']))
+        if (empty($_SERVER['REQUEST_METHOD'])) {
             $_SERVER['REQUEST_METHOD'] = 'GET';
+        }
         $action = strtolower($_SERVER['REQUEST_METHOD']); // e.g. get, put, post, delete
 
         $path_info = '/';
         if (!empty($_SERVER['PATH_INFO'])) {
             $path_info = $_SERVER['PATH_INFO'];
-        }
-        else if (!empty($_SERVER['ORIG_PATH_INFO']) && $_SERVER['ORIG_PATH_INFO'] !== '/index.php') {
+        } elseif (!empty($_SERVER['ORIG_PATH_INFO']) && $_SERVER['ORIG_PATH_INFO'] !== '/index.php') {
             $path_info = $_SERVER['ORIG_PATH_INFO'];
-        }
-        else {
+        } else {
             if (!empty($_SERVER['REQUEST_URI'])) {
-                $path_info = (strpos($_SERVER['REQUEST_URI'], '?') > 0) ? strstr($_SERVER['REQUEST_URI'], '?', true) : $_SERVER['REQUEST_URI'];
+                $path_info = (strpos($_SERVER['REQUEST_URI'], '?') > 0) ?
+                    strstr($_SERVER['REQUEST_URI'], '?', true) : $_SERVER['REQUEST_URI'];
             }
         }
         
@@ -30,8 +30,7 @@ class Toro
 
         if (isset($routes[$path_info])) {
             $discovered_handler = $routes[$path_info];
-        }
-        else if ($routes) {
+        } elseif ($routes) {
             $tokens = array(
                 ':string' => '([a-zA-Z]+)',
                 ':number' => '([0-9]+)',
@@ -48,15 +47,13 @@ class Toro
                     $params = isset($regex_matches[1]) ? explode("/", $regex_matches[1]) : array();
 
                     // Determine action and arguments
-                    if(count($params) > 1)
-                    {
-                        // @todo add different parsers here...possibly pass route function in routes.json
+                    if (count($params) > 1) {
+                    // @todo add different parsers here...possibly pass route function in routes.json
                         $action .= ucfirst($params[0]);
                         unset($params[0]);
                         // $int = 1;
 
-                        foreach($params as $param)
-                        {
+                        foreach ($params as $param) {
                             $arguments[] = $param;
                             /*
                             // if even param
@@ -87,8 +84,7 @@ class Toro
         if ($discovered_handler) {
             if (is_string($discovered_handler)) {
                 $handler_instance = new $discovered_handler();
-            }
-            elseif (is_callable($discovered_handler)) {
+            } elseif (is_callable($discovered_handler)) {
                 $handler_instance = $discovered_handler();
             }
         }
@@ -107,8 +103,7 @@ class Toro
             }
 
             if (method_exists($handler_instance, $action)) {
-
-                try{
+                try {
                     $handler_instance->setPathInfo($path_info);
                     ToroHook::fire('before_handler', compact('routes', 'discovered_handler', 'action', 'arguments'));
                     $handler_instance->_before();
@@ -118,17 +113,18 @@ class Toro
 
                     $handler_instance->_after();
                     $handler_instance->send(); // render the response and return the data
-                    ToroHook::fire('after_handler', compact('routes', 'discovered_handler', 'action', 'arguments', 'result'));
+                    ToroHook::fire(
+                        'after_handler',
+                        compact('routes', 'discovered_handler', 'action', 'arguments', 'result')
+                    );
 
                 } catch (\Exception $e) {
                     ToroHook::fire('500', array('error' => $e->getMessage(), 'path_info' => $path_info));
                 }
-            }
-            else {
+            } else {
                 ToroHook::fire('404', compact('discovered_handler', 'action', 'arguments', 'path_info'));
             }
-        }
-        else {
+        } else {
             ToroHook::fire('404', compact('discovered_handler', 'action', 'arguments', 'path_info'));
         }
 
@@ -147,8 +143,12 @@ class ToroHook
 
     private $hooks = array();
 
-    private function __construct() {}
-    private function __clone() {}
+    private function __construct()
+    {
+    }
+    private function __clone()
+    {
+    }
 
     public static function add($hook_name, $fn)
     {

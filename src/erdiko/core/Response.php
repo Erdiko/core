@@ -2,13 +2,14 @@
 /**
  * Response
  * base response, all response objects should inherit from here
- * 
+ *
  * @category   Erdiko
  * @package    Core
  * @copyright  Copyright (c) 2014, Arroyo Labs, http://www.arroyolabs.com
  * @author     John Arroyo
  */
 namespace erdiko\core;
+
 use Erdiko;
 
 /** Response Class */
@@ -89,7 +90,7 @@ class Response
 
     /**
      * Get the theme name
-     * 
+     *
      * @return string $name
      */
     public function getThemeName()
@@ -106,13 +107,14 @@ class Response
     public function setThemeTemplate($template)
     {
         $this->_themeTemplate = $template;
-        if($this->getTheme() != null)
+        if ($this->getTheme() != null) {
             $this->getTheme()->setTemplate($this->_themeTemplate);
+        }
     }
 
     /**
      * Get the theme template
-     * 
+     *
      * @return string $_themeTemplate
      */
     public function getThemeTemplate()
@@ -142,7 +144,7 @@ class Response
 
     /**
      * Append some html content to the existing content
-     * 
+     *
      * @param string $content
      * @todo check to see if content is a container, if so treat accordingly
      */
@@ -159,25 +161,21 @@ class Response
     public function render()
     {
         // error_log("themeName: {$this->_themeName}");
-        $content = (is_subclass_of($this->_content, '\erdiko\core\Container')) ? $this->_content->toHtml() : $this->_content;
+        $content = (is_subclass_of($this->_content, '\erdiko\core\Container')) ?
+            $this->_content->toHtml() : $this->_content;
 
-        if($this->_theme !== null)
-        {
+        if ($this->_theme !== null) {
             $this->_theme->setContent($content); // rendered html (body content)
             $this->_theme->setData($this->_data); // data injected from Response/Controller
             $html = $this->_theme->toHtml();
-        }
-        elseif(!empty($this->_themeName))
-        {
-            // error_log("themeName: {$this->_themeName}");
+        } elseif (!empty($this->_themeName)) {
+        // error_log("themeName: {$this->_themeName}");
             $this->_theme = new \erdiko\core\Theme($this->_themeName, null, $this->_themeTemplate);
 
             $this->_theme->setContent($content); // rendered html (body content)
             $this->_theme->setData($this->_data); // data injected from Response/Controller
             $html = $this->_theme->toHtml();
-        }
-        else 
-        {
+        } else {
             $html = $content;
         }
 
@@ -194,5 +192,4 @@ class Response
         echo $this->render();
         die();
     }
-
 }

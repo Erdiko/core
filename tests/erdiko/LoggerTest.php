@@ -1,40 +1,45 @@
 <?php
+namespace tests\erdiko;
 
 use erdiko\core\Logger;
+
 require_once dirname(__DIR__).'/ErdikoTestCase.php';
 
-class LoggerTest extends ErdikoTestCase
+class LoggerTest extends \tests\ErdikoTestCase
 {
-    var $loggerObj;
-    var $fileObj;
-    var $webRoot;
+    public $loggerObj;
+    public $fileObj;
+    public $webRoot;
 
 
-    function setUp() {
-		$logFiles=array(
-			"default" => "erdiko_default.log",
-		);
+    public function setUp()
+    {
+        $logFiles=array(
+            "default" => "erdiko_default.log",
+        );
 
-		$this->loggerObject=new Logger($logFiles);
-		$this->fileObj = new \erdiko\core\datasource\File();
-		$this->webRoot = \ROOT;
+        $this->loggerObject=new Logger($logFiles);
+        $this->fileObj = new \erdiko\core\datasource\File();
+        $this->webRoot = \ROOT;
+
+        print_r(dirname(__DIR__));
 
     }
 
-    function tearDown() {
+    public function tearDown()
+    {
 
-    	$this->loggerObject->delete("erdiko_default.log", $this->webRoot."/var/logs");
-    //	$this->loggerObject->delete("erdiko_error.log", $this->webRoot."/var/logs");
-    //	$this->loggerObject->delete("erdiko_test_temp_log.log", $this->webRoot."/var/logs");
+        $this->loggerObject->delete("erdiko_default.log", $this->webRoot."/var/logs");
         unset($this->loggerObject);
         unset($this->fileObj);
     }
 
-    function testLog() {
+    public function testLog()
+    {
 
-        $this->loggerObject->log(\Psr\Log\LogLevel::INFO, 'This is a test log in default test file');
+        $this->loggerObject->log("info", 'This is a test log in default test file');
         $return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
-        $this->assertTrue(strpos($return,'This is a test log in default test file') != false );
+        $this->assertTrue(strpos($return, 'This is a test log in default test file') != false);
         //Test the clearlog functon
 
         $this->loggerObject->clearLog();
@@ -48,29 +53,28 @@ class LoggerTest extends ErdikoTestCase
         // $this->loggerObject->log('This is a test log in default test file');
         $this->loggerObject->info('This is a test log in default test file');
         $return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
-        $this->assertTrue(strpos($return,'This is a test log in default test file') != false );
+        $this->assertTrue(strpos($return, 'This is a test log in default test file') != false);
 
         //Warning Log test
         $this->loggerObject->clearLog();
         //	$this->loggerObject->log('This is a test warning log',Logger::WARNING);
-        $this->loggerObject->warning('Warning {msg} created', array('msg' => 'This is a test warning log'));
+        $this->loggerObject->warning('This is a test warning log');
         $return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
-        $this->assertTrue(strpos($return,'This is a test warning log') != false );
+        $this->assertTrue(strpos($return, 'This is a test warning log') != false);
 
         //Notice Log Test
         $this->loggerObject->clearLog();
-        //	$this->loggerObject->log('This is a test notice log',Logger::NOTICE,"errorLog");
+        //$this->loggerObject->log('This is a test notice log',Logger::NOTICE,"errorLog");
         $this->loggerObject->notice('This is a test notice log');
         $return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
-        $this->assertTrue(strpos($return,'This is a test notice log') != false );
+        $this->assertTrue(strpos($return, 'This is a test notice log') != false);
 
         //Error Log Test 2
         $this->loggerObject->clearLog();
         //$this->loggerObject->log(new Exception("This is a test error log 2"),null,"errorLog");
         $this->loggerObject->error('This is a test error log 2');
         $return= $this->fileObj->read("erdiko_default.log", $this->webRoot."/var/logs");
-        $this->assertTrue(strpos($return,'This is a test error log 2') != false );
-		
+        $this->assertTrue(strpos($return, 'This is a test error log 2') != false);
+        
     }
-  }
-?>
+}

@@ -2,21 +2,22 @@
 /**
  * Layout
  * @todo allow switching between layout templates in the theme and the views folder
- * 
+ *
  * @category   Erdiko
  * @package    Core
  * @copyright  Copyright (c) 2014, Arroyo Labs, http://www.arroyolabs.com
- * @author	   John Arroyo
+ * @author     John Arroyo
  */
 namespace erdiko\core;
 
-/** 
- * Layout Class 
+/**
+ * Layout Class
  */
 class Layout extends Container
-{	
+{
+   
     /** Template folder */
-	protected $_templateFolder = 'themes';
+    protected $_templateFolder = 'themes';
     /** Regions */
     protected $_regions = array();
     /** Data */
@@ -99,7 +100,7 @@ class Layout extends Container
 
     /**
      * Set all regions at once
-     * 
+     *
      * @param array $data , Associative array of containers/strings
      */
     public function setRegions($data)
@@ -109,7 +110,7 @@ class Layout extends Container
 
     /**
      * Get regions
-     * 
+     *
      * @return array $this_regions
      */
     public function getRegions()
@@ -125,9 +126,9 @@ class Layout extends Container
      */
     public function getRegion($name)
     {
-        $html = (is_subclass_of($this->_regions[$name], 'erdiko\core\Container')) ? $this->_regions[$name]->toHtml() : $this->_regions[$name];
+        $html = (is_subclass_of($this->_regions[$name], 'erdiko\core\Container')) ?
+            $this->_regions[$name]->toHtml() : $this->_regions[$name];
 
         return $html;
     }
-
 }

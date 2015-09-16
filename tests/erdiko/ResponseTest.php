@@ -1,18 +1,21 @@
 <?php
+namespace tests\erdiko;
 
 use erdiko\core\Response;
+
 require_once dirname(__DIR__).'/ErdikoTestCase.php';
 
 
-class ResponseTest extends ErdikoTestCase
+class ResponseTest extends \tests\ErdikoTestCase
 {
-    var $ResponseObj=null;
+    public $ResponseObj=null;
 
-    function setUp() {
+    public function setUp()
+    {
         $this->ResponseObj = new Response;
     }
 
-    function tearDown()
+    public function tearDown()
     {
         unset($this->ResponseObj);
     }
@@ -20,11 +23,11 @@ class ResponseTest extends ErdikoTestCase
     /**
      * @expectedException
      */
-    function testSetDataValueAndGetDataValue()
+    public function testSetDataValueAndGetDataValue()
     {
         /**
          * First test
-         * 
+         *
          * Set a key and then get the key
          */
         $key = 'Test_Key';
@@ -35,7 +38,7 @@ class ResponseTest extends ErdikoTestCase
 
         /**
          * Second test
-         * 
+         *
          * Try to get a non exist key
          */
         $key = 'Test_Non_Exist_Key';
@@ -45,7 +48,7 @@ class ResponseTest extends ErdikoTestCase
         //$this->assertTrue($return == $data);
     }
 
-    function testSetTheme()
+    public function testSetTheme()
     {
         $theme = 'theme';
         $this->ResponseObj->setTheme($theme);
@@ -53,23 +56,23 @@ class ResponseTest extends ErdikoTestCase
         $this->assertTrue($return == $theme);
     }
 
-    function testSetThemeTemplate()
+    public function testSetThemeTemplate()
     {
         $themeTemplate = 'themeTemplate';
         $this->ResponseObj->setThemeTemplate($themeTemplate);
         $return = $this->ResponseObj->getThemeTemplate();
         $this->assertTrue($return == $themeTemplate);
     }
-    
-    function testSetContent()
+
+    public function testSetContent()
     {
         $content = 'Test content';
         $this->ResponseObj->setContent($content);
         $return = $this->ResponseObj->getContent();
         $this->assertTrue($return == $content);
     }
-    
-    function testAppendContent()
+
+    public function testAppendContent()
     {
         $content = 'Test content';
         $this->ResponseObj->setContent($content);
@@ -82,9 +85,9 @@ class ResponseTest extends ErdikoTestCase
         $this->assertTrue($return == $content.$appContent);
     }
 
-    function testRender()
+    public function testRender()
     {
-        /** 
+        /**
          *
          *  Test the first condition in render()
          *
@@ -92,7 +95,7 @@ class ResponseTest extends ErdikoTestCase
         $ResponseObj = new Response;
 
         //Set a theme object
-        $theme = new erdiko\core\Theme('bootstrap', null, 'default');
+        $theme = new \erdiko\core\Theme('bootstrap', null, 'default');
         $ResponseObj->setTheme($theme);
         //Get the theme object and check if they are the same object
         $return = $ResponseObj->getTheme();
@@ -109,7 +112,7 @@ class ResponseTest extends ErdikoTestCase
         $return = $ResponseObj->render();
         
         
-        /** 
+        /**
          *  Validate the content
          */
         $themeFolder = $ResponseObj->getTheme()->getThemeFolder();
@@ -134,7 +137,7 @@ class ResponseTest extends ErdikoTestCase
 
         unset($ResponseObj);
 
-        /** 
+        /**
          *
          *  Test the second condition in render()
          *
@@ -153,7 +156,7 @@ class ResponseTest extends ErdikoTestCase
 
         $return = $ResponseObj->render();
         
-        /** 
+        /**
          *  Validate the content
          */
         $themeFolder = $ResponseObj->getTheme()->getThemeFolder();
@@ -178,7 +181,7 @@ class ResponseTest extends ErdikoTestCase
 
         unset($ResponseObj);
 
-        /** 
+        /**
          *
          *  Test the third condition in render()
          *
@@ -199,12 +202,8 @@ class ResponseTest extends ErdikoTestCase
         unset($ResponseObj);
     }
 
-    function testSend()
+    public function testSend()
     {
         
     }
-
-  }
-?>
-
-
+}

@@ -4,7 +4,7 @@ use erdiko\core\AjaxResponse;
 require_once dirname(__DIR__).'/ErdikoTestCase.php';
 
 
-class AjaxResponseTest extends ErdikoTestCase
+class AjaxResponseTest extends \tests\ErdikoTestCase
 {
     var $ajaxResponseObj = null;
 
@@ -20,10 +20,26 @@ class AjaxResponseTest extends ErdikoTestCase
     function testRender()
     {
         $tempData = array(
+            "status" => 200,
+            "body" => null,
+            "errors" => false
+        );
+
+        $tempData = json_encode($tempData);
+        $return = $this->ajaxResponseObj->render();
+        $this->assertEquals($tempData, $return);
+    }
+
+    function testRenderError()
+    {
+        $this->ajaxResponseObj->setStatusCode(500);
+        $this->ajaxResponseObj->setErrors("true");
+
+        $tempData = array(
             "status" => 500,
             "body" => null,
-            "errors" => array()
-            );
+            "errors" => array("true")
+        );
         $tempData = json_encode($tempData);
         $return = $this->ajaxResponseObj->render();
         $this->assertEquals($tempData, $return);
