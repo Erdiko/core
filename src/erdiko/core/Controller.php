@@ -2,7 +2,7 @@
 /**
  * Controller
  * Base request handler, All controllers should be a child this class
- * or one of the subclasses (AjaxController or ApiController).
+ * or one of the subclasses (e.g. AjaxController or ApiController).
  *
  * @category   Erdiko
  * @package    Core
@@ -50,7 +50,6 @@ class Controller
      */
     public function get($var = null)
     {
-        // error_log("var: $var");
         if (!empty($var)) {
         // load action based off of naming conventions
             return $this->_autoaction($var, 'get');
@@ -68,7 +67,6 @@ class Controller
      */
     public function put($var = null)
     {
-        // error_log("var: $var");
         if (!empty($var)) {
         // load action based off of naming conventions
             return $this->_autoaction($var, 'put');
@@ -86,7 +84,6 @@ class Controller
      */
     public function post($var = null)
     {
-        // error_log("var: $var");
         if (!empty($var)) {
         // load action based off of naming conventions
             return $this->_autoaction($var, 'post');
@@ -104,7 +101,6 @@ class Controller
      */
     public function delete($var = null)
     {
-        // error_log("var: $var");
         if (!empty($var)) {
         // load action based off of naming conventions
             return $this->_autoaction($var, 'delete');
