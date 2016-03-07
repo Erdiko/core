@@ -102,7 +102,7 @@ class Toro
                 $handler_instance->setIsXhrRequest(1);
             }
 
-            if (method_exists($handler_instance, $action)) {
+            if (is_callable(array($handler_instance, $action))) {
                 try {
                     $handler_instance->setPathInfo($path_info);
                     ToroHook::fire('before_handler', compact('routes', 'discovered_handler', 'action', 'arguments'));
