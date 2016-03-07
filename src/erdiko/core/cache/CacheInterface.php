@@ -4,7 +4,7 @@
  *
  * @category    Erdiko
  * @package     core
- * @copyright   Copyright (c) 2012, Arroyo Labs, www.arroyolabs.com
+ * @copyright   Copyright (c) 2016, Arroyo Labs, www.arroyolabs.com
  * @author      Varun Brahme
  */
 namespace erdiko\core\cache;

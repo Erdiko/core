@@ -4,7 +4,7 @@
  *
  * @category    Erdiko
  * @package     core
- * @copyright   Copyright (c) 2014, Arroyo Labs, www.arroyolabs.com
+ * @copyright   Copyright (c) 2016, Arroyo Labs, www.arroyolabs.com
  * @author      Varun Brahme
  * @author      Coleman Tung, coleman@arroyolabs.com
  * @author      John Arroyo, john@arroyolabs.com

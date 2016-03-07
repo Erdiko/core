@@ -5,7 +5,7 @@
  *
  * @category    Erdiko
  * @package     Core
- * @copyright   Copyright (c) 2014, Arroyo Labs, http://www.arroyolabs.com
+ * @copyright   Copyright (c) 2016, Arroyo Labs, http://www.arroyolabs.com
  * @author      John Arroyo, john@arroyolabs.com
  */
 namespace erdiko\core;

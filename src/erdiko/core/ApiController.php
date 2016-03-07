@@ -1,24 +1,25 @@
 <?php
 /**
- * Ajax Controller
+ * Api Controller
  *
- * Base request handler, all ajax controllers should inherit this class.
+ * Base API request handler, all API controllers should be a subclass of this.
+ * @note don't use this class just yet, WIP
+ * @todo finish this class, right now it mimicks the Ajax controller/response
  *
  * @category   Erdiko
  * @package    Core
  * @copyright  Copyright (c) 2016, Arroyo Labs, http://www.arroyolabs.com
  *
  * @author     John Arroyo john@arroyolabs.com
- * @author     Andy Armstrong andy@arroyolabs.com
  */
 namespace erdiko\core;
 
 use Erdiko;
 
 /**
- * AjaxController class
+ * ApiController class
  */
-class AjaxController extends Controller
+class ApiController extends Controller
 {
 
   /**
@@ -27,7 +28,7 @@ class AjaxController extends Controller
     public function __construct()
     {
         $this->_webroot = ROOT;
-        $this->_response = new \erdiko\core\AjaxResponse;
+        $this->_response = new \erdiko\core\ApiResponse;
     }
 
   /**

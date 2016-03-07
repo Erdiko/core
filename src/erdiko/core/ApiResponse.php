@@ -1,22 +1,19 @@
 <?php
 /**
- * AjaxResponse
+ * Api Response
  *
  * @category   Erdiko
  * @package    Core
  * @copyright  Copyright (c) 2016, Arroyo Labs, http://www.arroyolabs.com
  *
  * @author     John Arroyo john@arroyolabs.com
- * @author     Andy Armstrong andy@arroyolabs.com
  */
 namespace erdiko\core;
 
 use Erdiko;
 
-/**
- * AjaxResponse class
- */
-class AjaxResponse extends Response
+
+class ApiResponse extends Response
 {
 
     /**
@@ -72,6 +69,7 @@ class AjaxResponse extends Response
 
     /**
      * Ajax render function
+     * @todo add support for xml
      *
      * @return string
      */

@@ -1,12 +1,13 @@
 <?php
 /**
  * Controller
- * Base request handler, All controllers should inherit this class.
+ * Base request handler, All controllers should be a child this class
+ * or one of the subclasses (AjaxController or ApiController).
  *
  * @category   Erdiko
  * @package    Core
- * @copyright  Copyright (c) 2014, Arroyo Labs, http://www.arroyolabs.com
- * @author     John Arroyo
+ * @copyright  Copyright (c) 2016, Arroyo Labs, http://www.arroyolabs.com
+ * @author     John Arroyo, john@arroyolabs.com
  */
 namespace erdiko\core;
 
@@ -38,6 +39,78 @@ class Controller
 
         if ($this->_themeName != null) {
             $this->_response->setThemeName($this->_themeName);
+        }
+    }
+
+    /**
+     * Get action
+     *
+     * @param mixed $var
+     * @return mixed
+     */
+    public function get($var = null)
+    {
+        // error_log("var: $var");
+        if (!empty($var)) {
+        // load action based off of naming conventions
+            return $this->_autoaction($var, 'get');
+
+        } else {
+            return $this->getIndex();
+        }
+    }
+
+    /**
+     * Put action
+     *
+     * @param mixed $var
+     * @return mixed
+     */
+    public function put($var = null)
+    {
+        // error_log("var: $var");
+        if (!empty($var)) {
+        // load action based off of naming conventions
+            return $this->_autoaction($var, 'put');
+
+        } else {
+            return $this->getIndex();
+        }
+    }
+
+    /**
+     * Post action
+     *
+     * @param mixed $var
+     * @return mixed
+     */
+    public function post($var = null)
+    {
+        // error_log("var: $var");
+        if (!empty($var)) {
+        // load action based off of naming conventions
+            return $this->_autoaction($var, 'post');
+
+        } else {
+            return $this->getIndex();
+        }
+    }
+
+    /**
+     * Delete action
+     *
+     * @param mixed $var
+     * @return mixed
+     */
+    public function delete($var = null)
+    {
+        // error_log("var: $var");
+        if (!empty($var)) {
+        // load action based off of naming conventions
+            return $this->_autoaction($var, 'delete');
+
+        } else {
+            return $this->getIndex();
         }
     }
 
@@ -285,9 +358,8 @@ class Controller
     /**
      *
      *
-     *
-     *  Code below are deprecated or may need to be moved!
-     *
+     * Code below is deprecated, do not use
+     * @todo Should be deleted or moved!
      *
      *
      */
