@@ -37,7 +37,7 @@ abstract class Container
         $this->setTemplate($template);
         $this->setData($data);
     }
-    
+
     /**
      * Set Container template
      *
@@ -111,8 +111,8 @@ abstract class Container
             $parsedown = new \Parsedown();
             return $parsedown->text(file_get_contents($filename.'.md'));
         }
-        
-        throw new \Exception("Template file does not exist");
+
+        throw new \Exception("Template file does not exist ({$filename})");
     }
 
     /**
@@ -124,7 +124,7 @@ abstract class Container
     {
         $filename = $this->getTemplateFolder().$this->_template;
         $data = (is_subclass_of($this->_data, 'erdiko\core\Container')) ? $this->_data->toHtml() : $this->_data;
-        
+
         return $this->getTemplateFile($filename, $data);
     }
 }
