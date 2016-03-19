@@ -44,6 +44,4 @@ class AjaxResponseTest extends \tests\ErdikoTestCase
         $return = $this->ajaxResponseObj->render();
         $this->assertEquals($tempData, $return);
     }
-
-  }
-?>
+}

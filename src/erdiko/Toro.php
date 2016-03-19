@@ -40,38 +40,32 @@ class Toro
 
             // Search through routes and find first match
             foreach ($routes as $pattern => $handler_name) {
-                $pattern = strtr($pattern, $tokens);
-                if (preg_match('#^/?' . $pattern . '/?$#', $path_info, $matches)) {
+                $patternRep = strtr($pattern, $tokens);
+                if (preg_match('#^/?' . $patternRep . '/?$#', $path_info, $matches)) {
                     $discovered_handler = $handler_name;
                     $regex_matches = $matches;
                     $params = isset($regex_matches[1]) ? explode("/", $regex_matches[1]) : array();
 
+                    // See if it is an action
+                    $isAction = preg_match("/:action/", $pattern);
+
                     // Determine action and arguments
-                    if (count($params) > 1) {
+                    if (count($params) > 1 && !$isAction) {
                     // @todo add different parsers here...possibly pass route function in routes.json
                         $action .= ucfirst($params[0]);
                         unset($params[0]);
-                        // $int = 1;
 
                         foreach ($params as $param) {
                             $arguments[] = $param;
-                            /*
-                            // if even param
-                            if($int % 2 == 0)
-                                $action .= ucfirst($param);
-                            else
-                                $arguments[] = $param;
-                            $int++;
-                            */
                         }
                     } else {
                         unset($regex_matches[0]);
                         $arguments = $regex_matches; // Toro compatible
                     }
 
-                    // error_log("regex_matches: ".print_r($regex_matches, true));
-                    // error_log("action: $action");
-                    // error_log("arguments: ".print_r($arguments, true));
+                    // \Erdiko::log(null, "regex_matches: ".print_r($regex_matches, true));
+                    // \Erdiko::log(null, "action: $action");
+                    // \Erdiko::log(null, "arguments: ".print_r($arguments, true));
 
                     break;
                 }
