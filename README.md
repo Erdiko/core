@@ -5,11 +5,13 @@ Erdiko Core
 
 A lightweight but powerful MVC micro framework.  Get work done without the bloat!
 
-## Version (SemVer)
-
-0.8.14
+This is the engine that runs erdiko, for the full micro framework visit [https://github.com/ArroyoLabs/erdiko](https://github.com/ArroyoLabs/erdiko) or [erdiko.org](http://www.erdiko.org/)
 
 ## Documentation
+
+To use in your project, install using composer by running
+
+    composer require erdiko/core
 
 Visit [erdiko.org](http://www.erdiko.org/) for full documentation and installation instructions.
 
@@ -27,6 +29,6 @@ Varun Brahme
 
 ## Credits
 
-[ArroyoLabs](http://www.arroyolabs.com/) - Sponsor
+[ArroyoLabs](http://www.arroyolabs.com/) - Primary sponsor
 
-[ToroPHP](https://github.com/anandkunal/ToroPHP)	- The basis of the Erdiko router
+[ToroPHP](https://github.com/anandkunal/ToroPHP) - The basis of the Erdiko router
