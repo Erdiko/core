@@ -16,13 +16,10 @@ use Erdiko;
  */
 class Theme extends Container
 {
-
-    /** Template folder */
-    protected $_templateFolder = 'themes';
+    /** Theme root folder */
+    protected $_themeRootFolder;
     /** Name */
     protected $_name = null;
-    /** Default Name */
-    protected $_defaultName = 'default';
     /** Config */
     protected $_config = null;
     /** Content */
@@ -42,12 +39,12 @@ class Theme extends Container
      * @param mixed $data
      * @param string $template , Theme Object (Contaier)
      */
-    public function __construct($name = null, $data = null, $template = 'default')
+    public function __construct($themeName = 'default', $data = null, $template = 'default')
     {
-        $name = ($name === null) ? $this->_defaultName : $name;
-        $this->setName($name);
-        $this->setData($data);
-        $this->_template = $template; // this template is the page wrapper
+        // $template = ($template === null) ? $this->_defaultTemplate : $template;
+        $this->initiate($template, $data);
+        $this->setThemeRootFolder('themes');
+        $this->setName($themeName);
     }
 
     /**
@@ -183,6 +180,26 @@ class Theme extends Container
             );
     }
 
+     /**
+     * Get Theme Root Folder
+     *
+     * @param string $folder
+     */
+    public function getThemeRootFolder()
+    {
+        return $this->_themeRootFolder;
+    }
+
+    /**
+     * Set Theme Root Folder
+     *
+     * @param string $folder
+     */
+    public function setThemeRootFolder($folder)
+    {
+        $this->_themeRootFolder = $folder;
+    }
+
     /**
      * Get the theme folder
      *
@@ -190,7 +207,7 @@ class Theme extends Container
      */
     public function getThemeFolder()
     {
-        return parent::getTemplateFolder().$this->_name.'/';
+        return $this->getTemplateFolderPath().$this->getThemeRootFolder().'/'.$this->getName().'/';
     }
 
     /**
@@ -222,26 +239,6 @@ class Theme extends Container
     public function getContent()
     {
         return $this->_content;
-    }
-
-    /**
-     * Set template
-     *
-     * @param string $template
-     */
-    public function setTemplate($template)
-    {
-        $this->_template = $template;
-    }
-
-    /**
-     * Get template
-     *
-     * @return string $template
-     */
-    public function getTemplate()
-    {
-        return $this->_template;
     }
 
     /**
@@ -303,7 +300,7 @@ class Theme extends Container
     public function toHtml()
     {
         $this->getConfig(); // load the site config
-        $filename = $this->getTemplateFolder().$this->_template;
+        $filename = $this->getTemplateFolder().$this->getTemplate();
         $html = $this->getTemplateFile($filename, $this);
         
         return $html;

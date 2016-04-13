@@ -12,9 +12,19 @@ namespace erdiko\core;
 /** View Class */
 class View extends Container
 {
-    /** Template Folder */
-    protected $_templateFolder = 'views';
     protected $_config = null;
+
+    /**
+     * Constructor
+     * @param string $template
+     * @param mixed $data
+     * @param string $templateFolder
+     */
+    public function __construct($template = null, $data = null, $templateRootFolder = APPROOT)
+    {
+        $this->initiate($template, $data, $templateRootFolder);
+        $this->setTemplateFolder('views');
+    }
 
     /**
      * Get a view, for nesting views

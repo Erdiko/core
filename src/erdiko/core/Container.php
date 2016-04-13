@@ -15,17 +15,8 @@ namespace erdiko\core;
  */
 abstract class Container
 {
-    /** Template */
-    protected $_template = null;
-    /** Data */
-    protected $_data = null;
-    /** Default Template */
-    protected $_defaultTemplate = 'default';
-    /** Default Template Root Folder */
-    protected $_templateRootFolder = APPROOT;
-    /** Template Folder */
-    protected $_templateFolder = null;
-
+    use Template;
+    
     /**
      * Constructor
      * @param string $template , Theme Object (Contaier)
@@ -33,98 +24,15 @@ abstract class Container
      */
     public function __construct($template = null, $data = null)
     {
-        $template = ($template === null) ? $this->_defaultTemplate : $template;
-        $this->setTemplate($template);
-        $this->setData($data);
+        $this->initiate($template, $data);
+        // $this->setTemplateFolder('views');
     }
 
     /**
-     * Set Container template
-     *
-     * @param string $template
+     * Get template folder filesystem path
      */
-    public function setTemplate($template)
-    {
-        $this->_template = $template;
-    }
-
-    /**
-     * Set template root folder
-     *
-     * @param string $TemplateRootFolder
-     */
-    public function setTemplateRootFolder($templateRootFolder)
-    {
-        $this->_templateRootFolder = $templateRootFolder;
-    }
-
-    /**
-     * Set data
-     *
-     * @param mixed $data , data injected into the container
-     */
-    public function setData($data)
-    {
-        $this->_data = $data;
-    }
-
-    /**
-     * Get data
-     *
-     * @return mixed $data , data injected into the container
-     */
-    public function getData()
-    {
-        return $this->_data;
-    }
-
-    /**
-     * Get Template folder
-     */
-    public function getTemplateFolder()
+    public function getTemplateFolderPath()
     {
         return $this->_templateRootFolder.'/'.$this->_templateFolder.'/';
-    }
-
-    /**
-     * Get rendered template file
-     * Accepts one of the types of template files in this order:
-     * php (.php), html/mustache (.html), markdown (.md)
-     *
-     * @param string $filename , file without extension
-     * @param array $data , associative array of data
-     * @throws \Exception , template file does not exist
-     */
-    public function getTemplateFile($filename, $data)
-    {
-        if (is_file($filename.'.php')) {
-            ob_start();
-            include $filename.'.php';
-            return ob_get_clean();
-
-        } elseif (is_file($filename.'.html')) {
-            $file = file_get_contents($filename.'.html');
-            $m = new \Mustache_Engine;
-            return $m->render($file, $data);
-
-        } elseif (is_file($filename.'.md')) {
-            $parsedown = new \Parsedown();
-            return $parsedown->text(file_get_contents($filename.'.md'));
-        }
-
-        throw new \Exception("Template file does not exist ({$filename})");
-    }
-
-    /**
-     * Render container to HTML
-     *
-     * @return string $html
-     */
-    public function toHtml()
-    {
-        $filename = $this->getTemplateFolder().$this->_template;
-        $data = (is_subclass_of($this->_data, 'erdiko\core\Container')) ? $this->_data->toHtml() : $this->_data;
-
-        return $this->getTemplateFile($filename, $data);
     }
 }

@@ -1,7 +1,9 @@
 <?php
+/**
+ *
+ * @todo add tests for the different template types
+ */
 namespace tests\erdiko;
-
-use erdiko\core\View;
 
 require_once dirname(__DIR__).'/ErdikoTestCase.php';
 

@@ -15,9 +15,8 @@ namespace erdiko\core;
  */
 class Layout extends Container
 {
-   
-    /** Template folder */
-    protected $_templateFolder = 'themes';
+    /** Theme Template folder */
+    protected $_themeRootFolder;
     /** Regions */
     protected $_regions = array();
     /** Data */
@@ -38,9 +37,10 @@ class Layout extends Container
     public function __construct($template = null, $data = null, $theme = null)
     {
         $template = ($template === null) ? $this->_defaultTemplate : $template;
-        $this->setTemplate($template);
-        $this->setData($data);
+        $this->initiate($template, $data);
+        $this->setThemeRootFolder('themes');
         $this->setThemeName($theme);
+        $this->setTemplateFolder($this->getThemeRootFolder().'/'.$themeName.'/templates/layouts');
     }
 
     /**
@@ -69,20 +69,39 @@ class Layout extends Container
     }
 
     /**
-     * Set theme name
+     * Get Theme Root Folder
      *
-     * @param string $theme
+     * @param string $folder
      */
-    public function setThemeName($theme)
+    public function getThemeRootFolder()
     {
-        $this->_theme = $theme;
-        $this->_templateFolder = 'themes/'.$theme.'/templates/layouts';
+        return $this->_themeRootFolder;
     }
 
     /**
-     * Get theme object
+     * Set Theme Root Folder
+     *
+     * @param string $folder
      */
-    public function getTheme()
+    public function setThemeRootFolder($folder)
+    {
+        $this->_themeRootFolder = $folder;
+    }
+
+    /**
+     * Set theme name
+     *
+     * @param string $themeName
+     */
+    public function setThemeName($themeName)
+    {
+        $this->_theme = $themeName;
+    }
+
+    /**
+     * Get theme name
+     */
+    public function getThemeName()
     {
         return $this->_theme;
     }

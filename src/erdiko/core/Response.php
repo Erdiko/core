@@ -160,18 +160,15 @@ class Response
      */
     public function render()
     {
-        // error_log("themeName: {$this->_themeName}");
-        $content = (is_subclass_of($this->_content, '\erdiko\core\Container')) ?
-            $this->_content->toHtml() : $this->_content;
+        // Render all objects to html (string)
+        $content = (is_object($this->_content)) ? $this->_content->toHtml() : $this->_content;
 
         if ($this->_theme !== null) {
             $this->_theme->setContent($content); // rendered html (body content)
             $this->_theme->setData($this->_data); // data injected from Response/Controller
             $html = $this->_theme->toHtml();
         } elseif (!empty($this->_themeName)) {
-        // error_log("themeName: {$this->_themeName}");
             $this->_theme = new \erdiko\core\Theme($this->_themeName, null, $this->_themeTemplate);
-
             $this->_theme->setContent($content); // rendered html (body content)
             $this->_theme->setData($this->_data); // data injected from Response/Controller
             $html = $this->_theme->toHtml();
