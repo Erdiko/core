@@ -34,12 +34,14 @@ class Layout extends Container
      * @param mixed $data
      * @param string $theme
      */
-    public function __construct($template = null, $data = null, $theme = null)
+    public function __construct($template = null, $data = array(), $themeName = null)
     {
         $template = ($template === null) ? $this->_defaultTemplate : $template;
+        $data['getRegion'] = function($name) { return $this->getRegion($name); };
+
         $this->initiate($template, $data);
         $this->setThemeRootFolder('themes');
-        $this->setThemeName($theme);
+        $this->setThemeName($themeName);
         $this->setTemplateFolder($this->getThemeRootFolder().'/'.$themeName.'/templates/layouts');
     }
 
