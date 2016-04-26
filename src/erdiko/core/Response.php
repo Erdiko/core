@@ -90,12 +90,19 @@ class Response
 
     /**
      * Get the theme name
+     * Name pecking order: response, theme, config
      *
      * @return string $name
      */
     public function getThemeName()
     {
-        $name = (empty($this->_themeName)) ? $this->_theme->getName() : $this->_themeName;
+        if(!empty($this->_themeName))
+            $name = $this->_themeName;
+        elseif(!empty($this->_theme))
+            $name = $this->_theme->getName();
+        else
+            $name = \Erdiko::getConfig()['theme']['name'];
+        
         return $name;
     }
 
