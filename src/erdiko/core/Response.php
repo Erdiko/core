@@ -55,7 +55,7 @@ class Response
      */
     public function getDataValue($key)
     {
-        return $this->_data[$key];
+        return empty($this->_data[$key]) ? null: $this->_data[$key];
     }
 
     /**
@@ -72,6 +72,7 @@ class Response
      * Get theme
      *
      * @return Theme
+     * @todo generate a Theme object if $this->_theme is null
      */
     public function getTheme()
     {

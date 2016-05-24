@@ -43,6 +43,25 @@ class Controller
     }
 
     /**
+     * Before action hook
+     * Anything here gets called immediately BEFORE the Action method runs.
+     */
+    public function _before()
+    {
+        // Set up the theme object
+        $this->prepareTheme();
+    }
+
+    /**
+     * After action hook
+     * Anything here gets called immediately AFTER the Action method runs.
+     */
+    public function _after()
+    {
+        // do something...
+    }
+
+    /**
      * Get action
      *
      * @param mixed $var
@@ -127,12 +146,24 @@ class Controller
     }
 
     /**
-     * Set the theme name in the response
+     * Set the theme name in the response object
+     * 
      * @param string $name, the name/id of the theme
      */
     public function setThemeName($name)
     {
         $this->getResponse()->setThemeName($name);
+    }
+
+    /**
+     * Set the theme name in both the response and the theme objects
+     * 
+     * @param string $name, the name/id of the theme
+     */
+    public function setTheme($name)
+    {
+        $this->getResponse()->setThemeName($name);
+        $this->getResponse()->getTheme()->setName($name);
     }
 
     /**
@@ -152,24 +183,6 @@ class Controller
     public function setThemeTemplate($template)
     {
         $this->getResponse()->setThemeTemplate($template);
-    }
-
-    /**
-     * Before action hook
-     * Anything here gets called immediately BEFORE the Action method runs.
-     */
-    public function _before()
-    {
-        // do something...
-    }
-
-    /**
-     * After action hook
-     * anything here gets called immediately AFTER the Action method runs.
-     */
-    public function _after()
-    {
-        // do something...
     }
 
     /**
@@ -202,6 +215,16 @@ class Controller
     }
 
     /**
+     * Get Response data value
+     *
+     * @param string $key
+     */
+    public function getResponseDataValue($key)
+    {
+        return $this->getResponse()->getDataValue($key);
+    }
+
+    /**
      * Add page title text to current page
      *
      * @param string $title
@@ -219,6 +242,16 @@ class Controller
     public function setBodyTitle($title)
     {
         $this->setResponseDataValue('body_title', $title);
+    }
+
+    /**
+     * Get page content title to be themed in a layout or view
+     *
+     * @param string $title
+     */
+    public function getBodyTitle()
+    {
+        return $this->getResponseDataValue('body_title');
     }
 
     /**
@@ -331,6 +364,7 @@ class Controller
     public function getLayout($layoutName, $data = null, $templateRootFolder = null)
     {
         $layout = new \erdiko\core\Layout($layoutName, $data, $this->getThemeName());
+        $layout->setTitle($this->getBodyTitle());
 
         if ($templateRootFolder != null) {
             $layout->setViewRootFolder($templateRootFolder);

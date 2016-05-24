@@ -2,8 +2,8 @@
 /**
  * Interface for all supported php caches
  *
- * @category    Erdiko
- * @package     core
+ * @category    core
+ * @package     cache
  * @copyright   Copyright (c) 2016, Arroyo Labs, www.arroyolabs.com
  * @author      Varun Brahme
  */

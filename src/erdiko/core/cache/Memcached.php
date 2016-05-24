@@ -1,9 +1,9 @@
 <?php
 /**
- * Cache using the filesystem
+ * Cache using Memcached
  *
- * @category    Erdiko
- * @package     core
+ * @category    core
+ * @package     cache
  * @copyright   Copyright (c) 2016, Arroyo Labs, www.arroyolabs.com
  * @author      Varun Brahme
  * @author      John Arroyo, john@arroyolabs.com

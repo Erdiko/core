@@ -2,8 +2,8 @@
 /**
  * Wrapper for php file commmands
  *
- * @category    Erdiko
- * @package     core
+ * @category    core
+ * @package     datasource
  * @copyright   Copyright (c) 2016, Arroyo Labs, www.arroyolabs.com
  * @author      Varun Brahme
  * @author      Coleman Tung, coleman@arroyolabs.com

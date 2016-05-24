@@ -2,6 +2,7 @@
 /**
  * Container
  * Base view layer object
+ * @todo add an interface too
  *
  * @category   Erdiko
  * @package    Core

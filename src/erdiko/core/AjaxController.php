@@ -13,7 +13,6 @@
  */
 namespace erdiko\core;
 
-use Erdiko;
 
 /**
  * AjaxController class
@@ -30,10 +29,18 @@ class AjaxController extends Controller
         $this->_response = new \erdiko\core\AjaxResponse;
     }
 
-  /**
-   * setStatusCode
-   *
-   */
+    /** 
+     * Before 
+     */
+    public function _before()
+    {
+        // Do nothing, it overrides the core before function which prepares for theming
+    }
+
+    /**
+     * setStatusCode
+     *
+     */
     public function setStatusCode($code = null)
     {
         if (!empty($code)) {
