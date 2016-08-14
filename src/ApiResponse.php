@@ -10,8 +10,6 @@
  */
 namespace erdiko\core;
 
-use Erdiko;
-
 
 class ApiResponse extends Response
 {

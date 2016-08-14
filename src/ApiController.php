@@ -14,7 +14,6 @@
  */
 namespace erdiko\core;
 
-use Erdiko;
 
 /**
  * ApiController class

@@ -22,11 +22,19 @@ class View extends Container
      */
     public function __construct($template = null, $data = null, $templateRootFolder = APPROOT)
     {
-        $data['getView'] = function($name, $data) { 
-                return $this->getView($name, $data); 
-                }; // This is for mustache compatibility
         $this->initiate($template, $data, $templateRootFolder);
         $this->setTemplateFolder('views');
+    }
+
+    /**
+     * Attach getView function to the mustache view
+     */
+    public function renderMustache($filename, $data) {
+        // This is for mustache compatibility
+        $data['getView'] = function($name, $data) { 
+            return $this->getView($name, $data); 
+            };
+        return parent::renderMustache($filename, $data);
     }
 
     /**

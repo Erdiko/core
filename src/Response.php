@@ -10,17 +10,18 @@
  */
 namespace erdiko\core;
 
-use Erdiko;
 
 /** Response Class */
 class Response
 {
     /** Theme object */
-    protected $_theme;
+    protected $_theme = null;
     /** Theme name */
     protected $_themeName;
     /** Theme template */
     protected $_themeTemplate = 'default';
+    /** Theme Ignore (if set to true output is rendered without theme) */
+    protected $_themeIgnore = false;    
     /** Content */
     protected $_content = null;
     /** Data */
@@ -37,25 +38,36 @@ class Response
     }
 
     /**
-     * Set data value
+     * Set key value data
      *
      * @param mixed $key
      * @param mixed $value
      */
-    public function setDataValue($key, $value)
+    public function setKeyValue($key, $value)
     {
         $this->_data[$key] = $value;
     }
 
     /**
-     * Get data value
+     * Get data value by key
      *
      * @param mixed $key
      * @return mixed
      */
-    public function getDataValue($key)
+    public function getKeyValue($key)
     {
         return empty($this->_data[$key]) ? null: $this->_data[$key];
+    }
+
+    /**
+     * Add a pool of key/values segmented by type
+     * This is useful for js/css includes and other grouped data
+     */
+    public function addTypedKeyValue($type, $key, $value)
+    {
+        if(empty($this->_data[$type]))
+            $this->_data[$type] = array();
+        $this->_data[$type][$key] = $value;
     }
 
     /**
@@ -71,11 +83,13 @@ class Response
     /**
      * Get theme
      *
-     * @return Theme
-     * @todo generate a Theme object if $this->_theme is null
+     * @return Theme Object $theme
      */
     public function getTheme()
     {
+        if($this->_theme === null)
+            $this->_theme = new \erdiko\core\Theme($this->getThemeName(), null, $this->getThemeTemplate());
+
         return $this->_theme;
     }
 
@@ -102,7 +116,7 @@ class Response
         elseif(!empty($this->_theme))
             $name = $this->_theme->getName();
         else
-            $name = \Erdiko::getConfig()['theme']['name'];
+            $name = Helper::getConfig()['theme']['name'];
         
         return $name;
     }
@@ -169,19 +183,12 @@ class Response
     public function render()
     {
         // Render all objects to html (string)
-        $content = (is_object($this->_content)) ? $this->_content->toHtml() : $this->_content;
+        $html = (string) $this->_content;
 
-        if ($this->_theme !== null) {
-            $this->_theme->setContent($content); // rendered html (body content)
-            $this->_theme->setData($this->_data); // data injected from Response/Controller
-            $html = $this->_theme->toHtml();
-        } elseif (!empty($this->_themeName)) {
-            $this->_theme = new \erdiko\core\Theme($this->_themeName, null, $this->_themeTemplate);
-            $this->_theme->setContent($content); // rendered html (body content)
-            $this->_theme->setData($this->_data); // data injected from Response/Controller
-            $html = $this->_theme->toHtml();
-        } else {
-            $html = $content;
+        if (!$this->_themeIgnore) {
+            $theme = $this->getTheme();
+            $theme->setContent($html); // rendered html (body content)
+            $html = (string) $theme;
         }
 
         return $html;
@@ -190,7 +197,8 @@ class Response
     /**
      * Render and send data to browser then end request
      *
-     * @notice USE WITH CAUTION
+     * @notice USE WITH CAUTION, 
+     *  This should be called at the end of processing the response
      */
     public function send()
     {

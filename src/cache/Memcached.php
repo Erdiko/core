@@ -30,7 +30,7 @@ class Memcached implements CacheInterface
         // Connection creation
         $this->memcacheObj = new \Memcached;
 
-        $config = \Erdiko::getConfig("local/cache");
+        $config = \erdiko\core\Helper::getConfig("local/cache");
         $host=$config["memcached"]["host"];
         $port=$config["memcached"]["port"];
         $cacheAvailable = $this->memcacheObj->addServer($host, $port);

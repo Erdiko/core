@@ -9,10 +9,10 @@
  */
 namespace erdiko\core;
 
-use Erdiko;
 
 /**
  * Theme class
+ * Note the data array in this class uses a sort of NOSQL style approach to the theming
  */
 class Theme extends Container
 {
@@ -20,45 +20,66 @@ class Theme extends Container
     protected $_themeRootFolder;
     /** Name */
     protected $_name = null;
-    /** Config */
-    protected $_config = null;
+    /** Context */
+    protected $_context = null;
+    /** Context Config (application config) */
+    protected $_contextConfig = null;
+    /** Theme Config */
+    protected $_themeConfig = null;
     /** Content */
     protected $_content = null;
-    /** Extra css array */
-    protected $_extraCss = array();
-    /** Extra javascript array */
-    protected $_extraJs = array();
-    /** Extra Meta array */
-    protected $_extraMeta = array();
-
 
     /**
      * Constructor
      *
-     * @param string $name
+     * @param string $themeName
      * @param mixed $data
      * @param string $template , Theme Object (Contaier)
+     * @param string $context, theme against a context (defaults to context in environment)
      */
-    public function __construct($themeName = 'default', $data = null, $template = 'default')
+    public function __construct($themeName = 'default', $data = null, 
+        $template = 'default', $context = null)
     {
-        // $template = ($template === null) ? $this->_defaultTemplate : $template;
         $this->initiate($template, $data);
         $this->setThemeRootFolder('themes');
         $this->setName($themeName);
+        $this->_data = array(
+            'js' =>array(),
+            'css' => array(),
+            'meta' => array()
+            );
+
+        // Context can only be set at instantiation (for theme stability)
+        $this->_context = ($context === null) ? getenv('ERDIKO_CONTEXT') : $context;
     }
 
     /**
-     * Get configuration
+     * Get context config
+     * This is the application config for the given context (e.g. default site)
+     * Context is determined by environment variable ERDIKO_CONTEXT, getenv('ERDIKO_CONTEXT')
+     *
+     * @return array $config, application config
+     */
+    public function getContextConfig()
+    {
+        if (empty($this->_contextConfig))
+            $this->_contextConfig = Helper::getConfig('application', $this->_context);
+        
+        return $this->_contextConfig;
+    }
+
+    /**
+     * Get Theme configuration (default theme)
      *
      * @return string
      */
-    public function getConfig()
+    public function getThemeConfig()
     {
-        if (empty($this->config)) {
+        if (empty($this->_themeConfig)) {
             $file = $this->getThemeFolder() . 'theme.json';
-            $this->_config = Erdiko::getConfigFile($file);
+            $this->_themeConfig = Helper::getConfigFile($file);
         }
-        return $this->_config;
+        return $this->_themeConfig;
     }
 
     /**
@@ -68,20 +89,11 @@ class Theme extends Container
      */
     public function getMeta()
     {
-        //return array_merge($this->_data['meta'], $this->_extraMeta);
-        
-        if (isset($this->_data['meta'])) {
-            return array_merge($this->_data['meta'], $this->_extraMeta);
+        if (isset($this->_contextConfig['site']['meta'])) {
+            return array_merge($this->_contextConfig['site']['meta'],$this->_data['meta']);
         } else {
-            return $this->_extraMeta;
-        }
-
-        /*
-        if(isset($this->_data['meta']))
             return $this->_data['meta'];
-        else 
-            return array();
-        */
+        }
     }
 
     /**
@@ -92,10 +104,17 @@ class Theme extends Container
      */
     public function addMeta($name, $content)
     {
-        $this->_extraMeta[] = array(
-            'name' => $name,
-            "content" => $content
-            );
+        $this->_data['meta'][$name] = $content;
+    }
+
+    /**
+     * Add meta tag data to page
+     *
+     * @param array $meta, format: array("name" => "content", "author" => "content", ...)
+     */
+    public function setMeta($meta)
+    {
+        $this->_data['meta'] = $meta;
     }
 
     /**
@@ -113,7 +132,17 @@ class Theme extends Container
     }
 
     /**
-     * Get boby title
+     *  Set page title
+     *
+     *  @param string $page_title
+     */
+    public function setPageTitle($title)
+    {
+        $this->_data['page_title'] = $title;
+    }
+
+    /**
+     * Get body title
      *
      *  @return string $body_title
      */
@@ -127,29 +156,43 @@ class Theme extends Container
     }
 
     /**
+     *  Set body title
+     *
+     *  @param string $page_title
+     */
+    public function setBodyTitle($title)
+    {
+        $this->_data['body_title'] = $title;
+    }
+
+    /**
      * Get array of css files to include in theme
      *
      * @return array $css
+     * @todo sort by the 'order' value
      */
     public function getCss()
     {
-        if (isset($this->_config['css'])) {
-            return array_merge($this->_config['css'], $this->_extraCss);
+        if (isset($this->_themeConfig['css'])) {
+            return array_merge($this->_themeConfig['css'], $this->_data['css']);
         } else {
-            return $this->_extraCss;
+            return $this->_data['css'];
         }
     }
 
     /**
      * Add css file to page
+     * @note there are collisions with using addCss and data['css']
+     * @todo need to resolve order of merging and/or eliminate/refactor this function
      *
      * @param string $cssFile , URL of injected css file
      */
-    public function addCss($cssFile)
+    public function addCss($name, $cssFile, $order = 10, $active = 1)
     {
-        $this->_extraCss[] = array(
+       $this->_data['css'][$name] = array(
             'file' => $cssFile,
-            "active" => 1
+            'order' => $order,
+            'active' => $active
             );
     }
 
@@ -157,26 +200,29 @@ class Theme extends Container
      * Get array of js files to include
      *
      * @return array $js
+     * @todo sort by the 'order' value
      */
     public function getJs()
     {
-        if (isset($this->_config['js'])) {
-            return array_merge($this->_config['js'], $this->_extraJs);
+        if (isset($this->_themeConfig['js'])) {
+            return array_merge($this->_themeConfig['js'], $this->_data['js']);
         } else {
-            return $this->_extraJs;
+            return $this->_data['js'];
         }
     }
 
     /**
      * Add js file to page
+     * @todo same issue as addCss
      *
      * @param string $jsFile , link to js file
      */
-    public function addJs($jsFile)
+    public function addJs($name, $jsFile, $order = 10, $active = 1)
     {
-        $this->_extraJs[] = array(
+        $this->_data['js'][$name] = array(
             'file' => $jsFile,
-            "active" => 1
+            'order' => $order,
+            'active' => $active
             );
     }
 
@@ -270,24 +316,13 @@ class Theme extends Container
      * @param string $context
      * @return string $html
      */
-    public function getTemplateHtml($partial, $context = 'default')
+    public function getTemplateHtml($partial)
     {
-        $config = $this->getConfig();
+        $config = $this->getThemeConfig();
         $filename = $this->getTemplateFolder().$config['templates'][$partial]['file'];
-        $html = $this->getTemplateFile($filename, $this->getContextConfig($context));
+        $html = $this->getTemplateFile($filename, $this->getContextConfig());
         
         return $html;
-    }
-
-    /**
-     * Get context config
-     *
-     * @param string $context
-     * @return string
-     */
-    public function getContextConfig($context = 'default')
-    {
-        return Erdiko::getConfig('application/'.$context);
     }
 
     /**
@@ -299,7 +334,10 @@ class Theme extends Container
      */
     public function toHtml()
     {
-        $this->getConfig(); // load the site config
+        // load the theme and context (site) configs
+        $this->getContextConfig();
+        $this->getThemeConfig();
+
         $filename = $this->getTemplateFolder().$this->getTemplate();
         $html = $this->getTemplateFile($filename, $this);
         

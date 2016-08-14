@@ -11,7 +11,6 @@
  */
 namespace erdiko\core;
 
-use Erdiko;
 
 /**
  * AjaxResponse class

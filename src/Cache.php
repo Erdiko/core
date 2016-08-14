@@ -29,7 +29,7 @@ class Cache
     {
             //Check if the caller requests an new object
         if (empty(self::$instance[$cacheConfig])) {
-            $config = \Erdiko::getConfig('application/default');
+            $config = Helper::getConfig(ERDIKO_CONTEXT.'/application');
 
             //Check if the object already be created
             if (isset($config["cache"][$cacheConfig])) {
