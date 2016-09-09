@@ -31,7 +31,7 @@ trait Template
      * @param string $template , Theme Object (Contaier)
      * @param mixed $data
      */
-    public function initiate($template = null, $data = null, $templateRootFolder = APPROOT)
+    public function initiate($template = null, $data = null, $templateRootFolder = ERDIKO_APP)
     {
         $template = ($template === null) ? $this->getDefaultTemplate() : $template;
         $this->setTemplate($template);

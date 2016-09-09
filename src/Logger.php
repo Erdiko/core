@@ -46,10 +46,10 @@ class Logger extends File implements LoggerInterface
             if (is_dir($logDir)) {
                 $this->_filePath = $logDir; // fully qualified & valid path
             } else {
-                $this->_filePath = \ROOT.$logDir; // otherwise assume it's relative to the root
+                $this->_filePath = \ERDIKO_ROOT.$logDir; // otherwise assume it's relative to the root
             }
         } else {
-            $this->_filePath = \ROOT.$this->_defaultPath;
+            $this->_filePath = \ERDIKO_ROOT.$this->_defaultPath;
         }
     }
     

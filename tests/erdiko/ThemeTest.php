@@ -138,7 +138,7 @@ class ThemeTest extends \tests\ErdikoTestCase
     public function testGetThemeFolder()
     {
         $return = $this->themeObj->getThemeFolder();
-        $folder = APPROOT.'/themes/bootstrap/';
+        $folder = ERDIKO_APP.'/themes/bootstrap/';
         $this->assertEquals($return, $folder);
     }
 
@@ -150,7 +150,7 @@ class ThemeTest extends \tests\ErdikoTestCase
     public function testGetTemplateFolder()
     {
         $return = $this->themeObj->getTemplateFolder();
-        $folder = APPROOT.'/themes/bootstrap/templates/';
+        $folder = ERDIKO_APP.'/themes/bootstrap/templates/';
         $this->assertEquals($return, $folder);
     }
 

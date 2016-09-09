@@ -8,8 +8,8 @@
  * @author      John Arroyo, john@arroyolabs.com
  */
 
-ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . ROOT .
-    PATH_SEPARATOR . VENDOR . PATH_SEPARATOR . APPROOT . PATH_SEPARATOR . ERDIKO);
+ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . ERDIKO_ROOT .
+    PATH_SEPARATOR . ERDIKO_VENDOR . PATH_SEPARATOR . ERDIKO_APP . PATH_SEPARATOR . ERDIKO_SRC);
 
 
 spl_autoload_register(function ($name) {
@@ -20,7 +20,7 @@ spl_autoload_register(function ($name) {
         $path = str_replace('\\', '/', $name);
         $class = basename($path);
         $dir = '/'.dirname($path);
-        $filename = ROOT.$dir.'/'.$class.'.php';
+        $filename = ERDIKO_ROOT.$dir.'/'.$class.'.php';
         // error_log("file: $filename");
 
         if (is_file($filename)) {

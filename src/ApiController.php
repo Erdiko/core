@@ -26,7 +26,7 @@ class ApiController extends Controller
    */
     public function __construct()
     {
-        $this->_webroot = ROOT;
+        $this->_webroot = ERDIKO_ROOT;
         $this->_response = new \erdiko\core\ApiResponse;
     }
 

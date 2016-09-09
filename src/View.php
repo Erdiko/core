@@ -20,7 +20,7 @@ class View extends Container
      * @param mixed $data
      * @param string $templateFolder
      */
-    public function __construct($template = null, $data = null, $templateRootFolder = APPROOT)
+    public function __construct($template = null, $data = null, $templateRootFolder = ERDIKO_APP)
     {
         $this->initiate($template, $data, $templateRootFolder);
         $this->setTemplateFolder('views');

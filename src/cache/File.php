@@ -19,7 +19,7 @@ class File extends \erdiko\core\datasource\File implements CacheInterface
     public function __construct($cacheDir = null)
     {
         if (!isset($cacheDir)) {
-            $cacheDir = VARROOT."/cache";
+            $cacheDir = ERDIKO_VAR."/cache";
         }
         parent::__construct($cacheDir);
     }
@@ -83,7 +83,7 @@ class File extends \erdiko\core\datasource\File implements CacheInterface
      */
     public function forgetAll()
     {
-        $files = glob(VARROOT."/cache/*");
+        $files = glob(ERDIKO_VAR."/cache/*");
         foreach ($files as $file) {
             if (is_file($file)) {
                 $this->delete(basename($file));

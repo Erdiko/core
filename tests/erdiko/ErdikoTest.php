@@ -17,7 +17,7 @@ class ErdikoTest extends \tests\ErdikoTestCase
          *  First Test
          */
         //Get the config file through getConfigFile function
-        $filename = APPROOT.'/config/'."application/default.json";
+        $filename = ERDIKO_APP."/config/default/application.json";
         $return = \Erdiko::getConfigFile($filename);
 
         //Get the config file through file_get_contents function
@@ -39,7 +39,7 @@ class ErdikoTest extends \tests\ErdikoTestCase
          *
          *  Passing a non-exist config file
          */
-        $fileName = APPROOT.'/config/'."non-exist.json";
+        $fileName = ERDIKO_APP.'/config/'."non-exist.json";
         $return = \Erdiko::getConfigFile($fileName);
     }
 
@@ -77,7 +77,7 @@ class ErdikoTest extends \tests\ErdikoTestCase
         $return = \Erdiko::getRoutes();
 
         //Get routes through direct access
-        $filename =  APPROOT.'/config/application/routes.json';
+        $filename =  ERDIKO_APP.'/config/application/routes.json';
         $data = str_replace("\\", "\\\\", file_get_contents($filename));
         $json = json_decode($data, true);
         
@@ -89,7 +89,7 @@ class ErdikoTest extends \tests\ErdikoTestCase
     {
         //Initialize a File object locally
         $fileObj = new \erdiko\core\datasource\File;
-        $logFolder = \ROOT."/var/logs";
+        $logFolder = \ERDIKO_ROOT."/var/logs";
 
         $sampleText="info: This is a sample log for Erdiko class test";
         
