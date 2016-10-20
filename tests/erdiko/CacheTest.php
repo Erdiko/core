@@ -41,7 +41,7 @@ class CacheTest extends \tests\ErdikoTestCase
         $this->assertTrue($return);
 
 
-        $memcache = 'Memcached';
+        $memcache = 'memcached';
         $memcacheObj = Cache::getCacheObject($memcache)->getObject();
         Cache::forgetALL($memcache);
         /**
