@@ -79,9 +79,21 @@ class ApiResponse extends Response
             "errors" => $this->_errors
         );
 
+        return json_encode($responseData);
+    }
+
+    /**
+     * Render and send data to browser then end request
+     *
+     * @todo allow switching between json and xml
+     * @note This should only be called at the very end of processing the response
+     */
+    public function send()
+    {
         // set the mime type to JSON
         header('Content-Type: application/json');
 
-        return json_encode($responseData);
+        echo $this->render();
+        die();
     }
 }

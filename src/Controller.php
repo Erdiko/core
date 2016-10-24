@@ -203,7 +203,8 @@ class Controller
     }
 
     /**
-     * Set Response data value
+     * Set Response key/value data
+     * formerly called, setResponseDataValue()
      *
      * @param string $key
      * @param mixed $value
