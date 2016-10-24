@@ -7,7 +7,7 @@ namespace tests;
 
 use \Erdiko;
 
-require_once dirname(dirname(dirname(dirname(__DIR__)))).'/bootstrap.php';
+require_once 'bootstrap.php';
 
 class ErdikoTestCase extends \PHPUnit_Framework_TestCase
 {

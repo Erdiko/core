@@ -25,7 +25,8 @@ class ControllerTest extends \tests\ErdikoTestCase
         $themeName = 'Test theme name';
         $this->controllerObj->setThemeName($themeName);
         $return = $this->controllerObj->getResponse()->getThemeName();
-        $this->assertEquals($return, $themeName);
+        
+        $this->assertEquals($themeName, $return);
     }
 
     public function testSetThemeTemplate()
@@ -33,24 +34,27 @@ class ControllerTest extends \tests\ErdikoTestCase
         $template = 'Test theme template';
         $this->controllerObj->setThemeTemplate($template);
         $return = $this->controllerObj->getResponse()->getThemeTemplate();
-        $this->assertEquals($return, $template);
+
+        $this->assertEquals($template, $return);
     }
 
-    public function testSetResponseDataValue()
+    public function testSetResponseKeyValue()
     {
-        $key = 'Test_Key';
+        $key = 'test_key';
         $value = 'Test_Value';
-        $this->controllerObj->setResponseDataValue($key, $value);
-        $return = $this->controllerObj->getResponse()->getDataValue($key);
-        $this->assertEquals($return, $value);
+        $this->controllerObj->setResponseKeyValue($key, $value);
+        $return = $this->controllerObj->getResponse()->getKeyValue($key);
+
+        $this->assertEquals($value, $return);
     }
 
     public function testSetPageTitle()
     {
         $title = 'Test_Page_Title';
         $this->controllerObj->setPageTitle($title);
-        $return = $this->controllerObj->getResponse()->getDataValue('page_title');
-        $this->assertEquals($return, $title);
+        $pageTitle = $this->controllerObj->getResponse()->getTheme()->getPageTitle();
+
+        $this->assertEquals($title, $pageTitle);
     }
 
 
@@ -58,17 +62,21 @@ class ControllerTest extends \tests\ErdikoTestCase
     {
         $title = 'Test_Body_Title';
         $this->controllerObj->setBodyTitle($title);
-        $return = $this->controllerObj->getResponse()->getDataValue('body_title');
-        $this->assertEquals($return, $title);
+        $bodyTitle = $this->controllerObj->getResponse()->getTheme()->getBodyTitle();
+
+        $this->assertEquals($title, $bodyTitle);
     }
 
     public function testSetTitle()
     {
         $title = 'Test_Title';
         $this->controllerObj->setTitle($title);
-        $return = $this->controllerObj->getResponse()->getDataValue('page_title');
-        $this->assertEquals($return, $title);
 
+        $pageTitle = $this->controllerObj->getResponse()->getTheme()->getPageTitle();
+        $bodyTitle = $this->controllerObj->getResponse()->getTheme()->getBodyTitle();
+
+        $this->assertEquals($title, $pageTitle);
+        $this->assertEquals($title, $bodyTitle);
     }
 
     public function testSetContent()
@@ -76,7 +84,7 @@ class ControllerTest extends \tests\ErdikoTestCase
         $content = 'Test content';
         $this->controllerObj->setContent($content);
         $return = $this->controllerObj->getResponse()->getContent();
-        $this->assertEquals($return, $content);
+        $this->assertEquals($content, $return);
     }
 
     public function testAppendContent()
@@ -85,13 +93,13 @@ class ControllerTest extends \tests\ErdikoTestCase
         $content = 'Test content';
         $this->controllerObj->setContent($content);
         $return = $this->controllerObj->getResponse()->getContent();
-        $this->assertEquals($return, $content);
+        $this->assertEquals($content, $return);
         
         //Set appended content
         $appContent = 'Test appended content.....';
         $this->controllerObj->appendContent($appContent);
         $return = $this->controllerObj->getResponse()->getContent();
-        $this->assertEquals($return, $content.$appContent);
+        $this->assertEquals($content.$appContent, $return);
     }
 
     public function testUrlToActionName()
@@ -99,12 +107,12 @@ class ControllerTest extends \tests\ErdikoTestCase
         //First Test
         $site = 'http://erdiko.com/';
         $return = $this->controllerObj->urlToActionName($site, 'get');
-        $this->assertEquals($return, 'get'.ucfirst($site));
+        $this->assertEquals('get'.ucfirst($site), $return);
         
         //Second Test
         $site = 'www.erdiko.com/';
         $return = $this->controllerObj->urlToActionName($site, 'get');
-        $this->assertEquals($return, 'get'.ucfirst($site));
+        $this->assertEquals('get'.ucfirst($site), $return);
     }
 
     public function testAddViewAndGetView()
@@ -135,7 +143,7 @@ class ControllerTest extends \tests\ErdikoTestCase
         $this->controllerObj->addView($viewName, $data);
         //$return = $this->controllerObj->getResponse()->getContent();
         $return = $this->controllerObj->getView($viewName, $data);
-        $this->assertEquals($return, $view->toHtml());
+        $this->assertEquals($view->toHtml(), $return);
 
         unset($this->controllerObj);
         $this->controllerObj = new \erdiko\core\Controller;
@@ -149,14 +157,14 @@ class ControllerTest extends \tests\ErdikoTestCase
         $view = new \erdiko\core\View('examples/helloworld');
         $this->controllerObj->addView('examples/helloworld');
         $return = $this->controllerObj->getView('examples/helloworld');
-        $this->assertEquals($return, $view->toHtml());
+        $this->assertEquals($view->toHtml(), $return);
         
         //Add another view
         $data = 'Test Data';
         $view2 = new \erdiko\core\View('examples/carousel', $data);
         $this->controllerObj->addView('examples/carousel', $data);
         $return = $this->controllerObj->getResponse()->getContent();
-        $this->assertEquals($return, $view->toHtml().$view2->toHtml());
+        $this->assertEquals($view->toHtml().$view2->toHtml(), $return);
         
     }
 
