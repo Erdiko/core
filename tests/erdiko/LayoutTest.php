@@ -31,12 +31,12 @@ class LayoutTest extends \tests\ErdikoTestCase
         $content = 'Test content';
         $this->LayoutObj->setRegion('one', $content);
         $data = null;
-        $templateName = ERDIKO_APP.'/'.'themes/'.$this->LayoutObj->getThemeName().'/templates/layouts/1column';
+        $templateName = ERDIKO_APP.'/'.'themes/'.$this->LayoutObj->getThemeName().'/templates/layouts/mustache/1column';
         $return = $this->LayoutObj->getTemplateFile($templateName, $data);
 
         //Get contents of the template through file_get_contents function
         $content = file_get_contents(
-            ERDIKO_APP.'/'.'themes/'.$this->LayoutObj->getThemeName().'/templates/layouts/1column.php'
+            ERDIKO_APP.'/'.'themes/'.$this->LayoutObj->getThemeName().'/templates/layouts/mustache/1column.html'
         );
         //Search for the key word, which is right before php tag
         $pos = strrpos($content, 'role="main"');
@@ -55,12 +55,12 @@ class LayoutTest extends \tests\ErdikoTestCase
         $content = 'Test content';
         $this->LayoutObj->setRegion('one', $content);
         $data = null;
-        $templateName = ERDIKO_APP.'/'.'themes/'.$this->LayoutObj->getTheme().'/templates/layouts/2column';
+        $templateName = ERDIKO_APP.'/'.'themes/'.$this->LayoutObj->getThemeName().'/templates/layouts/mustache/2column';
         $return = $this->LayoutObj->getTemplateFile($templateName, $data);
 
         //Get contents of the template through file_get_contents function
         $content = file_get_contents(
-            ERDIKO_APP.'/'.'themes/'.$this->LayoutObj->getTheme().'/templates/layouts/1column.php'
+            ERDIKO_APP.'/'.'themes/'.$this->LayoutObj->getThemeName().'/templates/layouts/mustache/1column.html'
         );
         //Search for the key word, which is right before php tag
         $pos = strrpos($content, 'role="main"');
@@ -85,7 +85,7 @@ class LayoutTest extends \tests\ErdikoTestCase
         $content = 'Test content';
         $this->LayoutObj->setRegion('one', $content);
         $data = null;
-        $templateName = ERDIKO_APP.'/'.'themes/'.$this->LayoutObj->getThemeName().'/templates/layouts/not_exist';
+        $templateName = ERDIKO_APP.'/'.'themes/'.$this->LayoutObj->getThemeName().'/templates/layouts/mustache/not_exist';
         $return = $this->LayoutObj->getTemplateFile($templateName, $data);
     }
 

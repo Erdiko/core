@@ -119,85 +119,45 @@ class ResponseTest extends \tests\ErdikoTestCase
         
         //Header
         $header = file_get_contents($themeFolder.'/templates/page/header.html');
-        $pos = strrpos($header, 'navbar-brand');
+        $pos = strrpos($header, 'navbar-header');
         $header = substr($header, 0, $pos);
         $find = strrpos($return, $header);
         $this->assertTrue($find != false);
+
+        //moustache content now was already rendered
+        $pos = strrpos($return, '{{theme.defaults.home_url}}');
+        $this->assertFalse($pos);
+        $pos = strrpos($return, '{{site.name}}');
+        $this->assertFalse($pos);
+        $pos = strrpos($return, '{{# menu.main }}');
+        $this->assertFalse($pos);
+        $pos = strrpos($return, '{{title}}');
+        $this->assertFalse($pos);
+        $pos = strrpos($return, '{{/ menu.main }}');
+        $this->assertFalse($pos);
 
         //Footer
         $footer = file_get_contents($themeFolder.'/templates/page/footer.html');
-        $pos = strrpos($footer, 'nav nav-justified');
+        $pos = strrpos($footer, 'Back to top');
         $footer = substr($footer, 0, $pos);
         $find = strrpos($return, $footer);
         $this->assertTrue($find != false);
 
-        //Content
-        $find = strrpos($return, $content);
-        $this->assertTrue($find != false);
-
-        unset($ResponseObj);
-
-        /**
-         *
-         *  Test the second condition in render()
-         *
-         */
-        $ResponseObj = new Response;
-        
-
-        $ResponseObj->setThemeName('bootstrap');
-        $return = $ResponseObj->getTheme();
-        
-        //Add some content
-        $content = 'Test content';
-        $ResponseObj->setContent($content);
-        $return = $ResponseObj->getContent();
-        $this->assertTrue($return == $content);
-
-        $return = $ResponseObj->render();
-        
-        /**
-         *  Validate the content
-         */
-        $themeFolder = $ResponseObj->getTheme()->getThemeFolder();
-        
-        //Header
-        $header = file_get_contents($themeFolder.'/templates/page/header.php');
-        $pos = strrpos($header, 'navbar-brand');
-        $header = substr($header, 0, $pos);
-        $find = strrpos($return, $header);
-        $this->assertTrue($find != false);
-
-        //Footer
-        $footer = file_get_contents($themeFolder.'/templates/page/footer.php');
-        $pos = strrpos($footer, 'nav nav-justified');
-        $footer = substr($footer, 0, $pos);
-        $find = strrpos($return, $footer);
-        $this->assertTrue($find != false);
+        //moustache content now was already rendered
+        $pos = strrpos($return, '{{# menu.footer}}');
+        $this->assertFalse($pos);
+        $pos = strrpos($return, '{{/ menu.footer}}');
+        $this->assertFalse($pos);
+        $pos = strrpos($return, '{{title}}');
+        $this->assertFalse($pos);
+        $pos = strrpos($return, '{{site.full_name}}');
+        $this->assertFalse($pos);
+        $pos = strrpos($return, '{{site.copyright}}');
+        $this->assertFalse($pos);
 
         //Content
         $find = strrpos($return, $content);
         $this->assertTrue($find != false);
-
-        unset($ResponseObj);
-
-        /**
-         *
-         *  Test the third condition in render()
-         *
-         */
-        $ResponseObj = new Response;
-
-        $content = 'Test content';
-        $ResponseObj->setContent($content);
-        $return = $ResponseObj->getContent();
-        $this->assertTrue($return == $content);
-
-        $return = $ResponseObj->render();
-        
-        //Content
-        $find = strrpos($return, $content);
-        $this->assertTrue($find == 0);
 
         unset($ResponseObj);
     }

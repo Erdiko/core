@@ -42,7 +42,7 @@ class Helper
      * @return array $config
      */
     public static function getConfigFile($filename)
-    {
+    {        
         $filename = addslashes($filename);
         if (is_file($filename)) {
             $data = str_replace("\\", "\\\\", file_get_contents($filename));
@@ -136,7 +136,7 @@ class Helper
     public static function getCache($cacheType = "default")
     {
         $context = getenv('ERDIKO_CONTEXT');
-        $config = self::getConfig("{$context}/application");
+        $config = self::getConfig("application");
         
         if (isset($config["cache"][$cacheType])) {
             $cacheConfig = $config["cache"][$cacheType];

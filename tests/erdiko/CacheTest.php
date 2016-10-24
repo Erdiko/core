@@ -11,7 +11,7 @@ class CacheTest extends \tests\ErdikoTestCase
 
     public function setUp()
     {
-        //Cache::forgetAll('memcache');
+        Cache::forgetAll('memcached');
     }
 
     public function tearDown()

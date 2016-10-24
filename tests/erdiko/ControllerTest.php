@@ -40,8 +40,8 @@ class ControllerTest extends \tests\ErdikoTestCase
     {
         $key = 'Test_Key';
         $value = 'Test_Value';
-        $this->controllerObj->setResponseDataValue($key, $value);
-        $return = $this->controllerObj->getResponse()->getDataValue($key);
+        $this->controllerObj->setResponseKeyValue($key, $value);
+        $return = $this->controllerObj->getResponse()->getKeyValue($key);
         $this->assertEquals($return, $value);
     }
 
@@ -49,7 +49,7 @@ class ControllerTest extends \tests\ErdikoTestCase
     {
         $title = 'Test_Page_Title';
         $this->controllerObj->setPageTitle($title);
-        $return = $this->controllerObj->getResponse()->getDataValue('page_title');
+        $return = $this->controllerObj->getResponse()->getTheme()->getPageTitle();
         $this->assertEquals($return, $title);
     }
 
@@ -58,7 +58,7 @@ class ControllerTest extends \tests\ErdikoTestCase
     {
         $title = 'Test_Body_Title';
         $this->controllerObj->setBodyTitle($title);
-        $return = $this->controllerObj->getResponse()->getDataValue('body_title');
+        $return = $this->controllerObj->getResponse()->getTheme()->getBodyTitle();
         $this->assertEquals($return, $title);
     }
 
@@ -66,7 +66,7 @@ class ControllerTest extends \tests\ErdikoTestCase
     {
         $title = 'Test_Title';
         $this->controllerObj->setTitle($title);
-        $return = $this->controllerObj->getResponse()->getDataValue('page_title');
+        $return = $this->controllerObj->getResponse()->getTheme()->getPageTitle();
         $this->assertEquals($return, $title);
 
     }
