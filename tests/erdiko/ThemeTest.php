@@ -40,7 +40,7 @@ class ThemeTest extends \tests\ErdikoTestCase
     public function testGetConfig()
     {
         $this->themeObj->setName('bootstrap');
-        $return = $this->themeObj->getConfig();
+        $return = $this->themeObj->getThemeConfig();
 
         $config = file_get_contents($this->themeObj->getThemeFolder().'theme.json');
         $return2 = json_decode($config, true);

@@ -32,8 +32,8 @@ class ResponseTest extends \tests\ErdikoTestCase
          */
         $key = 'Test_Key';
         $data = 'Test_Data';
-        $this->ResponseObj->setDataValue($key, $data);
-        $return = $this->ResponseObj->getDataValue($key);
+        $this->ResponseObj->setKeyValue($key, $data);
+        $return = $this->ResponseObj->getKeyValue($key);
         $this->assertTrue($return == $data);
 
         /**
@@ -118,14 +118,14 @@ class ResponseTest extends \tests\ErdikoTestCase
         $themeFolder = $ResponseObj->getTheme()->getThemeFolder();
         
         //Header
-        $header = file_get_contents($themeFolder.'/templates/page/header.php');
+        $header = file_get_contents($themeFolder.'/templates/page/header.html');
         $pos = strrpos($header, 'navbar-brand');
         $header = substr($header, 0, $pos);
         $find = strrpos($return, $header);
         $this->assertTrue($find != false);
 
         //Footer
-        $footer = file_get_contents($themeFolder.'/templates/page/footer.php');
+        $footer = file_get_contents($themeFolder.'/templates/page/footer.html');
         $pos = strrpos($footer, 'nav nav-justified');
         $footer = substr($footer, 0, $pos);
         $find = strrpos($return, $footer);

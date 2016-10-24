@@ -30,7 +30,7 @@ class ErdikoTest extends \tests\ErdikoTestCase
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException Exception
      */
     public function testGetConfigFileException()
     {
@@ -48,12 +48,12 @@ class ErdikoTest extends \tests\ErdikoTestCase
         /**
          *  First Test
          */
-        $filename = "application/default";
+        $filename = "application";        
         $this->assertTrue(\Erdiko::getConfig($filename) != false);
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException Exception
      */
     public function testConfigException()
     {
@@ -77,7 +77,7 @@ class ErdikoTest extends \tests\ErdikoTestCase
         $return = \Erdiko::getRoutes();
 
         //Get routes through direct access
-        $filename =  ERDIKO_APP.'/config/application/routes.json';
+        $filename =  ERDIKO_APP.'/config/default/routes.json';
         $data = str_replace("\\", "\\\\", file_get_contents($filename));
         $json = json_decode($data, true);
         
