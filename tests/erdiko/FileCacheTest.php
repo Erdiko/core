@@ -19,7 +19,6 @@ class FileCacheTest extends \tests\ErdikoTestCase
         // create a new instance of String with the
         // string 'abc'
         $this->cacheObj = \Erdiko::getCache("default");
-        
         //$this->cacheObj = new Cache();
     }
 
@@ -29,7 +28,8 @@ class FileCacheTest extends \tests\ErdikoTestCase
     public function tearDown()
     {
         // delete your instance
-        $this->cacheObj->forgetALL();
+        if($this->cacheObj)
+            $this->cacheObj->forgetALL();
         unset($this->cacheObj);
     }
 
