@@ -55,10 +55,9 @@ class ThemeTest extends \tests\ErdikoTestCase
     public function testAddMetaAndGetMeta()
     {
         $temp = array();
-        $temp[] = array(
-                'name' => 'Test_Name',
-                'content' => 'Test_Content'
-                );
+        $temp = array(
+                'Test_Name' => 'Test_Content'
+        );
         $this->themeObj->addMeta('Test_Name', 'Test_Content');
         $return = $this->themeObj->getMeta();
         $this->assertEquals($return, $temp);
@@ -72,13 +71,14 @@ class ThemeTest extends \tests\ErdikoTestCase
     public function testAddCssAndGetCss()
     {
         $temp = array();
-        $temp[] = array(
+        $temp = array(
                 'file' => 'Test_Css_File',
-                'active' => '1'
+                'active' => '1',
+                'order' => '10'
                 );
-        $this->themeObj->addCss('Test_Css_File');
+        $this->themeObj->addCss('file', 'Test_Css_File');
         $return = $this->themeObj->getCss();
-        $this->assertEquals($return, $temp);
+        $this->assertEquals($return['file'], $temp);
     }
 
     /**
@@ -89,13 +89,14 @@ class ThemeTest extends \tests\ErdikoTestCase
     public function testAddJsAndGetJs()
     {
         $temp = array();
-        $temp[] = array(
+        $temp = array(
                 'file' => 'Test_Js_File',
-                'active' => '1'
+                'active' => '1',
+                'order' => '10'
                 );
-        $this->themeObj->addJs('Test_Js_File');
+        $this->themeObj->addJs('file', 'Test_Js_File');
         $return = $this->themeObj->getJs();
-        $this->assertEquals($return, $temp);
+        $this->assertEquals($return['file'], $temp);
     }
 
     /**
@@ -138,6 +139,7 @@ class ThemeTest extends \tests\ErdikoTestCase
     public function testGetThemeFolder()
     {
         $return = $this->themeObj->getThemeFolder();
+        $return = str_replace('//', '/', $return);
         $folder = ERDIKO_APP.'/themes/bootstrap/';
         $this->assertEquals($return, $folder);
     }
@@ -150,6 +152,7 @@ class ThemeTest extends \tests\ErdikoTestCase
     public function testGetTemplateFolder()
     {
         $return = $this->themeObj->getTemplateFolder();
+        $return = str_replace('//', '/', $return);
         $folder = ERDIKO_APP.'/themes/bootstrap/templates/';
         $this->assertEquals($return, $folder);
     }
@@ -203,7 +206,6 @@ class ThemeTest extends \tests\ErdikoTestCase
         $return = $this->themeObj->getContextConfig();
         $this->assertArrayHasKey('site', $return);
         $this->assertArrayHasKey('theme', $return);
-        $this->assertArrayHasKey('layout', $return);
     }
 
     /**
@@ -215,8 +217,8 @@ class ThemeTest extends \tests\ErdikoTestCase
     {
         $return = $this->themeObj->getTemplateHtml('header');
 
-        $header = file_get_contents($this->themeObj->getTemplateFolder().'/page/header.php');
-        $pos = strrpos($header, 'navbar-brand');
+        $header = file_get_contents($this->themeObj->getTemplateFolder().'/page/header.html');
+        $pos = strrpos($header, 'navbar-header');
         $header = substr($header, 0, $pos);
         $find = strrpos($return, $header);
         $this->assertTrue($find !== false);
@@ -236,8 +238,8 @@ class ThemeTest extends \tests\ErdikoTestCase
         $return = $this->themeObj->toHtml($content, $data);
 
         //Check header
-        $header = file_get_contents($this->themeObj->getTemplateFolder().'/page/header.php');
-        $pos = strrpos($header, 'navbar-brand');
+        $header = file_get_contents($this->themeObj->getTemplateFolder().'/page/header.html');
+        $pos = strrpos($header, 'navbar-header');
         $header = substr($header, 0, $pos);
         $find = strrpos($return, $header);
         $this->assertTrue($find !== false);
