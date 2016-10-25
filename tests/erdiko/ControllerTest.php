@@ -170,33 +170,24 @@ class ControllerTest extends \tests\ErdikoTestCase
 
     public function testGetLayout()
     {
-        //First test: Setting a theme object
+        // First test: Setting a theme object
         $controllerObj = new \erdiko\core\Controller;
 
         $theme = new \erdiko\core\Theme('bootstrap', null, 'default');
         $controllerObj->getResponse()->setTheme($theme);
-        $return = $controllerObj->getLayout('1column', null);
+        $data = array('body' => "Body content");
+        $return = $controllerObj->getLayout('1column', $data);
 
-        //Get content through file_get_contents function
+        // Get content through file_get_contents function
         $themeFolder = $controllerObj->getResponse()->getTheme()->getThemeFolder();
         $fileName = $themeFolder.'/templates/layouts/1column.php';
         $content = file_get_contents($fileName);
-        //Search for the keyword which is right before php tag
+
+        // Search for the keyword which is right before php tag
         $pos = strrpos($content, 'role="main">');
         $content = substr($content, 0, $pos);
-        //Check if two content are matched
-        $find = strrpos($return, $content);
-        $this->assertGreaterThanOrEqual(0, $find);
 
-        unset($controllerObj);
-        
-
-        //Second test: Setting the theme name
-        $controllerObj = new \erdiko\core\Controller;
-        $controllerObj->getResponse()->setThemeName('bootstrap');
-        $return = $controllerObj->getLayout('1column', null);
-
-        //Validate content
+        // Check if two content are matched
         $find = strrpos($return, $content);
         $this->assertGreaterThanOrEqual(0, $find);
 
