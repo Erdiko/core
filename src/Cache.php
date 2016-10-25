@@ -17,7 +17,6 @@ class Cache
 {
     /** Cache singleton instance */
     private static $instance = array();
-    //private static $instanceMemcache;
 
     /**
      * Get the cache instance
@@ -88,7 +87,7 @@ class Cache
     public static function pull($key, $cacheConfig = 'default')
     {
         $value = self::get($key);
-        self::forget($key);
+        self::delete($key);
 
         return $value;
     }
@@ -100,19 +99,19 @@ class Cache
      * @param string $cacheConfig
      * @return bool
      */
-    public static function forget($key, $cacheConfig = 'default')
+    public static function delete($key, $cacheConfig = 'default')
     {
-        return self::getCacheObject($cacheConfig)->forget($key);
+        return self::getCacheObject($cacheConfig)->delete($key);
     }
 
     /**
-     * Forget all cache keys (Purge)
+     * Delete all cache keys (Purge)
      *
      * @param string $cacheConfig
      * @return bool
      */
-    public static function forgetAll($cacheConfig = 'default')
+    public static function clear($cacheConfig = 'default')
     {
-        return self::getCacheObject($cacheConfig)->forgetAll();
+        return self::getCacheObject($cacheConfig)->clear();
     }
 }

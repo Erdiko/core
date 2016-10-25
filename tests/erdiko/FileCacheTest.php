@@ -29,16 +29,15 @@ class FileCacheTest extends \tests\ErdikoTestCase
     {
         // delete your instance
         if($this->cacheObj)
-            $this->cacheObj->forgetALL();
+            $this->cacheObj->clear();
         unset($this->cacheObj);
     }
 
     public function testGetAndPut()
     {
         /**
-         *  Precondition
-         *
-         *  Check if there is nothing
+         * Precondition
+         * Check if there is nothing
          */
 
         $key = 'stringTest';
@@ -46,18 +45,16 @@ class FileCacheTest extends \tests\ErdikoTestCase
         $this->assertFalse($return);
 
         /**
-         *  String Test
-         *
-         *  Pass a string data to cache
+         * String Test
+         * Pass a string data to cache
          */
         $this->cacheObj->put($key, "test");
         $return=$this->cacheObj->get($key);
         $this->assertEquals($return, "test");
 
         /**
-         *  Array Test
-         *
-         *  Pass an array data to cache
+         * Array Test
+         * Pass an array data to cache
          */
         $arr = array(
                 '1' => 'test1',
@@ -70,9 +67,8 @@ class FileCacheTest extends \tests\ErdikoTestCase
         $this->assertEquals($return, $arr);
 
         /**
-         *  JSON Test
-         *
-         *  Pass a JSON data to cache
+         * JSON Test
+         * Pass a JSON data to cache
          */
         $arr = array(
                 '1' => 'test1',
@@ -85,93 +81,81 @@ class FileCacheTest extends \tests\ErdikoTestCase
         $this->assertEquals($return, $arr);
     }
 
-    public function testForget()
+    public function testDelete()
     {
         /**
-         *  Precondition
-         *
-         *  Check if there is nothing
+         * Precondition
+         * Check if there is nothing
          */
-        $key = 'Test_Key';
-        $data = 'Test_Data';
+        $key = 'test_key';
+        $data = 'Test Data';
         $return = $this->cacheObj->has($key);
         $this->assertFalse($return);
 
-        //Add a data
+        // Add a data
         $this->cacheObj->put($key, $data);
 
-        //Check if the data exists
+        // Check if the data exists
         $return = $this->cacheObj->has($key);
         $this->assertTrue($return);
 
         /**
-         *  Remove the data
+         * Remove the data
          */
-        $this->cacheObj->forget($key);
+        $this->cacheObj->delete($key);
         
-        //Check if the data being removed
+        // Check if the data being removed
         $return = $this->cacheObj->has($key);
-
+        $this->assertFalse($return);
     }
 
     public function testHas()
     {
         /**
-         *  Precondition
-         *
-         *  Check if there is nothing
+         * Precondition
+         * Check if there is nothing
          */
-
-        $key = 'Test_Key';
+        $key = 'test_key';
         $data = 'Test_Data';
         $return = $this->cacheObj->has($key);
         $this->assertFalse($return);
 
-        //Add a data
+        // Add data
         $this->cacheObj->put($key, $data);
 
-        //Check if the data exists
+        // Check if the data exists
         $return = $this->cacheObj->has($key);
         $this->assertTrue($return);
     }
 
-    public function testForgetAll()
+    public function testClear()
     {
-        /**
-         *  Insert two data
-         */
-        //First Data
+        // First Data
         $key = 'Test_Key';
         $data = 'Test_Data';
         $this->cacheObj->put($key, $data);
         $return=$this->cacheObj->get($key);
         $this->assertEquals($return, $data);
 
-        /**
-         *  Validate the data
-         */
+        // Validate the data
         $return = $this->cacheObj->has($key);
         $this->assertTrue($return);
 
-        //Second Data
+        // Second Data
         $key2 = 'Test_Key2';
         $data2 = 'Test_Data2';
         $this->cacheObj->put($key2, $data2);
         $return=$this->cacheObj->get($key2);
         $this->assertEquals($return, $data2);
 
-        /**
-         *  Validate the data
-         */
+        // Validate the data
         $return = $this->cacheObj->has($key);
         $this->assertTrue($return);
 
-        /**
-         *  Remove all data
-         */
-        $this->cacheObj->forgetALL();
+        // Remove all data
+        $this->cacheObj->clear();
 
-        //Check if all data are removed
+        // Check if all data are removed
         $return = $this->cacheObj->has($key);
         $this->assertFalse($return);
         $return = $this->cacheObj->has($key2);

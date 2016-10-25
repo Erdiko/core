@@ -1,4 +1,7 @@
 <?php
+/**
+ * Test Erdiko cache (filesystem cache)
+ */
 namespace tests\erdiko;
 
 use erdiko\core\Cache;
@@ -11,275 +14,156 @@ class CacheTest extends \tests\ErdikoTestCase
 
     public function setUp()
     {
-        Cache::forgetAll('memcached');
+        Cache::clear();
     }
 
     public function tearDown()
     {
-        Cache::forgetALL();
+        Cache::clear();
     }
 
     public function testGetCacheObject()
     {
         $defaultObj = Cache::getCacheObject();
-        Cache::forgetALL();
+        Cache::clear();
+
         /**
-         *  Precondition
-         *
-         *  Check if there is nothing
+         * Precondition
+         * Check if there is nothing
          */
-        $key = 'Test_Has_Key';
-        $data = 'Test_Has_Data';
+        $key = 'test_cache_key';
+        $data = 'Test Cache Data';
         $return = $defaultObj->has($key);
         $this->assertFalse($return);
 
-        //Add a data
+        // Add some data
         $defaultObj->put($key, $data);
 
-        //Check if the data exists
+        // Check if the data exists
         $return = $defaultObj->has($key);
         $this->assertTrue($return);
 
-
-        $memcache = 'memcached';
-        $memcacheObj = Cache::getCacheObject($memcache)->getObject();
-        Cache::forgetALL($memcache);
-        /**
-         *  Memcache Object
-         *
-         *  Precondition
-         *
-         *  Check if there is nothing
-         */
-        $key = 'Test_Has_Key';
-        $data = 'Test_Has_Data';
-        $return = $memcacheObj->get($key);
-        $this->assertFalse($return);
-
-        //Add a data
-        $memcacheObj->set($key, $data);
-
-        //Validate returned data
-        $return = $memcacheObj->get($key);
+        // Validate returned data
+        $return = $defaultObj->get($key);
         $this->assertEquals($data, $return);
-
     }
 
     /**
-     *
-     *  @depends testGetCacheObject
-     *
+     * @depends testGetCacheObject
      */
     public function testHas()
     {
-        Cache::forgetAll();
-        Cache::forgetAll('memcached');
+        Cache::clear();
+
         /**
-         *  Precondition
-         *
-         *  Check if there is nothing
+         * Precondition
+         * Check if there is nothing
          */
-        $key = 'Test_Has_Key';
-        $data = 'Test_Has_Data';
+        $key = 'test_has_key';
+        $data = 'Test Has Data';
         $return = Cache::has($key);
         $this->assertFalse($return);
 
-        //Add a data
+        // Add a data
         Cache::put($key, $data);
 
-        //Check if the data exists
+        // Check if the data exists
         $return = Cache::has($key);
         $this->assertTrue($return);
 
-
-        /**
-         *  Memcache
-         *
-         *  Precondition
-         *
-         *  Check if there is nothing
-         */
-        $memcache = 'memcached';
-        $key = 'Test_Has_Key';
-        $data = 'Test_Has_Data';
-        $return = Cache::has($key, $memcache);
-        $this->assertFalse($return);
-
-        //Add a data
-        Cache::put($key, $data, $memcache);
-
-        //Check if the data exists
-        $return = Cache::has($key, $memcache);
-        $this->assertTrue($return);
+        // Validate returned data
+        $return = Cache::get($key);
+        $this->assertEquals($data, $return);
     }
 
     /**
-     *
-     *  @depends testHas
-     *
+     * @depends testHas
      */
     public function testPutAndGet()
     {
+        $key = 'string_test';
+
         /**
          *  Precondition
-         *
          *  Check if there is nothing
          */
-
-        $key = 'stringTest';
         $return = Cache::has($key);
         $this->assertFalse($return);
 
         /**
-         *  String Test
-         *
-         *  Pass a string data to cache
+         * String Test
+         * Pass a string data to cache
          */
-        Cache::put($key, "test");
-        $return=Cache::get($key);
-        $this->assertEquals($return, "test");
+        $value = "test value";
+        Cache::put($key, $value);
+        $return = Cache::get($key);
+        $this->assertEquals($value, $return);
 
         /**
-         *  Array Test
-         *
-         *  Pass an array data to cache
+         * Array Test
+         * Pass an array data to cache
          */
-        $arr = array(
-                '1' => 'test1',
-                '2' => 'test2'
+        $value = array(
+                'test_1' => 'test 1',
+                'test_2' => 'test 2'
                 );
-
-        $key = 'arrayTest';
-        Cache::put($key, $arr);
-        $return=Cache::get($key);
-        $this->assertEquals($return, $arr);
+        Cache::put($key, $value);
+        $return = Cache::get($key);
+        $this->assertEquals($value, $return);
 
         /**
-         *  JSON Test
-         *
-         *  Pass a JSON data to cache
+         * JSON Test
+         * Pass a JSON data to cache
          */
-        $arr = array(
-                '1' => 'test1',
-                '2' => 'test2'
-                );
-        $arr = json_encode($arr);
-        $key = 'arrayTest';
-        Cache::put($key, $arr);
-        $return=Cache::get($key);
-        $this->assertEquals($return, $arr);
+        $json = json_encode($value);
+        Cache::put($key, $json);
+        $return = Cache::get($key);
+        $this->assertEquals($json, $return);
+
+        // Test decoded json
+        $arr = json_decode($return, TRUE);
+        $this->assertEquals($value, $arr);
+        $this->assertEquals($value['test_1'], $arr['test_1']);
+        $this->assertEquals($value['test_2'], $arr['test_2']);
 
         /**
-         *
-         *  Memcache Test
-         *
-         *
-         **/
-        /**
-         *  Precondition
-         *
-         *  Check if there is nothing
+         * Null Test
+         * Pass null to cache
          */
-        $memcache = 'memcached';
-        $key = 'stringTest';
-        $return = Cache::has($key, $memcache);
-        $this->assertFalse($return);
-        $return = Cache::get('non exist');
-        $this->assertEquals($return, null);
+        $key = 'null_test';
+        Cache::put($key, null);
+        $return= Cache::get($key);
+        $this->assertEquals(null, $return);
 
         /**
-         *  String Test
-         *
-         *  Pass a string data to cache
+         * Oject Test
+         * Pass a Object to cache
+         * Custom class won't work
          */
-        Cache::put($key, "test", $memcache);
-        $return=Cache::get($key, $memcache);
-        $this->assertEquals($return, "test");
-
-        /**
-         *  Array Test
-         *
-         *  Pass an array data to cache
-         */
-        $arr = array(
-                'index_one' => 'test_data_one',
-                'index_two' => 'test_data_two'
-                );
-
-        $key = 'arrayTest';
-        Cache::put($key, $arr, $memcache);
-        $return= Cache::get($key, $memcache);
+        $key = 'object_test';
+        $obj = new \stdClass();
+        $obj->var1 = 'Test var one';
+        $obj->var2 = 'Test var two';
         
-        $castedReturn = (array) $return;
-        $this->assertEquals($castedReturn['index_one'], $arr['index_one']);
-        $this->assertEquals($castedReturn['index_two'], $arr['index_two']);
-        $this->assertEquals($arr, $castedReturn);
+        Cache::put($key, $obj);
+        $return = (Object)Cache::get($key);
 
-        /**
-         *  Null Test
-         *
-         *  Pass null to cache
-         */
-        $key = 'nullTest';
-        Cache::put($key, null, $memcache);
-        $return= Cache::get($key, $memcache);
-        $this->assertEquals($return, null);
-
-        /**
-         *  JSON Test
-         *
-         *  Pass a JSON data to cache
-         */
-        $arr = array(
-                'index_one' => 'test_data_one',
-                'index_two' => 'test_data_two'
-                );
-        $jsonArr = json_encode($arr);
-        $key = 'jsonTest';
-        Cache::put($key, $jsonArr, $memcache);
-        $return= Cache::get($key, $memcache);
-        //Check if the JSON return equals to the input
-        $this->assertEquals($return, $jsonArr);
-        //Get the original array
-        $return = json_decode($return);
-        $castedReturn = (array) $return;
-
-        $this->assertEquals($castedReturn['index_one'], $arr['index_one']);
-        $this->assertEquals($castedReturn['index_two'], $arr['index_two']);
-        $this->assertEquals($arr, $castedReturn);
-
-        /**
-         *  Oject Test
-         *
-         *  Pass a Object to cache
-         *  Custom class won't work
-         */
-        $obj = new stdClass();
-        $obj->var1 = 'Test_var_one';
-        $obj->var2 = 'Test_var_two';
-        $key = 'objectTest';
-        Cache::put($key, $obj, $memcache);
-        $return= Cache::get($key, $memcache);
         $this->assertEquals($obj, $return);
         $this->assertEquals($obj->var1, $return->var1);
         $this->assertEquals($obj->var2, $return->var2);
-
     }
     
     /**
-     *
-     *  @depends testPutAndGet
-     *
+     * @depends testPutAndGet
      */
-    public function testForget()
+    public function testDelete()
     {
         /**
-         *  Precondition
-         *
-         *  Check if there is nothing
+         * Precondition
+         * Check if there is nothing
          */
-        $key = 'Test_Key';
-        $data = 'Test_Data';
+        $key = 'test_key';
+        $data = 'Test Data';
         $return = Cache::has($key);
         $this->assertFalse($return);
 
@@ -291,134 +175,59 @@ class CacheTest extends \tests\ErdikoTestCase
         $this->assertTrue($return);
 
         /**
-         *  Remove the data
+         * Remove the data
          */
-        Cache::forget($key);
+        Cache::delete($key);
         
         //Check if the data being removed
         $return = Cache::has($key);
         $this->assertFalse($return);
-
-        /**
-         *  Memcache
-         *
-         *  Precondition
-         *
-         *  Check if there is nothing
-         */
-        $memcache = 'memcached';
-        $key = 'Test_Key';
-        $data = 'Test_Data';
-        $return = Cache::has($key, $memcache);
-        $this->assertFalse($return);
-
-        //Add a data
-        Cache::put($key, $data, $memcache);
-
-        //Check if the data exists
-        $return = Cache::has($key, $memcache);
-        $this->assertTrue($return);
-
-        /**
-         *  Remove the data
-         */
-        Cache::forget($key, $memcache);
-        
-        //Check if the data being removed
-        $return = Cache::has($key, $memcache);
-        $this->assertFalse($return);
     }
     
     /**
-     *
-     *  @depends testPutAndGet
-     *  @depends testHas
-     *  @depends testForget
+     * @depends testDelete
      */
-    public function testForgetAll()
+    public function testClear()
     {
         /**
-         *  Insert two data
+         * Insert two data sets
          */
-        //First Data
-        $key = 'Test_Key';
-        $data = 'Test_Data';
+
+        // First Data
+        $key = 'test_key_1';
+        $data = 'Test Data 1';
         Cache::put($key, $data);
-        $return=Cache::get($key);
+        $return = Cache::get($key);
         $this->assertEquals($return, $data);
 
         /**
-         *  Validate the data
+         * Validate the data
          */
         $return = Cache::has($key);
         $this->assertTrue($return);
 
-        //Second Data
-        $key2 = 'Test_Key2';
-        $data2 = 'Test_Data2';
+        // Second Data
+        $key2 = 'test_key_2';
+        $data2 = 'Test Data 2';
         Cache::put($key2, $data2);
-        $return=Cache::get($key2);
-        $this->assertEquals($return, $data2);
+        $return = Cache::get($key2);
+        $this->assertEquals($data2, $return);
 
         /**
-         *  Validate the data
+         * Validate the data
          */
         $return = Cache::has($key);
         $this->assertTrue($return);
 
         /**
-         *  Remove all data
+         * Remove all data
          */
-        Cache::forgetALL();
+        Cache::clear();
 
         //Check if all data are removed
         $return = Cache::has($key);
         $this->assertFalse($return);
         $return = Cache::has($key2);
-        $this->assertFalse($return);
-
-
-        /**
-         *  Memcache
-         *
-         *  Insert two data
-         */
-        $memcache = 'memcached';
-        //First Data
-        $key = 'Test_Key';
-        $data = 'Test_Data';
-        Cache::put($key, $data, $memcache);
-        $return=Cache::get($key, $memcache);
-        $this->assertEquals($return, $data);
-
-        /**
-         *  Validate the data
-         */
-        $return = Cache::has($key, $memcache);
-        $this->assertTrue($return);
-
-        //Second Data
-        $key2 = 'Test_Key2';
-        $data2 = 'Test_Data2';
-        Cache::put($key2, $data2, $memcache);
-        $return=Cache::get($key2, $memcache);
-        $this->assertEquals($return, $data2);
-
-        /**
-         *  Validate the data
-         */
-        $return = Cache::has($key, $memcache);
-        $this->assertTrue($return);
-
-        /**
-         *  Remove all data
-         */
-        Cache::forgetALL($memcache);
-
-        //Check if all data are removed
-        $return = Cache::has($key, $memcache);
-        $this->assertFalse($return);
-        $return = Cache::has($key2, $memcache);
         $this->assertFalse($return);
     }
 }

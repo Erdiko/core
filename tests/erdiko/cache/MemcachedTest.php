@@ -1,7 +1,6 @@
 <?php
 /**
- *  Please make sure to start Memcached service before running this test.
- *
+ * @note Please make sure to start Memcached service before running this test
  */
 namespace tests\erdiko;
 
@@ -21,31 +20,31 @@ class MemcachedTest extends \tests\ErdikoTestCase
 
     public function tearDown()
     {
+        $this->memcacheObj->clear('memcached');
         unset($this->memcacheObj);
     }
 
     public function testHas()
     {
-        /**
-         *  Remove all data
-         */
-        $this->memcacheObj->forgetAll();
+        $key = 'test_has_key';
+        $data = 'Test Has Data';
 
         /**
-         *  Precondition
-         *
-         *  Check if there is nothing
+         * Remove all data
          */
+        $this->memcacheObj->clear('memcached');
 
-        $key = 'Test_Has_Key';
-        $data = 'Test_Has_Data';
+        /**
+         * Precondition
+         * Check if there is nothing
+         */
         $return =  $this->memcacheObj->has($key);
         $this->assertFalse($return);
 
-        //Add a data
+        // Add data
         $this->memcacheObj->put($key, $data);
 
-        //Check if the data exists
+        // Check if the data exists
         $return = $this->memcacheObj->has($key);
         $this->assertTrue($return);
     }
@@ -58,9 +57,8 @@ class MemcachedTest extends \tests\ErdikoTestCase
     public function testPutAndGet()
     {
         /**
-         *  Precondition
-         *
-         *  Check if there is nothing
+         * Precondition
+         * Check if there is nothing
          */
         $key = 'stringTest';
         $return = $this->memcacheObj->has($key);
@@ -69,18 +67,16 @@ class MemcachedTest extends \tests\ErdikoTestCase
         $this->assertEquals($return, null);
 
         /**
-         *  String Test
-         *
-         *  Pass a string data to cache
+         * String Test
+         * Pass a string data to cache
          */
         $this->memcacheObj->put($key, "test");
         $return= $this->memcacheObj->get($key);
         $this->assertEquals($return, "test");
 
         /**
-         *  Array Test
-         *
-         *  Pass an array data to cache
+         * Array Test
+         * Pass an array data to cache
          */
         
         $arr = array(
@@ -98,9 +94,8 @@ class MemcachedTest extends \tests\ErdikoTestCase
         $this->assertEquals($arr, $castedReturn);
 
         /**
-         *  Null Test
-         *
-         *  Pass null to cache
+         * Null Test
+         * Pass null to cache
          */
         $key = 'nullTest';
         $this->memcacheObj->put($key, null);
@@ -109,9 +104,8 @@ class MemcachedTest extends \tests\ErdikoTestCase
 
 
         /**
-         *  JSON Test
-         *
-         *  Pass a JSON data to cache
+         * JSON Test
+         * Pass a JSON data to cache
          */
         $arr = array(
                 'index_one' => 'test_data_one',
@@ -133,10 +127,9 @@ class MemcachedTest extends \tests\ErdikoTestCase
 
 
         /**
-         *  Oject Test
-         *
-         *  Pass a Object to cache
-         *  Custom class won't work
+         * Oject Test
+         * Pass a Object to cache
+         * Custom class won't work
          */
         $obj = new stdClass();
         $obj->var1 = 'Test_var_one';
@@ -150,63 +143,60 @@ class MemcachedTest extends \tests\ErdikoTestCase
     }
 
     /**
-     *
-     *  @depends testPutAndGet
-     *
+     * @depends testPutAndGet
      */
-    public function testForget()
+    public function testDelete()
     {
         /**
-         *  Precondition
-         *
-         *  Check if there is nothing
+         * Precondition
+         * Check if there is nothing
          */
         $key = 'Test_Key';
         $data = 'Test_Data';
         $return = $this->memcacheObj->has($key);
         $this->assertFalse($return);
 
-        //Add a data
+        // Add a data
         $this->memcacheObj->put($key, $data);
 
-        //Check if the data exists
+        // Check if the data exists
         $return = $this->memcacheObj->has($key);
         $this->assertTrue($return);
 
         /**
-         *  Remove the data
+         * Remove the data
          */
-        $this->memcacheObj->forget($key);
+        $this->memcacheObj->delete($key);
         
-        //Check if the data being removed
+        // Check if the data being removed
         $return = $this->memcacheObj->has($key);
     }
     
     /**
-     *
-     *  @depends testPutAndGet
-     *  @depends testHas
-     *  @depends testForget
+     * @depends testPutAndGet
+     * @depends testHas
+     * @depends testDelete
      */
-    public function testForgetAll()
+    public function testClear()
     {
         /**
-         *  Insert two data
+         * Insert two data
          */
-        //First Data
-        $key = 'Test_Key';
+
+        // First Data
+        $key = 'test_key';
         $data = 'Test_Data';
         $this->memcacheObj->put($key, $data);
         $return=$this->memcacheObj->get($key);
         $this->assertEquals($return, $data);
 
         /**
-         *  Validate the data
+         * Validate the data
          */
         $return = $this->memcacheObj->has($key);
         $this->assertTrue($return);
 
-        //Second Data
+        // Second Data
         $key2 = 'Test_Key2';
         $data2 = 'Test_Data2';
         $this->memcacheObj->put($key2, $data2);
@@ -214,13 +204,13 @@ class MemcachedTest extends \tests\ErdikoTestCase
         $this->assertEquals($return, $data2);
 
         /**
-         *  Validate the data
+         * Validate the data
          */
         $return = $this->memcacheObj->has($key);
         $this->assertTrue($return);
 
         /**
-         *  Check the cache in testPutAndGet
+         * Check the cache in testPutAndGet
          **/
         $return = $this->memcacheObj->has('stringTest');
         $this->assertTrue($return);
@@ -232,11 +222,11 @@ class MemcachedTest extends \tests\ErdikoTestCase
         $this->assertTrue($return);
 
         /**
-         *  Remove all data
+         * Remove all data
          */
-        $this->memcacheObj->forgetAll();
+        $this->memcacheObj->clear();
 
-        //Check if all data are removed
+        // Check if all data are removed
         $return = $this->memcacheObj->has($key);
         $this->assertFalse($return);
         $return = $this->memcacheObj->has($key2);

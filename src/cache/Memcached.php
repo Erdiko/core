@@ -128,7 +128,7 @@ class Memcached implements CacheInterface
      *  @parm mixed $key
      *
      */
-    public function forget($key)
+    public function delete($key)
     {
         $filename = $this->getKeyCode($key);
         $this->memcacheObj->delete($filename);
@@ -137,7 +137,7 @@ class Memcached implements CacheInterface
     /**
      *  Flush all the cache
      */
-    public function forgetAll()
+    public function clear()
     {
         $this->memcacheObj->flush();
     }

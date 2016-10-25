@@ -68,25 +68,26 @@ class File extends \erdiko\core\datasource\File implements CacheInterface
     }
     
     /**
-     * Forget a key
+     * Delete a key
      *
      * @param string @key
+     * @note path is only for compatibility, do not use
      */
-    public function forget($key)
+    public function delete($key, $path = null)
     {
         $filename = $this->getKeyCode($key);
-        $this->delete($filename);
+        parent::delete($filename, $path);
     }
 
     /**
-     * Forget all key
+     * Delete all keys
      */
-    public function forgetAll()
+    public function clear()
     {
         $files = glob(ERDIKO_VAR."/cache/*");
         foreach ($files as $file) {
             if (is_file($file)) {
-                $this->delete(basename($file));
+                parent::delete(basename($file));
             }
         }
     }
