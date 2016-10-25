@@ -42,7 +42,7 @@ class Helper
      * @return array $config
      */
     public static function getConfigFile($filename)
-    {        
+    {
         $filename = addslashes($filename);
         if (is_file($filename)) {
             $data = str_replace("\\", "\\\\", file_get_contents($filename));

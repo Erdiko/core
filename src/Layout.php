@@ -171,9 +171,13 @@ class Layout extends Container
      */
     public function getRegion($name)
     {
-        $html = (is_subclass_of($this->_regions[$name], 'erdiko\core\Container')) ?
-            $this->_regions[$name]->toHtml() : $this->_regions[$name];
-
+        if(array_key_exists($name, $this->_regions)) {
+            $html = (is_subclass_of($this->_regions[$name], 'erdiko\core\Container')) ?
+                $this->_regions[$name]->toHtml() : $this->_regions[$name];
+        } else {
+            throw new \Exception("Template region '{$name}' does not exits.");
+        }
+        
         return $html;
     }
 
