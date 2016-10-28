@@ -14,85 +14,92 @@ use ToroHook;
 
 class ErrorHandler {
 
-	/**
-	 *
-	 */
+
 	public static function init()
 	{
 		ini_set('html_errors',0);
 		error_reporting((E_ALL | E_STRICT));
 		if (version_compare(phpversion(), '5.2.3', '<')) {
 			set_error_handler(array("\\erdiko\\core\\ErrorHandler","errorHandler"));
+			set_exception_handler(array("\\erdiko\\core\\ErrorHandler","exceptionHandler"));
 			register_shutdown_function(array("\\erdiko\\core\\ErrorHandler",'fatalErrorShutdownHandler'));
 		} else {
 			set_error_handler("\\erdiko\\core\\ErrorHandler::errorHandler");
+			set_exception_handler("\\erdiko\\core\\ErrorHandler::exceptionHandler");
 			register_shutdown_function("\\erdiko\\core\\ErrorHandler::fatalErrorShutdownHandler");
 		}
 	}
 
-	/**
-	 * @param $errno
-	 * @param $errstr
-	 * @param $errfile
-	 * @param $errline
-	 *
-	 * @return bool|null
-	 */
 	public static function errorHandler($errno, $errstr, $errfile, $errline)
 	{
-		if (!(error_reporting() & $errno) || empty($errstr)) {
+		$debug = \erdiko\core\ErrorHandler::isDebug();
+		if ( ! ( error_reporting() & $errno ) || empty( $errstr ) ) {
 			return null;
 		}
-		$msg = array("type"=>"", "code"=>$errno, "description"=>$errstr, "path_info"=>"$errfile (line:$errline)");
-		switch ($errno) {
-			case E_USER_ERROR:
-				$msg['type'] = "USER ERROR";
-				$msg['description'] = "  Fatal error in line $errline of $errfile file";
-				$msg['description'] .= ", PHP " . PHP_VERSION . " (" . PHP_OS . ")";
-				break;
+		if($debug) {
+			$msg = array( "type"        => "",
+			              "code"        => $errno,
+			              "description" => $errstr,
+			              "path_info"   => "$errfile (line:$errline)"
+			);
+			switch ( $errno ) {
+				case E_USER_ERROR:
+					$msg['type']        = "USER ERROR";
+					$msg['description'] = "  Fatal error in line $errline of $errfile file";
+					$msg['description'] .= ", PHP " . PHP_VERSION . " (" . PHP_OS . ")";
+					break;
 
-			case E_USER_WARNING:
-				$msg['type'] = "USER WARNING";
-				break;
+				case E_USER_WARNING:
+					$msg['type'] = "USER WARNING";
+					break;
 
-			case E_USER_NOTICE:
-				$msg['type'] = "USER NOTICE";
-				break;
+				case E_USER_NOTICE:
+					$msg['type'] = "USER NOTICE";
+					break;
 
-			case E_ERROR:
-				$msg['type'] = "ERROR";
-				break;
+				case E_ERROR:
+					$msg['type'] = "ERROR";
+					$msg['description'] = debug_backtrace();
+					break;
 
-			default:
-				$msg['type'] = "Tipo de error desconocido: [$errno] $errstr";
-				break;
+				default:
+					$msg['type'] = "Tipo de error desconocido: [$errno] $errstr";
+					break;
+			}
+
+			$vars['code']      = $errno;
+			$vars['error']     = $errstr;
+			$vars['message']   = $msg;
+			$vars['path_info'] = $errfile . " on line " . $errline;
+			ToroHook::fire( "php_error", $vars );
+		} else {
+			$vars['error']     = $errstr;
+			$vars['path_info'] = $errfile . " on line " . $errline;
+			ToroHook::fire('500', $vars);
 		}
-
-		$vars['code'] = $errno;
-		$vars['error'] = $errstr;
-		$vars['message'] = $msg;
-		$vars['path_info'] = $errfile." on line ".$errline;
-		ToroHook::fire("php_error",$vars);
-
 		return false;
 	}
 
-	/**
-	 *
-	 */
+	public static function exceptionHandler(Exception $e)
+	{
+		$errors = array(
+			E_USER_ERROR        => "User Error",
+			E_USER_WARNING        => "User Warning",
+			E_USER_NOTICE        => "User Notice",
+		);
+
+		echo $errors[$e->getCode()].': '.$e->getMessage().' in '.$e->getFile().
+		     ' on line '.$e->getLine()."\n";
+		echo $e->getTraceAsString();
+		die;
+	}
+
 	public static function fatalErrorShutdownHandler()
 	{
 		$last_error = error_get_last();
 		\erdiko\core\ErrorHandler::errorHandler(E_ERROR, $last_error['message'], $last_error['file'], $last_error['line']);
 	}
 
-	/**
-	 * This method will fire a Toro hook in case of receive a valid code.
-	 *
-	 * @param null $code
-	 *
-	 * @return bool
-	 */
 	public static function fire($code=null)
 	{
 		$vars = array();
@@ -218,5 +225,15 @@ class ErrorHandler {
 			ToroHook::fire('server_error',$vars);
 		}
 		return true;
+	}
+
+	/**
+	 * isDebug
+	 *
+	 * @return bool
+	 */
+	public static function isDebug()
+	{
+		return (getenv("ERDIKO_DEBUG")=='1');
 	}
 }
