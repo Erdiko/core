@@ -28,7 +28,7 @@ class Cache
     {
             //Check if the caller requests an new object
         if (empty(self::$instance[$cacheConfig])) {
-            $config = Helper::getConfig();
+            $config = Helper::getConfig('application', $cacheConfig);
 
             //Check if the object already be created
             if (isset($config["cache"][$cacheConfig])) {
