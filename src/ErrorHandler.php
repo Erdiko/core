@@ -12,20 +12,14 @@ namespace erdiko\core;
 
 use ToroHook;
 
-class ErrorHandler {
-
-
+class ErrorHandler 
+{
 	public static function init()
 	{
 		ini_set('html_errors',0);
 		error_reporting((E_ALL | E_STRICT));
-		if (version_compare(phpversion(), '5.2.3', '<')) {
-			set_error_handler(array("\\erdiko\\core\\ErrorHandler","errorHandler"));
-			register_shutdown_function(array("\\erdiko\\core\\ErrorHandler",'fatalErrorShutdownHandler'));
-		} else {
-			set_error_handler("\\erdiko\\core\\ErrorHandler::errorHandler");
-			register_shutdown_function("\\erdiko\\core\\ErrorHandler::fatalErrorShutdownHandler");
-		}
+		set_error_handler("\\erdiko\\core\\ErrorHandler::errorHandler");
+		register_shutdown_function("\\erdiko\\core\\ErrorHandler::fatalErrorShutdownHandler");
 	}
 
 	public static function errorHandler($errno, $errstr, $errfile, $errline)
@@ -38,7 +32,7 @@ class ErrorHandler {
 		switch ( $errno ) {
 			case E_USER_ERROR:
 				$vars['msg_type']        = "USER ERROR";
-				$vars['msg_description'] = "  Fatal error in line $errline of $errfile file";
+				$vars['msg_description'] = " Fatal error in line $errline of $errfile file";
 				$vars['msg_description'] .= ", PHP " . PHP_VERSION . " (" . PHP_OS . ")";
 				break;
 
@@ -56,7 +50,7 @@ class ErrorHandler {
 				break;
 
 			default:
-				$vars['msg_type'] = "Tipo de error desconocido: [$errno] $errstr";
+				$vars['msg_type'] = "Type of error: [$errno] $errstr";
 				$vars['msg_description'] = print_r(debug_backtrace(),1);
 				break;
 		}
@@ -66,13 +60,15 @@ class ErrorHandler {
 		$vars['path_info']          = $errfile . " on line " . $errline;
 		$vars['debug']              = $debug;
 		ToroHook::fire( "general_error", $vars );
+
 		return false;
 	}
 
 	public static function fatalErrorShutdownHandler()
 	{
 		$last_error = error_get_last();
-		\erdiko\core\ErrorHandler::errorHandler(E_ERROR, $last_error['message'], $last_error['file'], $last_error['line']);
+		self::errorHandler(E_ERROR, 
+			$last_error['message'], $last_error['file'], $last_error['line']);
 	}
 
 	/**

@@ -1,6 +1,6 @@
 {
 	"name":"erdiko/core",
-    "description": "Erdiko core - MVC micro framework",
+    "description": "Erdiko micro MVC core libraries",
     "keywords": ["framework", "erdiko", "erdiko-core"],
     "homepage": "http://erdiko.org",
     "license": "MIT",

@@ -3,9 +3,9 @@ Erdiko Core
 
 [![Package version](https://img.shields.io/packagist/v/erdiko/core.svg?style=flat-square)](https://packagist.org/packages/erdiko/core)
 
-*Erdiko MVC micro framework's core components*
+*Erdiko micro MVC core components*
 
-A lightweight but powerful MVC micro framework.  Get work done without the bloat!
+Erdiko is a lightweight but powerful micro MVC framework.  Get work done without the bloat!
 
 This is the engine that runs erdiko, for the full micro framework visit [https://github.com/ArroyoLabs/erdiko](https://github.com/ArroyoLabs/erdiko) or [erdiko.org](http://www.erdiko.org/)
 
@@ -27,6 +27,8 @@ John Arroyo
 
 Andy Armstrong
 
+Leo Daidone
+
 Coleman Tung
 
 Fangxiang Wang
@@ -36,5 +38,3 @@ Varun Brahme
 ## Credits
 
 [ArroyoLabs](http://www.arroyolabs.com/) - Primary sponsor
-
-[ToroPHP](https://github.com/anandkunal/ToroPHP) - The basis of the Erdiko router
