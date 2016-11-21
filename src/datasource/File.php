@@ -38,6 +38,20 @@ class File
             mkdir($this->_filePath, 0775, true);
         }
     }
+
+    /**
+     * Create Directory
+     * If path doesn't exist, create it
+     */
+    private function createDir($path)
+    {
+        if (!is_dir($path)) {
+            $success = mkdir($path, 0775, true);
+            if (!$success) {
+                throw new \Exception("Cannot create folder {$path}. Check file system permissions.");
+            }
+        }
+    }
     
     /**
      * Write string to file
@@ -54,12 +68,7 @@ class File
             $pathToFile = $this->_filePath;
         }
 
-        if (!is_dir($pathToFile)) {
-            $success = mkdir($pathToFile, 0775, true);
-            if (!$success) {
-                throw new \Exception("Cannot create folder. Check file system permissions.");
-            }
-        }
+        $this->createDir($pathToFile);
 
         $fileHandle = fopen($pathToFile."/".$filename, $mode);
         $success = fwrite($fileHandle, $content);
@@ -77,6 +86,9 @@ class File
      */
     public function read($filename, $pathToFile = null)
     {
+        if(!$this->fileExists($filename, $pathToFile))
+            throw new \Exception("File, '{$filename}', does not exist.");
+
         if ($pathToFile==null) {
             return file_get_contents($this->_filePath."/".$filename);
         } else {
@@ -117,6 +129,7 @@ class File
             $pathFrom=$this->_filePath;
         }
         if (file_exists($pathFrom."/".$filename)) {
+            $this->createDir($pathTo);
             return rename($pathFrom."/".$filename, $pathTo."/".$filename);
         } else {
             return null;
@@ -130,6 +143,7 @@ class File
      * @param string $pathTo
      * @param string $pathToFrom
      * @return bool
+     * @todo consider merging rename() and move() into one method
      */
     public function rename($oldName, $newName, $pathToFile = null)
     {
@@ -137,6 +151,7 @@ class File
             $pathToFile=$this->_filePath;
         }
         if (file_exists($pathToFile."/".$oldName)) {
+            $this->createDir($pathToFile);
             return rename($pathToFile."/".$oldName, $pathToFile."/".$newName);
         } else {
             return false;
