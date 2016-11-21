@@ -6,10 +6,11 @@
 namespace tests\erdiko;
 
 use erdiko\core\Logger;
+use erdiko\core\Helper;
 
 require_once dirname(__DIR__).'/ErdikoTestCase.php';
 
-class ErdikoTest extends \tests\ErdikoTestCase
+class HelperTest extends \tests\ErdikoTestCase
 {
     public function testGetConfigFile()
     {
@@ -18,7 +19,7 @@ class ErdikoTest extends \tests\ErdikoTestCase
          */
         //Get the config file through getConfigFile function
         $filename = ERDIKO_APP."/config/default/application.json";
-        $return = \Erdiko::getConfigFile($filename);
+        $return = Helper::getConfigFile($filename);
 
         //Get the config file through file_get_contents function
         $content = file_get_contents($filename);
@@ -30,7 +31,7 @@ class ErdikoTest extends \tests\ErdikoTestCase
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Exception
      */
     public function testGetConfigFileException()
     {
@@ -40,7 +41,7 @@ class ErdikoTest extends \tests\ErdikoTestCase
          *  Passing a non-exist config file
          */
         $fileName = ERDIKO_APP.'/config/'."non-exist.json";
-        $return = \Erdiko::getConfigFile($fileName);
+        $return = Helper::getConfigFile($fileName);
     }
 
     public function testConfig()
@@ -49,11 +50,11 @@ class ErdikoTest extends \tests\ErdikoTestCase
          *  First Test
          */
         $filename = "application";        
-        $this->assertTrue(\Erdiko::getConfig($filename) != false);
+        $this->assertTrue(Helper::getConfig($filename) != false);
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Exception
      */
     public function testConfigException()
     {
@@ -63,18 +64,18 @@ class ErdikoTest extends \tests\ErdikoTestCase
          *  Passing a non-exist config file
          */
         $fileName = "application/non-exist";
-        $this->assertTrue(\Erdiko::getConfig($fileName) != false);
+        Helper::getConfig($fileName);
     }
 
-    public function testSendEmail()
+    public function testSlendEmail()
     {
-        \Erdiko::sendEmail("To@arroyolabs.com", "Test Heading", "Test Body", "From@arroyolabs.com");
+        Helper::sendEmail("To@arroyolabs.com", "Test Heading", "Test Body", "From@arroyolabs.com");
     }
 
     public function testGetRoutes()
     {
         //Get routes through getRoutes function
-        $return = \Erdiko::getRoutes();
+        $return = Helper::getRoutes();
 
         //Get routes through direct access
         $filename =  ERDIKO_APP.'/config/default/routes.json';
@@ -94,21 +95,17 @@ class ErdikoTest extends \tests\ErdikoTestCase
         $sampleText="info: This is a sample log for Erdiko class test";
         
         /**
-         *  First test
-         *
-         *  Log a regular message
+         * Log a regular message
          */
-        \Erdiko::log(\Psr\Log\LogLevel::INFO, $sampleText);
+        Helper::log(\Psr\Log\LogLevel::INFO, $sampleText);
         $return= $fileObj->read("system.log", $logFolder);
         $this->assertTrue(strpos($return, $sampleText) !== false);
 
         /**
-         *  First test
-         *
-         *  Log a exception message
+         * Log a exception message
          */
         $sampleText="error: This is a sample EXCEPTION log for Erdiko class test";
-        \Erdiko::log(\Psr\Log\LogLevel::ERROR, $sampleText);
+        Helper::log(\Psr\Log\LogLevel::ERROR, $sampleText);
         $return= $fileObj->read("system.log", $logFolder);
         $this->assertTrue(strpos($return, $sampleText) !== false);
 
@@ -120,11 +117,6 @@ class ErdikoTest extends \tests\ErdikoTestCase
     public function getCache()
     {
         //Reture false if config file is not existed
-        $this->assertTrue(\Erdiko::getCache("default"));
-    }
-
-    public function testGetTemplate()
-    {
-        //Deprecated function
+        $this->assertTrue(Helper::getCache("default"));
     }
 }
