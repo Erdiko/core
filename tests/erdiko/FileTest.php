@@ -8,20 +8,16 @@ require_once dirname(__DIR__).'/ErdikoTestCase.php';
 
 class FileTest extends \tests\ErdikoTestCase
 {
-    // contains the object handle of the string class
     public $fileObj=null;
     public $webRoot=null;
 
-    // called before the test functions will be executed
-    // this function is defined in PHPUnit_TestCase and overwritten
-    // here
+    /**
+     * SetUp
+     */
     public function setUp()
     {
-        // create a new instance of String with the
-        // string 'abc'
         $this->fileObj = new File();
-
-        $this->webRoot = dirname(dirname(__DIR__));
+        $this->webRoot = dirname(__DIR__)."/files";
         //echo $this->webRoot;
     }
 
@@ -34,34 +30,35 @@ class FileTest extends \tests\ErdikoTestCase
         unset($this->fileObj);
     }
 
-    // test the toString function
+    /**
+     * Test write and read
+     * @todo break into 2 test functions
+     */
     public function testWriteAndRead()
     {
-
-        $string="Sample string";
+        $string = "Sample string";
         $this->fileObj->write($string, "sample.txt");
-        $result=$this->fileObj->read("sample.txt");
-        $this->assertTrue($result == $string);
+        $result = $this->fileObj->read("sample.txt");
+        $this->assertEquals($string, $result);
 
         $string2 = "Sample string 2";
-        $this->fileObj->write($string2, "sample2.txt", $this->webRoot."/tests/");
-        $result2=$this->fileObj->read("sample2.txt", $this->webRoot."/tests/");
-        $this->assertTrue($result2 == $string2);
+        $this->fileObj->write($string2, "sample2.txt", $this->webRoot."/tests");
+        $result2 = $this->fileObj->read("sample2.txt", $this->webRoot."/tests");
+        $this->assertEquals($string2, $result2);
 
         $string3 = "Sample string 3";
-        $this->fileObj->write($string3, "sample3.txt", $this->webRoot."/tests/", "a");
-        $result3=$this->fileObj->read("sample3.txt", $this->webRoot."/tests/");
-        $this->assertTrue($result3 == $string3);
-
+        $this->fileObj->write($string3, "sample2.txt", $this->webRoot."/tests", "a");
+        $result3 = $this->fileObj->read("sample2.txt", $this->webRoot."/tests");
+        $this->assertEquals($string2.$string3, $result3);
+        $this->assertStringEndsWith($string3, $result3);
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \Exception
      */
     public function testReadNotExistFile()
     {
-        $result4=$this->fileObj->read("not_exist.txt", $this->webRoot."/tests/");
-        $this->assertTrue($result4 === false);
+        $result4 = $this->fileObj->read("does_not_exist.txt", $this->webRoot."/tests");
     }
     
     /**
@@ -69,63 +66,96 @@ class FileTest extends \tests\ErdikoTestCase
      */
     public function testMove()
     {
-        $this->assertTrue($this->fileObj->move("sample2.txt", $this->webRoot."/tests/app/", $this->webRoot."/tests/"));
+        $contents1 = $this->fileObj->read("sample2.txt", $this->webRoot."/tests");
+        $test = $this->fileObj->move("sample2.txt", $this->webRoot."/tests/app", $this->webRoot."/tests");
+
+        $this->assertTrue($test);
+        
+        // verify move with a file read
+        $contents2 = $this->fileObj->read("sample2.txt", $this->webRoot."/tests/app");
+        $this->assertEquals($contents1, $contents2);
     }
-    
+
     /**
-     * @depends testWriteAndRead
+     * @depends testMove
+     * @expectedException \Exception
      */
-    public function testRename()
+    public function testMoveFail()
     {
-        $this->assertTrue($this->fileObj->rename("sample3.txt", "sample4.txt", $this->webRoot."/tests/"));
+        // Verify original file is now gone
+        $contents = $this->fileObj->read("sample2.txt", $this->webRoot."/tests");
     }
 
     /**
-     * @depends testWriteAndRead
+     * @depends testMove
      */
-
     public function testCopy()
     {
-        $this->assertTrue($this->fileObj->copy("sample.txt", $this->webRoot."/tests/"));
-        $this->assertTrue($this->fileObj->copy("sample.txt", $this->webRoot."/tests/", "sample_copy.txt"));
+        $this->assertTrue($this->fileObj->copy("sample.txt", $this->webRoot."/tests"));
+        $this->assertTrue($this->fileObj->copy("sample.txt", $this->webRoot."/tests", "sample_copy.txt"));
         $this->assertTrue(
             $this->fileObj->copy(
                 "sample.txt",
-                $this->webRoot."/tests/app/",
+                $this->webRoot."/tests/app",
                 "sample_copy2.txt",
-                $this->webRoot."/tests/"
+                $this->webRoot."/tests"
             )
         );
     }
 
     /**
-     * @depends testWriteAndRead
+     * @depends testCopy
      */
-
-    public function testFileExists()
+    public function testRename()
     {
-        $this->assertTrue($this->fileObj->fileExists("sample.txt"));
-        $this->assertFalse($this->fileObj->fileExists("sample_not_exist.txt"));
-
-        $this->assertTrue($this->fileObj->fileExists("sample.txt", $this->webRoot."/tests/"));
-        $this->assertFalse($this->fileObj->fileExists("sample_not_exist.txt", $this->webRoot."/tests/app/"));
+        $this->assertTrue($this->fileObj->rename("sample_copy.txt", "sample4.txt", $this->webRoot."/tests"));
+        // @todo verify move with a file read
     }
 
     /**
-     * @depends testMove
      * @depends testRename
+     * @todo add tests
+     */
+    public function testRenameFail()
+    {
+        $this->assertTrue(TRUE);
+    }
+
+    /**
      * @depends testCopy
+     */
+    public function testFileExists()
+    {
+        $this->assertTrue($this->fileObj->fileExists("sample.txt"));
+        $this->assertTrue($this->fileObj->fileExists("sample.txt", $this->webRoot."/tests"));
+
+        $this->assertFalse($this->fileObj->fileExists("sample_not_exist.txt"));
+        $this->assertFalse($this->fileObj->fileExists("does_not_exist.txt", $this->webRoot."/tests/app"));
+    }
+
+    /**
      * @depends testFileExists
      */
-
     public function testDelete()
     {
         $this->assertTrue($this->fileObj->delete("sample.txt"));
-        $this->assertTrue($this->fileObj->delete("sample2.txt", $this->webRoot."/tests/app/"));
-        $this->assertTrue($this->fileObj->delete("sample4.txt", $this->webRoot."/tests/"));
+        $this->assertTrue($this->fileObj->delete("sample2.txt", 
+            $this->webRoot."/tests/app"));
+        $this->assertTrue($this->fileObj->delete("sample4.txt", 
+            $this->webRoot."/tests"));
+        $this->assertTrue($this->fileObj->delete("sample.txt", 
+            $this->webRoot."/tests"));
+        $this->assertTrue($this->fileObj->delete("sample_copy2.txt", 
+            $this->webRoot."/tests/app"));
+    }
 
-        $this->assertTrue($this->fileObj->delete("sample.txt", $this->webRoot."/tests/"));
-        $this->assertTrue($this->fileObj->delete("sample_copy.txt", $this->webRoot."/tests/"));
-        $this->assertTrue($this->fileObj->delete("sample_copy2.txt", $this->webRoot."/tests/app/"));
+    /**
+     * Try to delete a file that has already been deleted
+     * 
+     * @depends testDelete
+     */
+    public function testDeleteFail()
+    {
+        $this->assertFalse($this->fileObj->delete("sample.txt"));
     }
 }
