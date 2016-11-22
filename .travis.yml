@@ -25,6 +25,8 @@ script:
   - cd ../
   - ln -s erdiko-core/scripts erdiko/scripts
   - sudo chmod 770 erdiko-core/scripts/*.sh
+  - ls -lah
+  - ls -lah erdiko
 
   - sudo docker exec erdiko_php7 /code/scripts/ci-setup.sh
   - ln -s erdiko-core erdiko/vendor/erdiko/core
