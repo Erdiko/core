@@ -1,0 +1,35 @@
+sudo: required
+
+install:
+  - curl -sSL https://get.docker.com/ | sudo sh
+  - sudo pip install docker-compose
+  - pwd
+  - ls -lah
+
+before_script:
+  - cd ../
+  - wget https://github.com/ArroyoLabs/erdiko/archive/develop.zip
+  - unzip develop.zip
+  - mv erdiko-develop erdiko
+  - ls -lah
+  # - cd ../ && sudo git clone -b develop https://github.com/ArroyoLabs/erdiko-core.git
+  # - cd git sudo clone -b develop https://github.com/ArroyoLabs/erdiko-wordpress.git
+  # - cd erdiko-core
+
+script:
+  - cd erdiko
+  - ls -lah
+  - sudo docker-compose up -d
+  - sudo docker-compose ps
+  
+  - cd ../
+  - ln -s erdiko-core/scripts erdiko/scripts
+  - sudo chmod 770 erdiko-core/scripts/*.sh
+
+  - sudo docker exec erdiko_php7 /code/vendor/erdiko/core/scripts/ci-setup.sh
+  - ln -s erdiko-core erdiko/vendor/erdiko/core
+  - sudo docker exec erdiko_php7 /code/vendor/erdiko/core/scripts/ci-tests.sh
+
+notifications:
+  email:
+    - john@arroyolabs.com 
