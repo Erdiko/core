@@ -21,7 +21,9 @@ script:
   - ln -s ../erdiko-core/scripts scripts
   - sudo chmod 770 scripts/*.sh
   - sudo docker exec erdiko_php7 /code/scripts/ci-setup.sh
-  - ln -s erdiko-core erdiko/vendor/erdiko/core
+  - pwd
+  - cd vendor/erdiko && rm -rf core
+  - ln -s ../../../erdiko-core core
   - sudo docker exec erdiko_php7 /code/scripts/ci-tests.sh
 
 notifications:
