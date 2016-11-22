@@ -156,6 +156,6 @@ class FileTest extends \tests\ErdikoTestCase
      */
     public function testDeleteFail()
     {
-        $this->assertTrue($this->fileObj->delete("sample.txt"));
+        $this->assertFalse($this->fileObj->delete("sample.txt"));
     }
 }
