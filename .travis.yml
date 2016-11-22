@@ -12,22 +12,14 @@ before_script:
   - unzip develop.zip
   - mv erdiko-develop erdiko
   - ls -lah
-  # - cd ../ && sudo git clone -b develop https://github.com/ArroyoLabs/erdiko-core.git
-  # - cd git sudo clone -b develop https://github.com/ArroyoLabs/erdiko-wordpress.git
-  # - cd erdiko-core
 
 script:
   - cd erdiko
   - ls -lah
   - sudo docker-compose up -d
   - sudo docker-compose ps
-  
-  - cd ../
-  - ln -s erdiko-core/scripts erdiko/scripts
-  - sudo chmod 770 erdiko-core/scripts/*.sh
-  - ls -lah
-  - ls -lah erdiko
-
+  - ln -s ../erdiko-core/scripts scripts
+  - sudo chmod 770 scripts/*.sh
   - sudo docker exec erdiko_php7 /code/scripts/ci-setup.sh
   - ln -s erdiko-core erdiko/vendor/erdiko/core
   - sudo docker exec erdiko_php7 /code/scripts/ci-tests.sh
