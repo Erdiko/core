@@ -18,13 +18,17 @@ script:
   - ls -lah
   - ln -s ../erdiko-core/scripts scripts
   - sudo chmod 770 scripts/*.sh
-  
+
   - sudo docker-compose up -d
   - sudo docker-compose ps
+
+  - pwd
+  - cd scripts
+  - ls -lah
   
   - sudo docker exec erdiko_php7 /code/scripts/ci-setup.sh
   - pwd
-  - cd vendor/erdiko && sudo rm -rf core
+  - cd /home/travis/build/ArroyoLabs/erdiko/vendor/erdiko && sudo rm -rf core
   - ln -s ../../../erdiko-core core
   - sudo docker exec erdiko_php7 /code/scripts/ci-tests.sh
 
