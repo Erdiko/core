@@ -26,9 +26,9 @@ script:
   - ln -s erdiko-core/scripts erdiko/scripts
   - sudo chmod 770 erdiko-core/scripts/*.sh
 
-  - sudo docker exec erdiko_php7 /code/vendor/erdiko/core/scripts/ci-setup.sh
+  - sudo docker exec erdiko_php7 /code/scripts/ci-setup.sh
   - ln -s erdiko-core erdiko/vendor/erdiko/core
-  - sudo docker exec erdiko_php7 /code/vendor/erdiko/core/scripts/ci-tests.sh
+  - sudo docker exec erdiko_php7 /code/scripts/ci-tests.sh
 
 notifications:
   email:
