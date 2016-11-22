@@ -16,13 +16,15 @@ before_script:
 script:
   - cd erdiko
   - ls -lah
-  - sudo docker-compose up -d
-  - sudo docker-compose ps
   - ln -s ../erdiko-core/scripts scripts
   - sudo chmod 770 scripts/*.sh
+  
+  - sudo docker-compose up -d
+  - sudo docker-compose ps
+  
   - sudo docker exec erdiko_php7 /code/scripts/ci-setup.sh
   - pwd
-  - cd vendor/erdiko && rm -rf core
+  - cd vendor/erdiko && sudo rm -rf core
   - ln -s ../../../erdiko-core core
   - sudo docker exec erdiko_php7 /code/scripts/ci-tests.sh
 
