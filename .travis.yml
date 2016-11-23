@@ -16,20 +16,19 @@ before_script:
 script:
   - cd erdiko
   - ls -lah
-  - cp -R ../erdiko-core/scripts package/scripts
   - cp -R ../erdiko-core core
-  - sudo chmod 770 package/scripts/*.sh
+  - mv erdiko-core/scripts ./
+  - sudo chmod 770 scripts/*.sh
 
   - sudo docker-compose up -d
   - sudo docker-compose ps
-  
-  - sudo docker exec erdiko_php7 composer
-  - sudo docker exec erdiko_php7 /code/package/scripts/ci-setup.sh
+
+  - sudo docker exec erdiko_php7 /code/scripts/ci-setup.sh
   - sudo rm -rf vendor/erdiko/core
   - sudo mv core vendor/erdiko
   - cd vendor/erdiko/core
   - ls -lah
-  - sudo docker exec erdiko_php7 /code/package/scripts/ci-tests.sh
+  - sudo docker exec erdiko_php7 /code/scripts/ci-tests.sh
 
 notifications:
   email:
