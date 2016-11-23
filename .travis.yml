@@ -17,7 +17,7 @@ script:
   - cd erdiko
   - ls -lah
   - cp -R ../erdiko-core core
-  - mv erdiko-core/scripts ./
+  - mv core/scripts ./
   - sudo chmod 770 scripts/*.sh
 
   - sudo docker-compose up -d
