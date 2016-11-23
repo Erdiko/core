@@ -18,6 +18,8 @@ script:
   - ls -lah
   - cp -R ../erdiko-core package
   - sudo chmod 770 package/scripts/*.sh
+  - ls -lah
+  - ls -lah package
 
   - sudo docker-compose up -d
   - sudo docker-compose ps
