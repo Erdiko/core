@@ -24,6 +24,7 @@ script:
   - sudo docker-compose up -d
   - sudo docker-compose ps
   
+  - sudo docker exec erdiko_php7 composer
   - sudo docker exec erdiko_php7 /code/package/scripts/ci-setup.sh
   - sudo mv package vendor/erdiko/core
   - sudo docker exec erdiko_php7 /code/vendor/erdiko/core/scripts/ci-tests.sh
