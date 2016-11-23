@@ -1,9 +1,9 @@
 Erdiko Core
 ===========
 
-[![Package version](https://img.shields.io/packagist/v/erdiko/core.svg?style=flat-square)](https://packagist.org/packages/erdiko/core)
+[![Package version](https://img.shields.io/packagist/v/erdiko/core.svg?style=flat-square)](https://packagist.org/packages/erdiko/core) [![Travis CI](https://travis-ci.org/ArroyoLabs/erdiko-core.svg?branch=develop)](https://travis-ci.org/ArroyoLabs/erdiko-core.svg?branch=develop)
 
-*Erdiko micro MVC core components*
+*Erdiko micro MVC framework - core components*
 
 Erdiko is a lightweight but powerful micro MVC framework.  Get work done without the bloat!
 
