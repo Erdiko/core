@@ -319,7 +319,9 @@ class Theme extends Container
     public function getTemplateHtml($partial)
     {
         $config = $this->getThemeConfig();
+        // @todo add check here to make sure partial exists, if missing log error
         $filename = $this->getTemplateFolder().$config['templates'][$partial]['file'];
+
         $html = $this->getTemplateFile($filename, $this->getContextConfig());
         
         return $html;

@@ -34,7 +34,7 @@ class ResponseTest extends \tests\ErdikoTestCase
         $data = 'Test_Data';
         $this->ResponseObj->setKeyValue($key, $data);
         $return = $this->ResponseObj->getKeyValue($key);
-        $this->assertTrue($return == $data);
+        $this->assertEquals($data, $return);
 
         /**
          * Second test
@@ -53,7 +53,7 @@ class ResponseTest extends \tests\ErdikoTestCase
         $theme = 'theme';
         $this->ResponseObj->setTheme($theme);
         $return = $this->ResponseObj->getTheme();
-        $this->assertTrue($return == $theme);
+        $this->assertEquals($theme, $return);
     }
 
     public function testSetThemeTemplate()
@@ -61,7 +61,7 @@ class ResponseTest extends \tests\ErdikoTestCase
         $themeTemplate = 'themeTemplate';
         $this->ResponseObj->setThemeTemplate($themeTemplate);
         $return = $this->ResponseObj->getThemeTemplate();
-        $this->assertTrue($return == $themeTemplate);
+        $this->assertEquals($themeTemplate, $return);
     }
 
     public function testSetContent()
@@ -69,7 +69,7 @@ class ResponseTest extends \tests\ErdikoTestCase
         $content = 'Test content';
         $this->ResponseObj->setContent($content);
         $return = $this->ResponseObj->getContent();
-        $this->assertTrue($return == $content);
+        $this->assertEquals($content, $return);
     }
 
     public function testAppendContent()
@@ -77,20 +77,18 @@ class ResponseTest extends \tests\ErdikoTestCase
         $content = 'Test content';
         $this->ResponseObj->setContent($content);
         $return = $this->ResponseObj->getContent();
-        $this->assertTrue($return == $content);
+        $this->assertEquals($content, $return);
 
         $appContent = 'Second test content';
         $this->ResponseObj->appendContent($appContent);
         $return = $this->ResponseObj->getContent();
-        $this->assertTrue($return == $content.$appContent);
+        $this->assertEquals($content.$appContent, $return);
     }
 
     public function testRender()
     {
         /**
-         *
          *  Test the first condition in render()
-         *
          */
         $ResponseObj = new Response;
 
@@ -99,14 +97,14 @@ class ResponseTest extends \tests\ErdikoTestCase
         $ResponseObj->setTheme($theme);
         //Get the theme object and check if they are the same object
         $return = $ResponseObj->getTheme();
-        $this->assertTrue($return == $theme);
+        $this->assertEquals($theme, $return);
 
         //Add content
         $content = 'Test content';
         $ResponseObj->setContent($content);
         //Get content and validate the content
         $return = $ResponseObj->getContent();
-        $this->assertTrue($return == $content);
+        $this->assertEquals($content, $return);
 
         //Perform the render function
         $return = $ResponseObj->render();
