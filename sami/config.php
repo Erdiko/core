@@ -1,6 +1,6 @@
 <?php
 
-$dir = dirname(__DIR__).'/src';
+$dir = dirname(__DIR__).'/docs';
 
 use Sami\Sami;
 use Sami\Version\GitVersionCollection;
@@ -10,13 +10,12 @@ $iterator = Finder::create()
     ->files()
     ->name('*.php')
     ->exclude('tests')
-    ->in($dir)
-;
+    ->in($dir);
 
 $versions = GitVersionCollection::create($dir)
     ->add('master', 'master branch')
-    ->add('unitTest', 'unitTest')
-    ->add('filecache', 'filecache')
+    ->add('release', 'release')
+    ->add('develop', 'develop')
 ;
 
 return new Sami($iterator, array(
