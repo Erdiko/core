@@ -6,7 +6,7 @@ set -e
 
 # If release branch do a full regression against php versions
 # @note perhaps we should do this for master as well
-if [ ${TRAVIS_BRANCH} == release ]; then
+if [ "$TRAVIS_BRANCH" == "release" ]; then
     
     sudo docker-compose -f docker-compose.travis.yml up -d
     sudo docker exec erdiko_phpfpm_7.1 /code/vendor/erdiko/core/scripts/ci-tests.sh
