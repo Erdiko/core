@@ -1,6 +1,6 @@
 <?php
 
-$dir = dirname(__DIR__).'/docs';
+$dir = dirname(__DIR__).'/src';
 
 use Sami\Sami;
 use Sami\Version\GitVersionCollection;
@@ -21,7 +21,6 @@ $versions = GitVersionCollection::create($dir)
 return new Sami($iterator, array(
     'theme'                => 'enhanced',
     'versions'             => $versions,
-    //'versions'             => '0.2',
     'title'                => 'Erdiko API',
     'build_dir'            => __DIR__.'/build/%version%/',
     'cache_dir'            => __DIR__.'/cache/%version%/',
