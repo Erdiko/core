@@ -354,19 +354,6 @@ class Controller
     /**
      * Add a view from the current theme with the given data
      *
-     * @param string $viewName
-     * @param array $data
-     * @return string $html, view contents
-     */
-    public function addView($viewName, $data = null)
-    {
-        $view = new \erdiko\core\View($viewName, $data);
-        $this->appendContent($view->toHtml());
-    }
-
-    /**
-     * Add a view from the current theme with the given data
-     *
      * @param mixed $view, can be a string (view name) or object (view object)
      * @param array $data
      * @return string $html, view contents
