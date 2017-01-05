@@ -365,6 +365,23 @@ class Controller
     }
 
     /**
+     * Add a view from the current theme with the given data
+     *
+     * @param mixed $view, can be a string (view name) or object (view object)
+     * @param array $data
+     * @return string $html, view contents
+     */
+    public function addView($view, $data = null)
+    {
+        if(!is_object($view))
+            $view = new \erdiko\core\View($view, $data);
+        if($data != null)
+            $view->setData($data);
+        
+        $this->appendContent($view->toHtml());
+    }
+
+    /**
      * Load a layout with the given data
      *
      * @param string $layoutName
@@ -445,7 +462,25 @@ class Controller
             ->addJs($name, $file, $order,$active);
     }
     
-
+    /**
+     * Magic method experiments
+     */
+      
+    /**
+     * Get a value
+     */
+    public function __get($key)
+    {
+        return $this->getResponseKeyValue($key);
+    }
+  
+    /**
+     * Set a value
+     */
+    public function __set($key, $value)
+    {
+        return $this->setResponseKeyValue($key, $value);
+    }
 
 
     /**
