@@ -25,9 +25,7 @@ class Toro
         }
         
         $discovered_handler = null;
-        $regex_matches = array();
-        $arguments = array();
-
+        
         if (isset($routes[$path_info])) {
             $discovered_handler = $routes[$path_info];
         } elseif ($routes) {
@@ -37,6 +35,7 @@ class Toro
                 ':alpha'  => '([a-zA-Z0-9-_]+)',
                 ':action'  => '([a-zA-Z0-9-_/]+)'
             );
+            $arguments = array();
 
             // Search through routes and find first match
             foreach ($routes as $pattern => $handler_name) {
@@ -62,10 +61,6 @@ class Toro
                         unset($regex_matches[0]);
                         $arguments = $regex_matches; // Toro compatible
                     }
-
-                    // \Erdiko::log(null, "regex_matches: ".print_r($regex_matches, true));
-                    // \Erdiko::log(null, "action: $action");
-                    // \Erdiko::log(null, "arguments: ".print_r($arguments, true));
 
                     break;
                 }
