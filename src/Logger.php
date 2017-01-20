@@ -39,7 +39,7 @@ class Logger extends File implements LoggerInterface
         }
         
         // Set the logging directory
-        if ($logDir != null) {
+        if (!empty($logDir)) {
             if (is_dir($logDir)) {
                 $this->_filePath = $logDir; // fully qualified & valid path
             } else {
@@ -63,28 +63,20 @@ class Logger extends File implements LoggerInterface
         switch ($level) {
             case \Psr\Log\LogLevel::EMERGENCY:
                 return $this->emergency($message, $context);
-                break;
             case \Psr\Log\LogLevel::ALERT:
                 return $this->alert($message, $context);
-                break;
             case \Psr\Log\LogLevel::CRITICAL:
                 return $this->critical($message, $context);
-                break;
             case \Psr\Log\LogLevel::ERROR:
                 return $this->error($message, $context);
-                break;
             case \Psr\Log\LogLevel::WARNING:
                 return $this->warning($message, $context);
-                break;
             case \Psr\Log\LogLevel::NOTICE:
                 return $this->notice($message, $context);
-                break;
             case \Psr\Log\LogLevel::INFO:
                 return $this->info($message, $context);
-                break;
             case \Psr\Log\LogLevel::DEBUG:
                 return $this->debug($message, $context);
-                break;
             default:
                 // PSR-3 states that we must throw a \Psr\Log\InvalidArgumentException
                 // if we don't recognize the level
