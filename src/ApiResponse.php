@@ -92,6 +92,5 @@ class ApiResponse extends Response
         header('Content-Type: application/json');
 
         echo $this->render();
-        die();
     }
 }

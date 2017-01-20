@@ -13,7 +13,8 @@ class AjaxResponseTest extends \tests\ErdikoTestCase
         $this->ajaxResponseObj = new \erdiko\core\AjaxResponse;
     }
 
-    function tearDown() {
+    function tearDown() 
+    {
         unset($this->ajaxResponseObj);
     }
 
@@ -25,7 +26,6 @@ class AjaxResponseTest extends \tests\ErdikoTestCase
             "body" => $hello,
             "errors" => false
         );
-
         $tempData = json_encode($tempData);
 
         $this->ajaxResponseObj->setContent($hello);
@@ -50,15 +50,12 @@ class AjaxResponseTest extends \tests\ErdikoTestCase
         $this->ajaxResponseObj->setContent($hello);
 
         // call send and buffer its output
-        //ob_start();
-        //$this->ajaxResponseObj->send();
-        
-        //$return = ob_get_contents();
-        
-        // ob_end_clean();
-        //ob_end_flush();
+        ob_start();
+        $this->ajaxResponseObj->send();
+        $return = ob_get_clean();
+        ob_end_clean();
 
-        //$this->assertEquals($tempData, $return);
+        $this->assertEquals($tempData, $return);
     }
 
     function testRenderWithError()

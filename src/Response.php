@@ -201,6 +201,5 @@ class Response
     public function send()
     {
         echo $this->render();
-        die();
     }
 }

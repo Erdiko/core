@@ -76,7 +76,7 @@ class AjaxResponse extends Response
             "body"   => $this->_content,
             "errors" => $this->_errors
         );
-
+        
         return json_encode($responseData);
     }
 
@@ -91,7 +91,5 @@ class AjaxResponse extends Response
         header('Content-Type: application/json');
 
         echo $this->render();
-
-        die();
     }
 }
