@@ -15,8 +15,8 @@ class ErrorHandler
 {
 	public static function init()
 	{
-		ini_set('html_errors',0);
-		error_reporting((E_ALL | E_STRICT));
+		ini_set('html_errors',0); // @todo review this line
+		// error_reporting((E_ALL | E_STRICT)); // @note we shouldn't override by default, but we could inject
 		set_error_handler("\\erdiko\\core\\ErrorHandler::errorHandler");
 		register_shutdown_function("\\erdiko\\core\\ErrorHandler::fatalErrorShutdownHandler");
 	}

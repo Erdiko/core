@@ -25,6 +25,7 @@ class Toro
         }
         
         $discovered_handler = null;
+        $arguments = array();
         
         if (isset($routes[$path_info])) {
             $discovered_handler = $routes[$path_info];
@@ -35,7 +36,6 @@ class Toro
                 ':alpha'  => '([a-zA-Z0-9-_]+)',
                 ':action'  => '([a-zA-Z0-9-_/]+)'
             );
-            $arguments = array();
 
             // Search through routes and find first match
             foreach ($routes as $pattern => $handler_name) {
