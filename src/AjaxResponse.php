@@ -77,9 +77,6 @@ class AjaxResponse extends Response
             "errors" => $this->_errors
         );
 
-        // set the mime type to JSON
-        header('Content-Type: application/json');
-
         return json_encode($responseData);
     }
 
@@ -94,6 +91,7 @@ class AjaxResponse extends Response
         header('Content-Type: application/json');
 
         echo $this->render();
+
         die();
     }
 }

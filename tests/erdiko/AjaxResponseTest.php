@@ -19,18 +19,49 @@ class AjaxResponseTest extends \tests\ErdikoTestCase
 
     function testRender()
     {
+        $hello = "Hello World";
         $tempData = array(
             "status" => 200,
-            "body" => null,
+            "body" => $hello,
             "errors" => false
         );
 
         $tempData = json_encode($tempData);
+
+        $this->ajaxResponseObj->setContent($hello);
         $return = $this->ajaxResponseObj->render();
+        
         $this->assertEquals($tempData, $return);
     }
 
-    function testRenderError()
+    /**
+     * @runInSeparateProcess
+     */
+    function testSend()
+    {
+        $hello = "Hello World";
+        $tempData = array(
+            "status" => 200,
+            "body" => $hello,
+            "errors" => false
+        );
+        $tempData = json_encode($tempData);
+
+        $this->ajaxResponseObj->setContent($hello);
+
+        // call send and buffer its output
+        //ob_start();
+        //$this->ajaxResponseObj->send();
+        
+        //$return = ob_get_contents();
+        
+        // ob_end_clean();
+        //ob_end_flush();
+
+        //$this->assertEquals($tempData, $return);
+    }
+
+    function testRenderWithError()
     {
         $this->ajaxResponseObj->setStatusCode(500);
         $this->ajaxResponseObj->setErrors("true");
