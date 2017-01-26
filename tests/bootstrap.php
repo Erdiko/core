@@ -2,7 +2,7 @@
 // boot up Erdiko
 
 // This is for standard installations
-$bootstrap = dirname(dirname(dirname(dirname(__DIR__)))).'/app/bootstrap.php';
+$bootstrap = dirname(dirname(dirname(__DIR__))).'/app/bootstrap.php';
 
 // This is for Docker (works within docker and Travis CI)
 if(!file_exists($bootstrap))

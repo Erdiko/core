@@ -66,7 +66,7 @@ class ErrorHandler
 	public static function fatalErrorShutdownHandler()
 	{
 		$last_error = error_get_last();
-		self::errorHandler(E_ERROR, 
+		static::errorHandler(E_ERROR, 
 			$last_error['message'], $last_error['file'], $last_error['line']);
 	}
 

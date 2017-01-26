@@ -24,18 +24,18 @@ class Cache
     public static function getCacheObject($cacheConfig = 'default')
     {
             //Check if the caller requests an new object
-        if (empty(self::$instance[$cacheConfig])) {
+        if (empty(static::$instance[$cacheConfig])) {
             $config = Helper::getConfig('application', $cacheConfig);
 
             //Check if the object already be created
             if (isset($config["cache"][$cacheConfig])) {
-                self::$instance[$cacheConfig] = new $config["cache"][$cacheConfig]['class'];
+                static::$instance[$cacheConfig] = new $config["cache"][$cacheConfig]['class'];
             } else {
                 throw new \Exception("There is no cache config defined ({$cacheConfig})");
             }
         }
 
-        return self::$instance[$cacheConfig];
+        return static::$instance[$cacheConfig];
 
     }
 
@@ -47,7 +47,7 @@ class Cache
      */
     public static function get($key, $cacheConfig = 'default')
     {
-        return self::getCacheObject($cacheConfig)->get($key);
+        return static::getCacheObject($cacheConfig)->get($key);
     }
 
     /**
@@ -59,7 +59,7 @@ class Cache
      */
     public static function put($key, $value, $cacheConfig = 'default')
     {
-        return self::getCacheObject($cacheConfig)->put($key, $value);
+        return static::getCacheObject($cacheConfig)->put($key, $value);
     }
     
     /**
@@ -71,7 +71,7 @@ class Cache
      */
     public static function has($key, $cacheConfig = 'default')
     {
-        return self::getCacheObject($cacheConfig)->has($key);
+        return static::getCacheObject($cacheConfig)->has($key);
     }
 
     /**
@@ -83,8 +83,8 @@ class Cache
      */
     public static function pull($key, $cacheConfig = 'default')
     {
-        $value = self::get($key);
-        self::delete($key);
+        $value = static::get($key);
+        static::delete($key);
 
         return $value;
     }
@@ -98,7 +98,7 @@ class Cache
      */
     public static function delete($key, $cacheConfig = 'default')
     {
-        return self::getCacheObject($cacheConfig)->delete($key);
+        return static::getCacheObject($cacheConfig)->delete($key);
     }
 
     /**
@@ -109,6 +109,6 @@ class Cache
      */
     public static function clear($cacheConfig = 'default')
     {
-        return self::getCacheObject($cacheConfig)->clear();
+        return static::getCacheObject($cacheConfig)->clear();
     }
 }
