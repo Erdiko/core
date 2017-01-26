@@ -123,6 +123,7 @@ class Helper
      * @param string $message
      * @param array $context
      * @return bool $success
+     * @todo refactor how logging is used, eventually remove from helper
      */
     public static function log($level, $message, array $context = array())
     {
@@ -140,6 +141,32 @@ class Helper
             $level = \Psr\Log\LogLevel::DEBUG; // Default to debug for convenience
 
         return static::$_logObject->log($level, $message, $context);
+    }
+
+    /**
+     * log debug message to log file
+     *
+     * @param string $message
+     * @param array $context
+     * @return bool $success
+     * @todo refactor how logging is used, eventually remove from helper
+     */
+    public static function debug($message, array $context = array())
+    {
+        return self::log(\Psr\Log\LogLevel::DEBUG, $message, $context);
+    }
+
+    /**
+     * log error message to log file
+     *
+     * @param string $message
+     * @param array $context
+     * @return bool $success
+     * @todo refactor how logging is used, eventually remove from helper
+     */
+    public static function error($message, array $context = array())
+    {
+        return self::log(\Psr\Log\LogLevel::ERROR, $message, $context);
     }
     
     /**
