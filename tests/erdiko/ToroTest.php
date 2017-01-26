@@ -5,15 +5,12 @@
  */
 namespace tests\erdiko;
 
-//use erdiko\Toro;
 require_once dirname(__DIR__).'/ErdikoTestCase.php';
 
 class ToroTest extends \tests\ErdikoTestCase
 {
     public function tearDown()
     {
-
-
         $webRoot = dirname(dirname(__DIR__));
         unset($this->fileObj);
     }
@@ -25,16 +22,18 @@ class ToroTest extends \tests\ErdikoTestCase
 
         ob_start();
 
-        \Toro::serve($routes);
-
+        \erdiko\core\Toro::serve($routes);
         $out = ob_get_contents();
 
         ob_end_clean();
 
+        // Check some content matches
+        $this->assertEquals(1, preg_match('/<html/', $out));
+        $this->assertEquals(1, preg_match('/<header/', $out));
+        $this->assertEquals(1, preg_match('/<footer/', $out));
+        $this->assertEquals(1, preg_match('/<\/html/', $out));
 
-        //echo "Printing buffer.............";
-        //var_dump($out);
-        
+        /*
         //Remove header
         $pos = strrpos($out, "</header>");
         $out = substr($out, $pos+9);
@@ -43,7 +42,7 @@ class ToroTest extends \tests\ErdikoTestCase
         $pos = strrpos($out, '<footer id="footer">');
         $out = substr($out, 0, $pos);
         //var_dump($out);
-/*
+        
         $header = file_get_contents($themeFolder.'/templates/page/header.php');
         $pos = strrpos($header, 'navbar-brand');
         $header = substr($header, 0, $pos);

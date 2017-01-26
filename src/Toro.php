@@ -1,4 +1,12 @@
 <?php
+/**
+ * Toro (router)
+ * 
+ * We needed to hack Toro and decided to copy it into the framework 
+ * instead of extending it.  It seems to be abandoned so we made a good choice.
+ * Taken from https://github.com/anandkunal/ToroPHP
+ */
+namespace erdiko\core;
 
 class Toro
 {
@@ -79,7 +87,7 @@ class Toro
         }
 
         if ($handler_instance) {
-            if (self::is_xhr_request() && method_exists($handler_instance, $action . '_xhr')) {
+            if (static::is_xhr_request() && method_exists($handler_instance, $action . '_xhr')) {
                 header('Content-type: application/json'); // @todo support xml
                 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
                 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
@@ -123,43 +131,5 @@ class Toro
     private static function is_xhr_request()
     {
         return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
-    }
-}
-
-class ToroHook
-{
-    private static $instance;
-
-    private $hooks = array();
-
-    private function __construct()
-    {
-    }
-    private function __clone()
-    {
-    }
-
-    public static function add($hook_name, $fn)
-    {
-        $instance = self::get_instance();
-        $instance->hooks[$hook_name][] = $fn;
-    }
-
-    public static function fire($hook_name, $params = null)
-    {
-        $instance = self::get_instance();
-        if (isset($instance->hooks[$hook_name])) {
-            foreach ($instance->hooks[$hook_name] as $fn) {
-                call_user_func_array($fn, array(&$params));
-            }
-        }
-    }
-
-    public static function get_instance()
-    {
-        if (empty(self::$instance)) {
-            self::$instance = new ToroHook();
-        }
-        return self::$instance;
     }
 }

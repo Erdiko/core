@@ -19,6 +19,21 @@ class Helper
     protected static $_logObject=null; // @todo get rid of this
 
     /**
+     * Serve your site
+     * Loads routes based off of context and serves up the current request
+     *
+     * @param string $context optional context defaults to getenv('ERDIKO_CONTEXT')
+     */
+    public static function serve($context = null)
+    {
+        if(empty($context))
+            $context = getenv('ERDIKO_CONTEXT');
+        
+        $routes = static::getRoutes($context);
+        Toro::serve($routes);
+    }
+
+    /**
      * Load a view from the current theme with the given data
      *
      * @param string $viewName
@@ -67,7 +82,7 @@ class Helper
             $context = getenv('ERDIKO_CONTEXT');
 
         $filename = ERDIKO_APP."/config/{$context}/{$name}.json";
-        return self::getConfigFile($filename);
+        return static::getConfigFile($filename);
     }
     
     /**
@@ -80,7 +95,7 @@ class Helper
         if($context == null)
             $context = getenv('ERDIKO_CONTEXT');
         $file = ERDIKO_APP."/config/{$context}/routes.json";
-        $applicationConfig = self::getConfigFile($file);
+        $applicationConfig = static::getConfigFile($file);
         
         return $applicationConfig['routes'];
     }
@@ -111,20 +126,20 @@ class Helper
      */
     public static function log($level, $message, array $context = array())
     {
-        if(self::$_logObject==null)
+        if(static::$_logObject==null)
         {
             $erdikoContext = getenv('ERDIKO_CONTEXT');
-            $config = self::getConfig("application", $erdikoContext);
+            $config = static::getConfig("application", $erdikoContext);
             $logFiles = $config["logs"]["files"][0];
             $logDir = $config["logs"]["path"];
 
-            self::$_logObject = new \erdiko\core\Logger($logFiles, $logDir);
+            static::$_logObject = new \erdiko\core\Logger($logFiles, $logDir);
         }
 
         if(empty($level))
             $level = \Psr\Log\LogLevel::DEBUG; // Default to debug for convenience
 
-        return self::$_logObject->log($level, $message, $context);
+        return static::$_logObject->log($level, $message, $context);
     }
     
     /**
@@ -135,7 +150,7 @@ class Helper
     public static function getCache($cacheType = "default")
     {
         $context = getenv('ERDIKO_CONTEXT');
-        $config = self::getConfig("application");
+        $config = static::getConfig("application");
         
         if (isset($config["cache"][$cacheType])) {
             $cacheConfig = $config["cache"][$cacheType];
