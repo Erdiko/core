@@ -2,8 +2,10 @@
 /**
  * ToroHook
  * Taken from https://github.com/anandkunal/ToroPHP
+ * @package     erdiko/core
  */
 namespace erdiko\core;
+
 
 class ToroHook
 {

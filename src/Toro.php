@@ -5,6 +5,7 @@
  * We needed to hack Toro and decided to copy it into the framework 
  * instead of extending it.  It seems to be abandoned so we made a good choice.
  * Taken from https://github.com/anandkunal/ToroPHP
+ * @package     erdiko/core
  */
 namespace erdiko\core;
 

@@ -6,6 +6,7 @@
  * @copyright   2012-2017 Arroyo Labs, Inc. http://www.arroyolabs.com
  * @author      Varun Brahme
  * @author      John Arroyo <john@arroyolabs.com>
+ * @todo 		depricate this file
  */
 
 // Start the session
