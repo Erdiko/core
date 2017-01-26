@@ -302,7 +302,7 @@ class Controller
         if (method_exists($this, $method)) {
             return $this->$method();
         } else {
-            \ToroHook::fire('404', array(
+            ToroHook::fire('404', array(
                 "error" => "Controller ".get_class($this)." does not contain $method action",
                 "path_info" => $this->_pathInfo ));
         }

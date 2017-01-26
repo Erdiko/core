@@ -6,10 +6,8 @@
  * @copyright   2012-2017 Arroyo Labs, Inc. http://www.arroyolabs.com
  * @author      Leo Daidone <leo@arroyolabs.com>
  */
-
 namespace erdiko\core;
 
-use ToroHook;
 
 class ErrorHandler 
 {
