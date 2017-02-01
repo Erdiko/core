@@ -26,6 +26,8 @@ class ErrorHandler
 			return null;
 		}
 
+		$errorHook = "general_error";
+
 		switch ( $errno ) {
 			case E_USER_ERROR:
 				$vars['msg_type']        = "USER ERROR";
@@ -44,6 +46,7 @@ class ErrorHandler
 			case E_ERROR:
 				$vars['msg_type'] = "ERROR";
 				$vars['msg_description'] = print_r(debug_backtrace(),1);
+				$errorHook = "500";
 				break;
 
 			default:
@@ -56,7 +59,7 @@ class ErrorHandler
 		$vars['error']              = trim($errstr);
 		$vars['path_info']          = $errfile . " on line " . $errline;
 		$vars['debug']              = $debug;
-		ToroHook::fire( "general_error", $vars );
+		ToroHook::fire( $errorHook, $vars );
 
 		return false;
 	}
