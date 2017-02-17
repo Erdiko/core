@@ -60,9 +60,9 @@ class ErrorHandler
 		$vars['code']               = $errno;
 		$vars['error']              = trim($errstr);
 		$vars['path_info']          = $errfile . " on line " . $errline;
-        $vars['debug']              = $debug;
+        	$vars['debug']              = $debug;
 
-        ToroHook::fire($errorHook, $vars );
+        	ToroHook::fire($errorHook, $vars );
 
 		return false;
 	}
