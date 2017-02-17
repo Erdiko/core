@@ -2,12 +2,15 @@
 /**
  * ErrorHandler
  *
- * @package     erdiko/core
- * @copyright   2012-2017 Arroyo Labs, Inc. http://www.arroyolabs.com
- * @author      Leo Daidone <leo@arroyolabs.com>
+ * @category    Erdiko
+ * @package     Core
+ * @copyright   Copyright (c) 2016, Arroyo Labs, http://www.arroyolabs.com
+ * @author      Leo Daidone, leo@arroyolabs.com
  */
+
 namespace erdiko\core;
 
+use ToroHook;
 
 class ErrorHandler 
 {
@@ -25,6 +28,8 @@ class ErrorHandler
 		if ( ! ( error_reporting() & $errno ) || empty( $errstr ) ) {
 			return null;
 		}
+
+        $errorHook = "500";
 
 		switch ( $errno ) {
 			case E_USER_ERROR:
@@ -55,8 +60,9 @@ class ErrorHandler
 		$vars['code']               = $errno;
 		$vars['error']              = trim($errstr);
 		$vars['path_info']          = $errfile . " on line " . $errline;
-		$vars['debug']              = $debug;
-		ToroHook::fire( "general_error", $vars );
+        $vars['debug']              = $debug;
+
+        ToroHook::fire($errorHook, $vars );
 
 		return false;
 	}
