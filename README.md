@@ -1,7 +1,7 @@
 Erdiko Core
 ===========
 
-[![Package version](https://img.shields.io/packagist/v/erdiko/core.svg?style=flat-square)](https://packagist.org/packages/erdiko/core) [![Travis CI](https://travis-ci.org/ArroyoLabs/erdiko-core.svg?branch=master)](https://travis-ci.org/ArroyoLabs/erdiko-core)
+[![Package version](https://img.shields.io/packagist/v/erdiko/core.svg?style=flat-square)](https://packagist.org/packages/erdiko/core) [![Travis CI](https://travis-ci.org/ArroyoLabs/erdiko-core.svg?branch=master)](https://travis-ci.org/ArroyoLabs/erdiko-core) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ArroyoLabs/erdiko-core/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ArroyoLabs/erdiko-core/?branch=master) [![License](https://poser.pugx.org/erdiko/core/license)](https://packagist.org/packages/erdiko/core)
 
 *Erdiko micro MVC framework - core components*
 
