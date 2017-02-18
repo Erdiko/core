@@ -30,6 +30,8 @@ Andy Armstrong
 
 Leo Daidone
 
+Julian Diaz
+
 Coleman Tung
 
 Fangxiang Wang
