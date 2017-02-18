@@ -39,3 +39,9 @@ Varun Brahme
 ## Credits
 
 [ArroyoLabs](http://www.arroyolabs.com/) - Primary sponsor
+
+
+License
+-------
+
+Erdiko Core is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
