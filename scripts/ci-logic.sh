@@ -8,7 +8,7 @@ set -e
 # @note perhaps we should do this for master as well
 if [ "$TRAVIS_BRANCH" == "release" ]; then
     
-    sudo docker-compose -f docker-compose.travis.yml up -d
+    sudo docker-compose -f docker-compose.travis.regression.yml up -d
     sudo docker exec erdiko_phpfpm_7.1 /code/vendor/erdiko/core/scripts/ci-tests.sh
     sudo docker exec erdiko_phpfpm_7.0 /code/vendor/erdiko/core/scripts/ci-tests.sh
     sudo docker exec erdiko_phpfpm_5.6 /code/vendor/erdiko/core/scripts/ci-tests.sh
