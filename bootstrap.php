@@ -15,3 +15,5 @@ if (PHP_SAPI == 'cli-server') {
         return false;
     }
 }
+
+require_once 'src/autoload.php';
