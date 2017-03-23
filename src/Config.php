@@ -13,21 +13,18 @@ namespace erdiko;
 
 class Config
 {
-    protected   $folder = null;
-    protected   $subfolder = "/app/config";
-
-    public function __construct(string $folder = null)
+    /**
+     *
+     */
+    public static function getContext(): string
     {
-        // @note if we remove ERDIKO_ROOT it will be more portable
-        $this->folder = $folder ?? ERDIKO_ROOT;
+        return getenv('ERDIKO_CONTEXT') ?? 'default';
     }
 
-    public function getContext(): string
-    {
-        return getenv('ERDIKO_CONTEXT');
-    }
-
-    public function setContext(string $context)
+    /**
+     *
+     */
+    public static function setContext(string $context)
     {
         putenv("ERDIKO_CONTEXT={$context}");
     }
@@ -39,11 +36,16 @@ class Config
      * @param string $context
      * @return array $config
      */
-    public function getConfig(string $name = 'application', string $context = null): array
+    public static function get(string $name = 'application', string $context = null): array
     {
-        $context = $context ?? getenv('ERDIKO_CONTEXT');
-        $filename = $this->folder.$this->subfolder."/{$context}/{$name}.json";
-        return $this->getConfigFile($filename);
+        $context = $context ?? static::getContext();
+
+        // @note if we remove ERDIKO_ROOT it will be more portable
+        $folder = ERDIKO_ROOT;
+        $subfolder = "/app/config";
+        $filename = "{$folder}{$subfolder}/{$context}/{$name}.json";
+
+        return static::getConfigFile($filename);
     }
 
     /**
@@ -52,7 +54,7 @@ class Config
      * @param string $file
      * @return array $config
      */
-    public function getConfigFile($file): array
+    public static function getConfigFile($file): array
     {
         $file = addslashes($file);
         if (is_file($file)) {
