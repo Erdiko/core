@@ -1,22 +1,16 @@
 <?php
 /**
- * Api Controller
+ * Ajax Controller
  *
- * Base API request handler, all API controllers should be a subclass of this.
- * @note don't use this class just yet, WIP
- * @todo finish this class, right now it mimicks the Ajax controller/response
- *
- * @package     erdiko/core
+ * @package     erdiko/controllers
  * @copyright   2012-2017 Arroyo Labs, Inc. http://www.arroyolabs.com
  * @author      John Arroyo <john@arroyolabs.com>
+ * @author      Andy Armstrong <andy@arroyolabs.com>
  */
-namespace erdiko\core;
+namespace erdiko\controllers;
 
 
-/**
- * ApiController class
- */
-class ApiController extends Controller
+class Ajax extends erdiko\Controller
 {
 
   /**
@@ -25,13 +19,21 @@ class ApiController extends Controller
     public function __construct()
     {
         $this->_webroot = ERDIKO_ROOT;
-        $this->_response = new \erdiko\core\ApiResponse;
+        $this->_response = new \erdiko\core\AjaxResponse;
     }
 
-  /**
-   * setStatusCode
-   *
-   */
+    /** 
+     * Before 
+     */
+    public function _before()
+    {
+        // Do nothing, it overrides the core before function which prepares for theming
+    }
+
+    /**
+     * setStatusCode
+     *
+     */
     public function setStatusCode($code = null)
     {
         if (!empty($code)) {

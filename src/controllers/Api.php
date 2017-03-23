@@ -1,18 +1,15 @@
 <?php
 /**
- * Ajax Controller
+ * Api Controller
  *
- * Base request handler, all ajax controllers should inherit this class.
- *
- * @package     erdiko/core
+ * @package     erdiko/controllers
  * @copyright   2012-2017 Arroyo Labs, Inc. http://www.arroyolabs.com
  * @author      John Arroyo <john@arroyolabs.com>
- * @author      Andy Armstrong <andy@arroyolabs.com>
  */
-namespace erdiko\core;
+namespace erdiko\controllers;
 
 
-class AjaxController extends Controller
+class Api extends erdiko\Controller
 {
 
   /**
@@ -21,21 +18,13 @@ class AjaxController extends Controller
     public function __construct()
     {
         $this->_webroot = ERDIKO_ROOT;
-        $this->_response = new \erdiko\core\AjaxResponse;
+        $this->_response = new \erdiko\core\ApiResponse;
     }
 
-    /** 
-     * Before 
-     */
-    public function _before()
-    {
-        // Do nothing, it overrides the core before function which prepares for theming
-    }
-
-    /**
-     * setStatusCode
-     *
-     */
+  /**
+   * setStatusCode
+   *
+   */
     public function setStatusCode($code = null)
     {
         if (!empty($code)) {
