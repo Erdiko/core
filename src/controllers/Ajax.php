@@ -10,7 +10,7 @@
 namespace erdiko\controllers;
 
 
-class Ajax extends erdiko\Controller
+class Ajax extends \erdiko\Controller
 {
 
   /**

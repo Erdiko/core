@@ -9,7 +9,7 @@
 namespace erdiko\controllers;
 
 
-class Api extends erdiko\Controller
+class Api extends \erdiko\Controller
 {
 
   /**
