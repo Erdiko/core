@@ -15,17 +15,16 @@ class Web extends \erdiko\Controller
     public function __invoke($request, $response, $args) 
     {
         $action = $this->determineAction($request, $args);
-        $this->container->logger->debug("Controller action: ".print_r($action, true));
-
-        $this->$action($request, $response, $args); 
+        // $this->container->logger->debug("Controller action: ".print_r($action, true));
+        $this->$action($request, $response, $args);
     }
-    
-    protected function determineAction(&$request, &$args) : string
+
+    protected function determineAction($request, $args) : string
     {
-        // REQUEST_METHOD
+        // Request method
         $action = strtolower($request->getMethod());
         // Action
-        $action .= ucfirst($args['action']);
+        $action .= empty($args['action']) ? "" : ucfirst($args['action']);
 
          // @todo trigger 404 instead of throw exception
         if(!method_exists($this, $action))
