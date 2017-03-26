@@ -12,6 +12,13 @@ namespace erdiko\controllers;
 
 class Web extends \erdiko\Controller
 {
+    /**
+     * invoke 
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * @return string $action method name 
+     */
     public function __invoke($request, $response, $args) 
     {
         $action = $this->determineAction($request, $args);
@@ -19,6 +26,13 @@ class Web extends \erdiko\Controller
         $this->$action($request, $response, $args);
     }
 
+    /**
+     * dertermin action
+     * 
+     * @param Request $request
+     * @param array $args
+     * @return string $action method name 
+     */
     protected function determineAction($request, $args) : string
     {
         // Request method
@@ -31,5 +45,17 @@ class Web extends \erdiko\Controller
             throw new \Exception("action does not exist");
 
         return $action;
+    }
+
+    /**
+     * render 
+     * render page
+     */ 
+    public function render($response, $view, $application) 
+    {
+        if(empty($view))
+            $view = $application['theme']['defaults']['view'];
+
+        return $this->container->theme->render($response, $view, $application);
     }
 }
