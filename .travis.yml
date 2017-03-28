@@ -23,7 +23,7 @@ script:
   - cd erdiko
   - ls -lah
   - sudo rm -rf vendor/erdiko/core
-  - cp -R ../erdiko-core vendor/erdiko/core
+  - cp -R ../core vendor/erdiko/core
   - sudo chmod 770 vendor/erdiko/core/scripts/*.sh
   - ./vendor/erdiko/core/scripts/ci-logic.sh
   - sudo docker-compose ps
