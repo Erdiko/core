@@ -5,7 +5,7 @@ Erdiko Core
 
 *Erdiko micro MVC framework - core components*
 
-Erdiko is a lightweight but powerful micro MVC framework.  Get work done without the bloat!
+Erdiko is a micro MVC framework, or better yet, a lean framework for APIs, web apps and websites.  Erdiko is start up friendly.
 
 This is the engine that runs erdiko, for the full micro framework visit 
 [https://github.com/ArroyoLabs/erdiko](https://github.com/ArroyoLabs/erdiko) or [erdiko.org](http://www.erdiko.org/)
@@ -29,6 +29,12 @@ Credits
 * Leo Daidone
 
 [All Contributors](https://github.com/Erdiko/core/graphs/contributors)
+
+
+Sponsors
+--------
+
+[Arroyo Labs](http://www.arroyolabs.com/)
 
 
 License
