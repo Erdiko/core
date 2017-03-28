@@ -21,26 +21,14 @@ To use in your project, install using composer by running
 Visit [erdiko.org](http://www.erdiko.org/) for full documentation and installation instructions.
 
 
-Contributors
-------------
+Credits
+-------
 
-John Arroyo
+* John Arroyo
+* Andy Armstrong
+* Leo Daidone
 
-Andy Armstrong
-
-Leo Daidone
-
-Julian Diaz
-
-Coleman Tung
-
-Fangxiang Wang
-
-Varun Brahme
-
-## Credits
-
-[ArroyoLabs](http://www.arroyolabs.com/) - Primary sponsor
+[All Contributors](https://github.com/Erdiko/core/graphs/contributors)
 
 
 License
