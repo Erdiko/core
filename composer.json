@@ -11,10 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "mustache/mustache": "2.*",
-        "erusev/parsedown": ">=1.6",
-        "Psr/Log": "^1.0"
+        "php": ">=7.0"
     },
     "config": {
         "minimum-stability": "dev"
