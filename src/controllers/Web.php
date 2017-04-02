@@ -46,22 +46,4 @@ class Web extends \erdiko\Controller
 
         return $action;
     }
-
-    /**
-     * Render 
-     * Render page based off of the application and theme configs
-     * At todo move to a trait, \erdiko\theme\traits\Controller
-     */ 
-    public function render($response, $view = null, \erdiko\theme\Engine $themeEngine = null) 
-    {
-        if(empty($themeEngine))
-            $themeEngine = new \erdiko\theme\Engine;
-
-        if(empty($view)) {
-            $view = $themeEngine->getDefaultView();
-        }
-        // $this->container->logger->debug("view: {$view}");
-
-        return $this->container->theme->render($response, $view, $themeEngine->toArray());
-    }
 }
