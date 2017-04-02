@@ -13,7 +13,7 @@ namespace erdiko\controllers;
 class Web extends \erdiko\Controller
 {
     /**
-     * invoke 
+     * Invoke 
      * @param Request $request
      * @param Response $response
      * @param array $args
@@ -27,7 +27,7 @@ class Web extends \erdiko\Controller
     }
 
     /**
-     * dertermin action
+     * Determine action
      * 
      * @param Request $request
      * @param array $args
@@ -48,14 +48,20 @@ class Web extends \erdiko\Controller
     }
 
     /**
-     * render 
-     * render page
+     * Render 
+     * Render page based off of the application and theme configs
+     * At todo move to a trait, \erdiko\theme\traits\Controller
      */ 
-    public function render($response, $view, $application) 
+    public function render($response, $view = null, \erdiko\theme\Engine $themeEngine = null) 
     {
-        if(empty($view))
-            $view = $application['theme']['defaults']['view'];
+        if(empty($themeEngine))
+            $themeEngine = new \erdiko\theme\Engine;
 
-        return $this->container->theme->render($response, $view, $application);
+        if(empty($view)) {
+            $view = $themeEngine->getDefaultView();
+        }
+        // $this->container->logger->debug("view: {$view}");
+
+        return $this->container->theme->render($response, $view, $themeEngine->toArray());
     }
 }
