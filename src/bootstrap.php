@@ -14,10 +14,10 @@ require_once ERDIKO_SRC.'/autoload.php'; // auto loading for the app
 // Core framework functions (static functions)
 require_once ERDIKO_ROOT.'/Erdiko.php';
 
+// Set a default context if none specified
+if(empty(getenv('ERDIKO_CONTEXT')))
+        putenv("ERDIKO_CONTEXT=default");
+
 $config = \Erdiko::getConfig();
 $debug = $config['site']['debug'];
 putenv("ERDIKO_DEBUG=".$debug);
-
-// Set a default context if none specified
-if(empty(getenv('ERDIKO_CONTEXT')))
-	putenv("ERDIKO_CONTEXT=default");
