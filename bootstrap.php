@@ -17,3 +17,8 @@ if (PHP_SAPI == 'cli-server') {
 }
 
 require_once 'src/autoload.php';
+require_once ERDIKO_ROOT . '/vendor/autoload.php';
+
+// Set a default context if none specified
+if(empty(getenv('ERDIKO_CONTEXT')))
+        putenv("ERDIKO_CONTEXT=default");

@@ -41,9 +41,8 @@ class Config
         $context = $context ?? static::getContext();
 
         // @note if we remove ERDIKO_ROOT it will be more portable
-        $folder = ERDIKO_ROOT;
-        $subfolder = "/app/config";
-        $filename = "{$folder}{$subfolder}/{$context}/{$name}.json";
+        $subfolder = "config";
+        $filename = ERDIKO_ROOT."/contexts/{$context}/{$subfolder}/{$name}.json";
 
         return static::getConfigFile($filename);
     }
