@@ -1,8 +1,8 @@
 <?php
 /**
- * Erdiko Helper
+ * Erdiko App
  *
- * Some global helpers
+ * Extension of the Slim App
  *
  * @package     erdiko\core
  * @copyright   2012-2017 Arroyo Labs, Inc. http://www.arroyolabs.com
@@ -15,6 +15,8 @@ class App extends \Slim\App
 {
     /**
      * Create new application
+     * 
+     * Load context settings if nothing specified in the constructor
      *
      * @param ContainerInterface|array $container Either a ContainerInterface or an associative array of app settings
      * @throws InvalidArgumentException when no container is provided that implements ContainerInterface
