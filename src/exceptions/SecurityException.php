@@ -12,7 +12,7 @@
  */
 
 
-namespace erdiko\exceptions;
+namespace erdiko\core\exceptions;
 
 
 class SecurityException extends \Exception {

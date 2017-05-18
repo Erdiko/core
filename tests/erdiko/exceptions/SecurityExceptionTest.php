@@ -17,7 +17,7 @@ namespace tests\erdiko\exceptions;
 require_once dirname(dirname(__DIR__)).'/ErdikoTestCase.php';
 
 use \tests\ErdikoTestCase;
-use erdiko\exceptions\SecurityException;
+use erdiko\core\exceptions\SecurityException;
 
 class SecurityExceptionTest extends  ErdikoTestCase
 {
