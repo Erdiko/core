@@ -36,6 +36,8 @@ jobs:
             ls -al
             cd /code
             ls -al ./.circleci/scripts
+            ls -la /erdiko/vendor/erdiko/core/.circleci/scripts
+
             ./.circleci/scripts/test-logic.sh
 
       - store_artifacts:
