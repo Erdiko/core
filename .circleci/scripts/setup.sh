@@ -19,6 +19,8 @@ cp -R ./code ./erdiko/vendor/erdiko/core
 cd erdiko
 echo $CIRCLE_BRANCH
 
+ls -al vendor/erdiko/core
+
 # decide which docker environment to bring up
 if [ "$CIRCLE_BRANCH" == "release" ]; then
     docker-compose -f docker-compose.travis.regression.yml up -d
