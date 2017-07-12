@@ -32,6 +32,10 @@ jobs:
           command: |
             set -x
 
+            pwd
+            ls -al
+            cd /code
+            ls -al ./.circleci/scripts
             ./.circleci/scripts/test-logic.sh
 
       - store_artifacts:
