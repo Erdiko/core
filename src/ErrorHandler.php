@@ -10,7 +10,7 @@
 
 namespace erdiko\core;
 
-use ToroHook;
+use erdiko\core\ToroHook;
 
 class ErrorHandler 
 {
