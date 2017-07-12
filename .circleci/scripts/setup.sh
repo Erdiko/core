@@ -1,6 +1,7 @@
 #!/bin/sh
 
-apt-get install -y wget
+# Prep the container
+apt-get install -y php wget zip
 
 # Install composer
 cd ../
