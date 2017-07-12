@@ -1,5 +1,5 @@
+dist: precise
 sudo: required
-
 language: php
 php:
   - '5.4'
@@ -32,4 +32,4 @@ script:
 
 notifications:
   email:
-    - john@arroyolabs.com 
+    - john@arroyolabs.com
