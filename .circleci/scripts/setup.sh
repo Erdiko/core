@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Prep the container
-apt-get install -y php wget zip
+# Prep the container (php & zip needed to install composer)
+apt-get install -y php zip
 
 # Install composer
 cd ../
@@ -10,7 +10,7 @@ chmod 770 composer.sh
 ./composer.sh
 
 # Install erdiko
-composer create erdiko/erdiko erdiko dev-master
+composer create erdiko/erdiko erdiko dev-master --keep-vcs
 
 # Swap out with latest code to be tested
 rm -rf ./erdiko/vendor/erdiko/core
