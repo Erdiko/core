@@ -1,5 +1,7 @@
 #!/bin/sh
 
+apt-get install -y wget
+
 # Install composer
 cd ../
 wget https://raw.githubusercontent.com/Erdiko/docker/master/php/scripts/composer.sh

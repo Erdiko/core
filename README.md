@@ -1,13 +1,13 @@
 Erdiko Core
 ===========
 
-[![Package version](https://img.shields.io/packagist/v/erdiko/core.svg?style=flat-square)](https://packagist.org/packages/erdiko/core) [![Travis CI](https://travis-ci.org/Erdiko/core.svg?branch=master)](https://travis-ci.org/Erdiko/core) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Erdiko/core/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Erdiko/core/?branch=master) [![License](https://poser.pugx.org/erdiko/core/license)](https://packagist.org/packages/erdiko/core)
+[![Package version](https://img.shields.io/packagist/v/erdiko/core.svg?style=flat-square)](https://packagist.org/packages/erdiko/core) [![CircleCI](https://circleci.com/gh/Erdiko/core.svg?style=svg)](https://circleci.com/gh/Erdiko/core) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Erdiko/core/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Erdiko/core/?branch=master) [![License](https://poser.pugx.org/erdiko/core/license)](https://packagist.org/packages/erdiko/core)
 
 *Erdiko micro MVC framework - core components*
 
 Erdiko is a micro MVC framework, or better yet, a lean framework for APIs, web apps and websites.  Erdiko is start up friendly.
 
-This is the engine that runs erdiko, for the full micro framework visit 
+This is the engine that runs erdiko, for the full micro framework visit
 [https://github.com/ArroyoLabs/erdiko](https://github.com/ArroyoLabs/erdiko) or [erdiko.org](http://www.erdiko.org/)
 
 
