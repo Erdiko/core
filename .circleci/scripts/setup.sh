@@ -10,7 +10,7 @@ chmod 770 composer.sh
 ./composer.sh
 
 # Install erdiko
-composer create erdiko/erdiko erdiko dev-master --keep-vcs
+composer create erdiko/erdiko erdiko dev-develop --keep-vcs
 
 # Swap out with latest code to be tested
 rm -rf ./erdiko/vendor/erdiko/core
@@ -23,8 +23,12 @@ echo $CIRCLE_BRANCH
 if [ "$CIRCLE_BRANCH" == "release" ]; then
     docker-compose -f docker-compose.travis.regression.yml up -d
 else
-    docker-compose up -d
+    docker-compose -f docker-compose-ci.yml up -d
 fi
+
+# copy code into container (Circle CI doesn't allow volume maps)
+docker cp ./ erdiko_php:/code
+docker cp ./ erdiko_web:/code
 
 docker-compose ps
 ls -lah
