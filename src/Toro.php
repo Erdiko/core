@@ -99,6 +99,7 @@ class Toro
                 $action .= '_xhr';
                 $handler_instance->setIsXhrRequest(1);
             }
+            $isAjax = $handler_instance instanceof AjaxController;
 
             if (is_callable(array($handler_instance, $action))) {
                 try {
@@ -110,14 +111,19 @@ class Toro
                     call_user_func_array(array($handler_instance, $action), $arguments);
 
                     $handler_instance->_after();
-                    $handler_instance->send(); // render the response and return the data
+
+                    if (!error_get_last()) {
+                        $handler_instance->send();
+                    }
+
+                     // render the response and return the data
                     ToroHook::fire(
                         'after_handler',
                         compact('routes', 'discovered_handler', 'action', 'arguments', 'result')
                     );
 
-                } catch (\Exception $e) {
-                    ToroHook::fire('500', array('error' => $e->getMessage(), 'path_info' => $path_info));
+                } catch (\Exception $exception) {
+                    ToroHook::fire('500', compact('exception', 'path_info', 'isAjax'));
                 }
             } else {
                 ToroHook::fire('404', compact('discovered_handler', 'action', 'arguments', 'path_info'));

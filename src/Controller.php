@@ -195,7 +195,7 @@ class Controller
      */
     final public function send()
     {
-        echo $this->getResponse()->render();
+        $this->getResponse()->send();
     }
 
     /**

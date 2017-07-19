@@ -60,9 +60,9 @@ class ErrorHandler
 		$vars['code']               = $errno;
 		$vars['error']              = trim($errstr);
 		$vars['path_info']          = $errfile . " on line " . $errline;
-        	$vars['debug']              = $debug;
+        $vars['debug']              = $debug;
 
-        	ToroHook::fire($errorHook, $vars );
+        ToroHook::fire($errorHook, $vars);
 
 		return false;
 	}
@@ -70,8 +70,12 @@ class ErrorHandler
 	public static function fatalErrorShutdownHandler()
 	{
 		$last_error = error_get_last();
-		static::errorHandler(E_ERROR, 
-			$last_error['message'], $last_error['file'], $last_error['line']);
+		static::errorHandler(
+		    E_ERROR,
+			$last_error['message'],
+            $last_error['file'],
+            $last_error['line']
+        );
 	}
 
 	/**
