@@ -15,7 +15,7 @@ class App extends \Slim\App
 {
     /**
      * Create new application
-     * 
+     *
      * Load context settings if nothing specified in the constructor
      *
      * @param ContainerInterface|array $container Either a ContainerInterface or an associative array of app settings
@@ -24,8 +24,7 @@ class App extends \Slim\App
     public function __construct($container = null)
     {
         if($container == null) {
-            $container = require ERDIKO_ROOT."/contexts/".
-                getenv('ERDIKO_CONTEXT')."/bootstrap/settings.php";
+            $container = require getenv('ERDIKO_ROOT')."/bootstrap/settings.php";
         }
         parent::__construct($container);
     }
