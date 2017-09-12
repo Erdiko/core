@@ -10,14 +10,14 @@ if (PHP_SAPI == 'cli-server') {
     // To help the built-in PHP dev server, check if the request was actually for
     // something which should probably be served as a static file
     $url  = parse_url($_SERVER['REQUEST_URI']);
-    $file = ERDIKO_ROOT.'/public'.$url['path'];
+    $file = getenv('ERDIKO_ROOT').'/public'.$url['path'];
     if (is_file($file)) {
         return false;
     }
 }
 
 require_once 'src/autoload.php';
-require_once ERDIKO_ROOT . '/vendor/autoload.php';
+require_once getenv('ERDIKO_ROOT') . '/vendor/autoload.php';
 
 // Set a default context if none specified
 if(empty(getenv('ERDIKO_CONTEXT')))
