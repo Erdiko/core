@@ -23,8 +23,8 @@ class App extends \Slim\App
      */
     public function __construct($container = null)
     {
-        if($container == null) {
-            $container = require getenv('ERDIKO_ROOT')."/bootstrap/settings.php";
+        if($container === null) {
+            $container = require getenv("ERDIKO_ROOT")."/bootstrap/settings.php";
         }
         parent::__construct($container);
     }
