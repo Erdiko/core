@@ -4,6 +4,8 @@
  * Base request handler, All controllers should be a child this class
  * or one of the subclasses (e.g. controllers/Ajax or controllers/Api)
  *
+ * @note this will be deprecated
+ *
  * @package     erdiko
  * @copyright   2012-2017 Arroyo Labs, Inc. http://www.arroyolabs.com
  * @author      John Arroyo <john@arroyolabs.com>
@@ -43,7 +45,7 @@ trait ControllerLegacy
 
     /**
      * Set the theme name in the response object
-     * 
+     *
      * @param string $name, the name/id of the theme
      */
     public function setThemeName($name)
@@ -53,7 +55,7 @@ trait ControllerLegacy
 
     /**
      * Set the theme name in both the response and the theme objects
-     * 
+     *
      * @param string $name, the name/id of the theme
      */
     public function setTheme($name)
@@ -189,7 +191,7 @@ trait ControllerLegacy
 
         return $httpMethod.ucfirst($function);
     }
-    
+
     /**
      * Load a view with the given data
      *
@@ -221,7 +223,7 @@ trait ControllerLegacy
             $view = new \erdiko\core\View($view, $data);
         if($data != null)
             $view->setData($data);
-        
+
         $this->appendContent($view->toHtml());
     }
 
@@ -297,11 +299,11 @@ trait ControllerLegacy
     }
 
 
-    
+
     /**
      * Magic method experiments
      */
-      
+
     /**
      * Get a value
      */
@@ -309,7 +311,7 @@ trait ControllerLegacy
     {
         return $this->getResponseKeyValue($key);
     }
-  
+
     /**
      * Set a value
      */
