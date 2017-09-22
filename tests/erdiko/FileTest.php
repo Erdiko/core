@@ -1,12 +1,15 @@
 <?php
+
 namespace tests\erdiko;
 
 use erdiko\core\datasource\File;
 
-require_once dirname(__DIR__).'/ErdikoTestCase.php';
-
-
-class FileTest extends \tests\ErdikoTestCase
+/**
+ * Class FileTest
+ *
+ * @package tests\erdiko
+ */
+class FileTest extends ErdikoTestCase
 {
     public $fileObj=null;
     public $webRoot=null;

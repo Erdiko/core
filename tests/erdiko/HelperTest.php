@@ -8,9 +8,15 @@ namespace tests\erdiko;
 use erdiko\core\Logger;
 use erdiko\core\Helper;
 
-require_once dirname(__DIR__).'/ErdikoTestCase.php';
-
-class HelperTest extends \tests\ErdikoTestCase
+/**
+ * Class HelperTest
+ *
+ * Deprecated Test, Helper Class contains deprecated logic
+ *
+ * @package tests\erdiko
+ * @group deprecated
+ */
+class HelperTest extends ErdikoTestCase
 {
     public function testGetConfigFile()
     {

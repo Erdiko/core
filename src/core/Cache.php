@@ -1,5 +1,9 @@
 <?php
 /**
+ * @Deprecated
+ *
+ * Cache class uses Helper class which has many deprecated functions
+ *
  * Cache
  * Dependency injected cache API
  *
@@ -9,6 +13,7 @@
  */
 namespace erdiko\core;
 
+use erdiko\Helper;
 
 class Cache
 {

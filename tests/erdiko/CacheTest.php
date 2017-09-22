@@ -6,10 +6,15 @@ namespace tests\erdiko;
 
 use erdiko\core\Cache;
 
-require_once dirname(__DIR__).'/ErdikoTestCase.php';
-
-
-class CacheTest extends \tests\ErdikoTestCase
+/**
+ * Class CacheTest
+ *
+ * Deprecated Test, Cache Class uses Helper Class which contains deprecated logic for SlimFramework
+ *
+ * @package tests\erdiko
+ * @group deprecated
+ */
+class CacheTest extends ErdikoTestCase
 {
 
     public function setUp()

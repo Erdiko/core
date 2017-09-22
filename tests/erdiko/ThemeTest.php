@@ -1,12 +1,18 @@
 <?php
+
 namespace tests\erdiko;
 
 use erdiko\core\Theme;
 
-require_once dirname(__DIR__).'/ErdikoTestCase.php';
-
-
-class ThemeTest extends \tests\ErdikoTestCase
+/**
+ * Class ThemeTest
+ *
+ * Deprecated Test, Theme Class was replaced for Twig in SlimFramework
+ *
+ * @package tests\erdiko
+ * @group deprecated
+ */
+class ThemeTest extends ErdikoTestCase
 {
     public $themeObj = null;
 

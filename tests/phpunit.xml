@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<phpunit colors="always" bootstrap="bootstrap.php">
+    <testsuites>
+        <testsuite name="Erdiko Tests">
+            <directory>erdiko</directory>
+        </testsuite>
+    </testsuites>
+
+    <groups>
+        <exclude>
+            <group>deprecated</group>
+        </exclude>
+    </groups>
+</phpunit>

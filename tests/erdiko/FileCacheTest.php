@@ -1,12 +1,18 @@
 <?php
+
 namespace tests\erdiko;
 
 use erdiko\core\cache\File;
 
-require_once dirname(__DIR__).'/ErdikoTestCase.php';
-
-
-class FileCacheTest extends \tests\ErdikoTestCase
+/**
+ * Class FileCacheTest
+ *
+ * Deprecated Test, Cache Class contains deprecated logic for SlimFramework
+ *
+ * @package tests\erdiko
+ * @group deprecated
+ */
+class FileCacheTest extends ErdikoTestCase
 {
     // contains the object handle of the string class
     public $cacheObj=null;

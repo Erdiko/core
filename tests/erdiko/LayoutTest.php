@@ -9,10 +9,15 @@ namespace tests\erdiko;
 
 use erdiko\core\Layout;
 
-require_once dirname(__DIR__).'/ErdikoTestCase.php';
-
-
-class LayoutTest extends \tests\ErdikoTestCase
+/**
+ * Class LayoutTest
+ *
+ * Deprecated Test, Layout Class was replaced for Twig in SlimFramework
+ *
+ * @package tests\erdiko
+ * @group deprecated
+ */
+class LayoutTest extends ErdikoTestCase
 {
     public $LayoutObj = null;
 
