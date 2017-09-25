@@ -1,12 +1,18 @@
 <?php
+
 namespace tests\erdiko;
 
 use erdiko\core\Controller;
 
-require_once dirname(__DIR__).'/ErdikoTestCase.php';
-
-
-class ControllerTest extends \tests\ErdikoTestCase
+/**
+ * Class ControllerTest
+ *
+ * Deprecated Test, Controller Class contains deprecated logic for SlimFramework
+ *
+ * @package tests\erdiko
+ * @group deprecated
+ */
+class ControllerTest extends ErdikoTestCase
 {
     public $controllerObj = null;
 

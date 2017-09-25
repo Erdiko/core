@@ -1,10 +1,16 @@
 <?php
 
 use erdiko\core\AjaxResponse;
-require_once dirname(__DIR__).'/ErdikoTestCase.php';
+use tests\erdiko\ErdikoTestCase;
 
-
-class AjaxResponseTest extends \tests\ErdikoTestCase
+/**
+ * Class AjaxResponseTest
+ *
+ * Deprecated Test, this is not compatible for Slim framework
+ *
+ * @group deprecated
+ */
+class AjaxResponseTest extends ErdikoTestCase
 {
     var $ajaxResponseObj = null;
 

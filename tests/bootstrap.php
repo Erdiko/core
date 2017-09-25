@@ -1,11 +1,9 @@
 <?php
-// boot up Erdiko
 
-// This is for standard installations
-$bootstrap = dirname(dirname(dirname(__DIR__))).'/app/bootstrap.php';
+error_reporting('E_ALL');
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+date_default_timezone_set('UTC');
 
-// This is for Docker (works within docker and Travis CI)
-if(!file_exists($bootstrap))
-	$bootstrap = '/code/app/bootstrap.php';
-
-require_once $bootstrap;
+require_once realpath(getenv('ERDIKO_ROOT').'/vendor/autoload.php');
+require_once 'erdiko/ErdikoTestCase.php';

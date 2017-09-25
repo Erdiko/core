@@ -6,9 +6,15 @@ namespace tests\erdiko;
 
 use erdiko\core\cache\Memcached;
 
-require_once dirname(__DIR__).'/ErdikoTestCase.php';
-
-class MemcachedTest extends \tests\ErdikoTestCase
+/**
+ * Class MemcachedTest
+ *
+ * Deprecated Test, Memcached Class uses Helper Class which contains deprecated logic for SlimFramework
+ *
+ * @package tests\erdiko
+ * @group deprecated
+ */
+class MemcachedTest extends ErdikoTestCase
 {
     public $memcacheObj;
 

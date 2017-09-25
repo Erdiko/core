@@ -5,10 +5,15 @@
  */
 namespace tests\erdiko;
 
-require_once dirname(__DIR__).'/ErdikoTestCase.php';
-
-
-class ViewTest extends \tests\ErdikoTestCase
+/**
+ * Class ViewTest
+ *
+ * Deprecated Test, View Class was replaced for Twig in SlimFramework
+ *
+ * @package tests\erdiko
+ * @group deprecated
+ */
+class ViewTest extends ErdikoTestCase
 {
     public $viewObj = null;
 

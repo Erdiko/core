@@ -1,4 +1,17 @@
 <?php
+
+/**
+ * @Deprecated
+ *
+ * The Helper Class handle the following deprecations
+ *
+ * Config file as JSON, different folder structure
+ * ToroHook Class which is deprecated too
+ * Email also is deprecated, we have a new Email package
+ * Cache use the Helper class to load configs
+ * Routes use config files
+ */
+
 /**
  * Erdiko Helper
  *
@@ -8,7 +21,7 @@
  * @copyright   2012-2017 Arroyo Labs, Inc. http://www.arroyolabs.com
  * @author      John Arroyo <john@arroyolabs.com>
  */
-namespace erdiko\core;
+namespace erdiko;
 
 
 class Helper

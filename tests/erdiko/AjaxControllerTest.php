@@ -1,11 +1,16 @@
 <?php
+
 namespace tests\erdiko;
 
-use erdiko\core\AjaxController;
-
-require_once dirname(__DIR__).'/ErdikoTestCase.php';
-
-class AjaxControllerTest extends \tests\ErdikoTestCase
+/**
+ * Class AjaxControllerTest
+ *
+ * Deprecated Test, this is not compatible for Slim framework
+ *
+ * @package tests\erdiko
+ * @group deprecated
+ */
+class AjaxControllerTest extends ErdikoTestCase
 {
     public $AjaxControllerObj = null;
 
